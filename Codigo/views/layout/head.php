@@ -7,7 +7,7 @@
 
     <title>AERGIBIDE SL</title>
 
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="../estilos.css">
 </head>
 
 <body>
@@ -19,8 +19,8 @@
             <h1>AERGIBIDE SL</h1>
         </div>
 
-        <div class="usuario">
-            <img src="imagenes/Usuario.png" alt="Icono de usuario">
+        <div class="perfil">
+            <img src="imagenes/Perfil.png" alt="Icono de perfil">
         </div>
     </header>
 
@@ -31,5 +31,3 @@
             <img src="imagenes/FlechaVolver.png" alt="Volver">
         </a>
     </nav>
-
-    <main>
