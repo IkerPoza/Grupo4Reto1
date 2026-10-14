@@ -1,14 +1,18 @@
+@font-face{
+    font-family: 'mifuente';
+    src: url(tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /*font-family: ; */
+    font-family: 'mifuente';
 }
 
 body {
     min-height: 100vh;
     background-color: #F7F7F8 ;
-    font-family: Arial, Helvetica, sans-serif;
     color: black;
     display: grid;
     grid-template-rows: auto 1fr auto;
