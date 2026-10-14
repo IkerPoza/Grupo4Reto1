@@ -1,0 +1,61 @@
+DROP TABLE IF EXISTS preguntaGuardada;
+DROP TABLE IF EXISTS respuestaFavorita;
+DROP TABLE IF EXISTS respuesta;
+DROP TABLE IF EXISTS pregunta;
+DROP TABLE IF EXISTS usuario;
+
+
+CREATE TABLE usuario (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo ENUM('admin', 'user') NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100),
+    area VARCHAR(100),
+    contacto VARCHAR(100),
+    antiguedad INT,
+    numPreguntas INT DEFAULT 0,
+    numRespuestas INT DEFAULT 0,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE pregunta (
+    id INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    tema VARCHAR(100),
+    descripcion TEXT,
+    fecha DATETIME DEFAULT GETDATE(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
+);
+
+CREATE TABLE respuesta (
+    id INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    idPregunta INT NOT NULL,
+    idRespuesta int,
+    texto TEXT NOT NULL,
+    fecha DATETIME DEFAULT GETDATE(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE,
+    FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE respuestaFavorita (
+    id INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    idRespuesta INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE preguntaGuardada (
+    id INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    idPregunta INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE
+);
