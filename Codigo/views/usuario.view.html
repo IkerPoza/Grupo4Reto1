@@ -1,43 +1,187 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <img src="imagenes/Logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AERGIBIDE SL</title>
-    <img src="imagenes/Usuario.png">
+
+    <link rel="stylesheet" href="estilos.css">
 </head>
 
-
-
-
 <body>
-    
 
 
-</body>
+    <header class="cabecera">
+        <div class="logo">
+            <img src="imagenes/Logo.png" alt="Logo de AERGIBIDE SL">
+            <h1>AERGIBIDE SL</h1>
+        </div>
+
+        <div class="usuario">
+            <img src="imagenes/Usuario.png" alt="Icono de usuario">
+        </div>
+    </header>
 
 
 
+    <nav class="navegacion">
+        <a href="index.php">
+            <img src="imagenes/FlechaVolver.png" alt="Volver">
+        </a>
+    </nav>
 
-<footer>
+   
 
-    <div class="direccion">
-        <p>Calle Pozoa, 01013, Vitoria-Gasteiz, España</p>
-    </div>
 
-    <div class="redesSociales">
-        <img src="imagenes/TikTok.png">
-        <img src="imagenes/Youtube.png">
-        <img src="imagenes/Messenger.png">
-        <img src="imagenes/Facebook.png">
-    </div>
 
-    <div class="contacto">
-        <h2>Contacto</h2>
-        <p>aergibidesl@gmail.com</p>
-        <p>689 38 56 10</p>
-    </div>
+    <main>
 
-</footer>
+        <a href="logout.php">
+            <img src="imagenes/CerrarSesion.png" alt="Cerrar sesión">
+        </a>
+
+        <section class="perfil consulta" id="consulta">
+            <aside class="imagen">
+
+                <img src="imagenes/ImagenVacia.png" alt="Foto de perfil del trabajador" class="fotoPerfil">
+
+                <button type="button" onclick="mostrarEdicion()"> Editar perfil </button>
+
+            </aside>
+
+            <section class="datos">
+                <p>
+                    <strong>Nombre:</strong>
+                    <span>Nombre del trabajador</span>
+                </p>
+
+                <p>
+                    <strong>Área en la que trabaja:</strong>
+                    <span>Producción y fabricación</span>
+                </p>
+
+                <p>
+                    <strong>Contacto:</strong>
+                    <span>aergibidesl@gmail.com</span>
+                </p>
+
+                <p>
+                    <strong>Tiempo de antigüedad:</strong>
+                    <span>0 años</span>
+                </p>
+
+                <div class="tarjetas">
+                    <article class="tarjeta">
+                        <h2>Dudas</h2>
+                        <p>X</p>
+                    </article>
+
+                    <article class="tarjeta">
+                        <h2>Respuestas</h2>
+                        <p>X</p>
+                    </article>
+                </div>
+            </section>
+        </section>
+
+
+        <section class="perfil edicion" id="edicion" hidden>
+            <aside class="imagen">
+                <a href="index.php">
+                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil del trabajador" class="fotoPerfil">
+                </a>
+            </aside>
+
+
+            <section class="datos">
+                <form action="index.php" method="post">
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="area">Área de trabajo</label>
+
+                        <select id="area" name="area">
+                            <option value="" selected> --Selecciona tu área de trabajo-- </option>
+                            <option value="ingenieriaYDiseno"> Ingeniería y diseño </option>
+                            <option value="produccionYFabricacion"> Producción y fabricación </option>
+                            <option value="mantenimientoYReparacion"> Mantenimiento y reparación </option>
+                            <option value="calidadYSeguridad"> Calidad y seguridad </option>
+                            <option value="investigacionYDesarrollo">Investigación y desarrollo </option>
+                            <option value="electronicaYSistemasInformaticos"> Electrónica y sistemas informáticos </option>
+                            <option value="logisticaYAlmacen"> Logística y almacén </option>
+                            <option value="administracionYRecursosHumanos"> Administración y recursos humanos</option>
+                            <option value="comercialYMarketing"> Comercial y marketing </option>
+                            <option value="informaticaYCiberseguridad"> Informática y ciberseguridad </option>
+                            <option value="comprasYProveedores"> Compras y proveedores </option>
+                            <option value="gestionDeProyectos"> Gestión de proyectos </option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Escribe tu número correo electronico">
+                    </div>
+
+                    <div class="campo">
+                        <label for="antiguedad"> Tiempo de antigüedad en empresa</label>
+                        <input type="number" id="antiguedad" name="antiguedad" min="0" placeholder="Tiempo de antigüedad">
+                    </div>
+
+                    <div class="botones">
+                        <button type="submit" name="action" value="guardar"> Guardar </button>
+                        <button type="reset"> Borrar </button>
+                    </div>
+                </form>
+            </section>
+        </section>
+
+    </main>
+
+
+    <footer class="pie">
+
+        <div class="direccion">
+            <p>
+                Calle Pozoa, 01013,<br>
+                Vitoria-Gasteiz, España
+            </p>
+        </div>
+
+
+        <div class="redesSociales">
+            <a href="#" ><img src="imagenes/TikTok.png" alt="TikTok"></a>
+
+            <a href="#" ><img src="imagenes/Youtube.png" alt="YouTube"></a>
+
+            <a href="#" ><img src="imagenes/Messenger.png" alt="Messenger"></a>
+
+            <a href="#" ><img src="imagenes/Facebook.png" alt="Facebook"></a>
+        </div>
+
+
+        <div class="contacto">
+            <h2>Contacto</h2>
+
+            <p>aergibidesl@gmail.com</p>
+
+            <p>689 38 56 10</p>
+        </div>
+
+    </footer>
+
+
+    <script>
+        function mostrarEdicion() {
+            document.getElementById("consulta").hidden = true;
+
+            document.getElementById("edicion").hidden = false;
+        }
+    </script>
+
 </body>
 </html>
