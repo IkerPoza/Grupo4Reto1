@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>XXXX</title>
+    <img src="../imagenes/Logo.png">
+    <title>AERGIBIDE SL</title>
+    <img src="../imagenes/Usuario.png">
 </head>
 <body>

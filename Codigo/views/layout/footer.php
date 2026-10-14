@@ -1,3 +1,22 @@
+<footer>
 
+    <div class="direccion">
+        <p>Calle Pozoa, 01013, Vitoria-Gasteiz, España</p>
+    </div>
+
+    <div class="redesSociales">
+        <img src="../imagenes/TikTok.png">
+        <img src="../imagenes/Youtube.png">
+        <img src="../imagenes/Messenger.png">
+        <img src="../imagenes/Facebook.png">
+    </div>
+
+    <div class="contacto">
+        <h2>Contacto</h2>
+        <p>aergibidesl@gmail.com</p>
+        <p>689 38 56 10</p>
+    </div>
+
+</footer>
 </body>
 </html>
