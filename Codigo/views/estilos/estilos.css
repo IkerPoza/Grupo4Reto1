@@ -1,6 +1,6 @@
 @font-face{
     font-family: 'mifuente';
-    src: url(tipografia/Archivo/static/Archivo-Regular.ttf);
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
 }
 
 *{
@@ -113,4 +113,22 @@ body {
 
 .contacto {
     justify-self: end;
+}
+
+
+
+
+
+/*PREGUNTAS VIEW*/
+
+.buscador{
+    background-color: white;
+    border: 1px solid black;
+    width: 50rem;
+}
+
+.buscador input{
+    background-color: transparent;
+    border: 0px solid;
+    width: 100%;
 }
