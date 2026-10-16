@@ -4,144 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="estilos.css">
+    <title>AERGIBIDE SL - Mi perfil</title>
+    <link rel="stylesheet" href="estilos/usuario-estilo.css">
 </head>
 
 <body>
 
-
     <header class="cabecera">
-        <div class="logo">
+        <a href="index.php" class="logo">
             <img src="imagenes/Logo.png" alt="Logo de AERGIBIDE SL">
             <h1>AERGIBIDE SL</h1>
-        </div>
+        </a>
 
-        <div class="perfil">
-            <img src="imagenes/Perfil.png" alt="Icono de perfil">
-        </div>
+        <a href="usuario.php" class="iconoPerfil" >
+            <img src="imagenes/Perfil.png" alt="">
+        </a>
     </header>
 
-
-
     <nav class="navegacion">
-        <a href="index.php">
+        <a href="index.php" >
             <img src="imagenes/FlechaVolver.png" alt="Volver">
         </a>
     </nav>
 
-   
-
-
-
     <main>
 
-        <a href="logout.php">
+        <a href="inicioSesion.php" class="cerrarSesion">
             <img src="imagenes/CerrarSesion.png" alt="Cerrar sesión">
         </a>
 
-        <section class="perfil consulta" id="consulta">
-            <aside class="imagen">
+        <section id="vistaPerfil">
+            <section class="perfil tarjetaPerfil" id="perfil">
 
-                <img src="imagenes/ImagenVacia.png" alt="Foto de perfil del trabajador" class="fotoPerfil">
-
-                <button type="button" onclick="mostrarEdicion()"> Editar perfil </button>
-
-            </aside>
-
-            <section class="datos">
-                <p>
-                    <strong>Nombre:</strong>
-                    <span>Nombre del trabajador</span>
-                </p>
-
-                <p>
-                    <strong>Área en la que trabaja:</strong>
-                    <span>Producción y fabricación</span>
-                </p>
-
-                <p>
-                    <strong>Contacto:</strong>
-                    <span>aergibidesl@gmail.com</span>
-                </p>
-
-                <p>
-                    <strong>Tiempo de antigüedad:</strong>
-                    <span>0 años</span>
-                </p>
-
-                <div class="tarjetas">
-                    <article class="tarjeta">
-                        <h2>Dudas</h2>
-                        <p>X</p>
-                    </article>
-
-                    <article class="tarjeta">
-                        <h2>Respuestas</h2>
-                        <p>X</p>
-                    </article>
+                <div class="imagenPerfil">
+                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
                 </div>
+
+                <div class="datosPerfil">
+                    <div class="identidad">
+                        <h2 id="nombreVisible">Marta Escriano</h2>
+                        <p id="areaVisible">Producción y fabricación</p>
+                    </div>
+
+                    <div class="estadisticas">
+                        <article class="estadistica">
+                            <strong id="antiguedadVisible">0</strong>
+                            <p>Antigüedad (años)</p>
+                        </article>
+
+                        <article class="estadistica">
+                            <strong>X</strong>
+                            <p>Dudas</p>
+                        </article>
+
+                        <article class="estadistica">
+                            <strong>X</strong>
+                            <p>Respuestas</p>
+                        </article>
+                    </div>
+
+                    <button type="button" class="editarPerfil" onclick="mostrarEdicion()"> Editar perfil </button>
+
+                </div>
+
+            </section>
+
+            <nav class="pestanas">
+                <button type="button" class="pestana activa" id="botonPreguntas" aria-pressed="true" onclick="mostrarPreguntas()"> Preguntas</button>
+
+                <button type="button" class="pestana" id="botonFavoritas" aria-pressed="false" onclick="mostrarFavoritas()"> Favoritas </button>
+            </nav>
+
+            <section id="listaPreguntas" class="listaPreguntas">
+                <article class="pregunta">
+                    <div class="contenidoPregunta">
+                        <h3>Título de la pregunta</h3>
+                        <p class="tema">Ingeniería y diseño</p>
+                        <p class="descripcion">Al analizar las especificaciones de fatiga del material, se observa una discrepancia entre los estándares de tolerancia exigidos por la normativa de seguridad europea y los manuales internos del fabricante.</p>
+                    </div>
+
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
+                    
+                    </button>
+                </article>
+
+                <article class="pregunta">
+                    <div class="contenidoPregunta">
+                        <h3>Título de la pregunta</h3>
+                        <p class="tema">Producción y fabricación</p>
+                        <p class="descripcion">¿Qué procedimiento se debe seguir para comprobar que una pieza cumple con los requisitos de calidad antes de comenzar el montaje?
+                        </p>
+                    </div>
+
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
+    
+                    </button>
+                </article>
+            </section>
+
+
+            <section id="listaFavoritas" class="listaPreguntas" hidden>
+                <p id="sinFavoritas" class="mensajeVacio"> Todavía no has añadido preguntas a favoritos.</p>
             </section>
         </section>
 
 
-        <section class="perfil edicion" id="edicion" hidden>
-            <aside class="imagen">
-                <a href="index.php">
-                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil del trabajador" class="fotoPerfil">
-                </a>
-            </aside>
+        <section id="vistaEdicion" hidden>
+            <div class="encabezadoEdicion">
+                <h2>Editar mi perfil</h2>
+                <p>Actualiza tu información personal y profesional.</p>
+            </div>
 
+            <section class="formularioPerfil">
+                <div class="imagenEdicion">
+                    <form action="guardarImagen.php" method="POST" enctype="multipart/form-data">
 
-            <section class="datos">
-                <form action="index.php" method="post">
+                        <label for="subirImagen">
+                            <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
+                        </label>
+
+                        <input type="file" id="subirImagen" name="imagen" accept="image/*" hidden>
+
+                    </form>
+
+                    <p><b>Foto de perfil</b></p>
+                    <p>Puedes añadir una imagen más adelante.</p>
+                </div>
+
+                <form id="formPerfil">
                     <div class="campo">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre...">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" value="Marta Escriano" placeholder="Escribe tu nombre" required>
                     </div>
 
                     <div class="campo">
                         <label for="area">Área de trabajo</label>
 
-                        <select id="area" name="area">
-                            <option value="" selected> --Selecciona tu área de trabajo-- </option>
-                            <option value="ingenieriaYDiseno"> Ingeniería y diseño </option>
-                            <option value="produccionYFabricacion"> Producción y fabricación </option>
-                            <option value="mantenimientoYReparacion"> Mantenimiento y reparación </option>
-                            <option value="calidadYSeguridad"> Calidad y seguridad </option>
-                            <option value="investigacionYDesarrollo">Investigación y desarrollo </option>
-                            <option value="electronicaYSistemasInformaticos"> Electrónica y sistemas informáticos </option>
-                            <option value="logisticaYAlmacen"> Logística y almacén </option>
-                            <option value="administracionYRecursosHumanos"> Administración y recursos humanos</option>
-                            <option value="comercialYMarketing"> Comercial y marketing </option>
-                            <option value="informaticaYCiberseguridad"> Informática y ciberseguridad </option>
-                            <option value="comprasYProveedores"> Compras y proveedores </option>
-                            <option value="gestionDeProyectos"> Gestión de proyectos </option>
+                        <select id="area" name="area" required>
+                            <option value="Ingeniería y diseño">Ingeniería y diseño</option>
+                            <option value="Producción y fabricación" selected>Producción y fabricación</option>
+                            <option value="Mantenimiento y reparación">Mantenimiento y reparación</option>
+                            <option value="Calidad y seguridad">Calidad y seguridad</option>
+                            <option value="Investigación y desarrollo">Investigación y desarrollo</option>
+                            <option value="Electrónica y sistemas informáticos">Electrónica y sistemas informáticos</option>
+                            <option value="Logística y almacén">Logística y almacén</option>
+                            <option value="Administración y recursos humanos">Administración y recursos humanos</option>
+                            <option value="Comercial y marketing"> Comercial y marketing</option>
+                            <option value="Informática y ciberseguridad">Informática y ciberseguridad</option>
+                            <option value="Compras y proveedores">Compras y proveedores </option>
+                            <option value="Gestión de proyectos">Gestión de proyectos</option>
                         </select>
                     </div>
 
                     <div class="campo">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Escribe tu número correo electronico">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" value="aergibidesl@gmail.com" placeholder="Escribe tu correo electrónico" required>
                     </div>
 
                     <div class="campo">
-                        <label for="antiguedad"> Tiempo de antigüedad en empresa</label>
-                        <input type="number" id="antiguedad" name="antiguedad" min="0" placeholder="Tiempo de antigüedad">
+                        <label for="antiguedad">Antigüedad en la empresa (años)</label>
+                        <input type="number" id="antiguedad" name="antiguedad" min="0" step="1" value="0" required>
                     </div>
 
                     <div class="botones">
-                        <button type="submit" name="action" value="guardar"> Guardar </button>
-                        <button type="reset"> Borrar </button>
+                        <button type="submit" class="botonGuardar">Guardar cambios</button>
+
+                        <button type="reset" class="botonBorrar">Restablecer</button>
+
+                        <button type="button" class="botonCancelar" onclick="cancelarEdicion()"> Cancelar </button>
                     </div>
                 </form>
             </section>
+
         </section>
 
     </main>
-
 
     <footer class="pie">
 
@@ -152,35 +189,57 @@
             </p>
         </div>
 
-
         <div class="redesSociales">
             <a href="#" ><img src="imagenes/TikTok.png" alt="TikTok"></a>
-
             <a href="#" ><img src="imagenes/Youtube.png" alt="YouTube"></a>
-
             <a href="#" ><img src="imagenes/Messenger.png" alt="Messenger"></a>
-
             <a href="#" ><img src="imagenes/Facebook.png" alt="Facebook"></a>
         </div>
 
-
         <div class="contacto">
             <h2>Contacto</h2>
-
             <p>aergibidesl@gmail.com</p>
-
             <p>689 38 56 10</p>
         </div>
 
     </footer>
 
-
     <script>
-        function mostrarEdicion() {
-            document.getElementById("consulta").hidden = true;
 
-            document.getElementById("edicion").hidden = false;
+        function mostrarPreguntas() {
+            listaPreguntas.hidden = false;
+            listaFavoritas.hidden = true;
+
+            botonPreguntas.classList.add("activa");
+            botonFavoritas.classList.remove("activa");
+
+            botonPreguntas.setAttribute("aria-pressed", "true");
+            botonFavoritas.setAttribute("aria-pressed", "false");
         }
+
+        function mostrarFavoritas() {
+            listaPreguntas.hidden = true;
+            listaFavoritas.hidden = false;
+
+            botonFavoritas.classList.add("activa");
+            botonPreguntas.classList.remove("activa");
+
+            botonFavoritas.setAttribute("aria-pressed", "true");
+            botonPreguntas.setAttribute("aria-pressed", "false");
+        }
+
+         function mostrarEdicion() {
+            vistaPerfil.hidden = true;
+            vistaEdicion.hidden = false;
+        }
+
+
+        function cancelarEdicion() {
+            vistaEdicion.hidden = true;
+            vistaPerfil.hidden = false;
+        }
+
+
     </script>
 
 </body>

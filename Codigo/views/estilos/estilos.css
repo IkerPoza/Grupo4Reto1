@@ -1,32 +1,28 @@
-@font-face{
+@font-face {
     font-family: 'mifuente';
-    src: url(tipografia/Archivo/static/Archivo-Regular.ttf);
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
 }
 
-*{
-    padding: 0;
+* {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'mifuente';
 }
 
 body {
     min-height: 100vh;
-    background-color: #F7F7F8 ;
-    color: black;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 10px;
+    background-color: #F7F7F8;
+    color: #171717;
+    display: flex;
+    flex-direction: column;
 }
 
 
-
-
-
 .cabecera {
+    min-height: 70px;
+    padding: 8px 25px;
     background-color: #1D325A;
-    height: 90px;
-    padding: 10px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,24 +31,27 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 18px;
+    text-decoration: none;
 }
 
 .logo img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
+    width: 48px;
+    height: 48px;
 }
 
 .logo h1 {
     color: white;
+    font-size: 23px;
+    font-weight: bold;
 }
 
-.usuario img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
+.iconoPerfil img {
+    width: 50px;
+    height: 50px;
 }
+
+
 
 
 
@@ -62,18 +61,18 @@ body {
 
 
 .navegacion {
-    height: 40px;
+    min-height: 40px;
+    padding: 5px 25px;
     display: flex;
-    align-content: flex-start;
     align-items: center;
-    padding: 10px 20px;
 }
 
 .navegacion img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
+    width: 27px;
+    height: 27px;
 }
+
+
 
 
 
@@ -85,32 +84,70 @@ body {
 
 
 .pie {
-    background-color: #20365e;
-    height: 120px;
-    padding: 15px 30px;
+    width: 100%;
+    min-height: 115px;
+    padding: 20px 4%;
+    background-color: #20365E;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
 }
 
-.pie p, .pie h2{
+.pie p, .pie h2 {
     color: white;
+}
+
+.direccion p {
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .redesSociales {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+}
+
+.redesSociales a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .redesSociales img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
+    width: 34px;
+    height: 34px;
 }
 
 .contacto {
     justify-self: end;
+}
+
+.contacto h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.contacto p {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+
+
+
+/*PREGUNTAS VIEW*/
+
+.buscador{
+    background-color: white;
+    border: 1px solid rgb(0, 0, 0);
+    width: 50rem;
+    border-radius: 5rem;
+}
+
+.buscador input{
+    background-color: transparent;
+    border: 0px solid;
 }
