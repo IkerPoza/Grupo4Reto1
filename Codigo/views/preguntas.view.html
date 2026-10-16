@@ -7,7 +7,7 @@
 
     <title>AERGIBIDE SL</title>
 
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilos/preguntas-estilo.css">
 </head>
 
 <body>
@@ -36,12 +36,48 @@
 
 
 
-    <main>
+    <main class="contenido">
+        <section class="publicacion">
+            <div class="informacionPublicacion">
+                <h2>Titulo</h2>
+                <p class="autorPublicacion">Autor</p>
+                <p class="temaPublicacion">Tema</p>
+            </div>
 
-        
+            <button class="anadirImagen" type="button">
+                <img src="imagenes/ImagenVacia.png" alt="imagen vacia">
+            </button>
+
+            <p class="descripcionPublicacion">Descripción</p>
+        </section>
 
 
+        <form class="formularioRespuesta">
+            <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
 
+            <button type="submit">
+                <p class="iconoEnviar" onclick="enviarRespuesta()"><img src="imagenes/Enviar.png" alt="enviar"></p>
+            </button>
+        </form>
+
+
+        <section class="listaRespuestas" id="listaRespuestas">
+            <article class="respuesta">
+                <div class="textoRespuesta">
+                    <h3>Autor</h3>
+                    <p>Descripción</p>
+                </div>
+
+                <div class="accionesRespuesta">
+                    <button type="button" onclick="votar()"><img src="imagenes/FlechaAbajo.png" alt="flecha abajo"></button>
+
+                    <button type="button" onclick="votar()"><img src="imagenes/FlechaArriba.png" alt="flecha arriba"></button>
+
+                    <button type="button" onclick="mostrarFormulario()"><img src="imagenes/Responder.png" alt="responder"></button>
+                </div>
+            </article>
+
+        </section>
     </main>
 
 
@@ -78,14 +114,6 @@
 
     </footer>
 
-
-    <script>
-        function mostrarEdicion() {
-            document.getElementById("consulta").hidden = true;
-
-            document.getElementById("edicion").hidden = false;
-        }
-    </script>
-
+    
 </body>
 </html>
