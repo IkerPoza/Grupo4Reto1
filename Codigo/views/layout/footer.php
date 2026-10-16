@@ -1,6 +1,3 @@
-</main>
-
-
     <footer class="pie">
 
         <div class="direccion">
