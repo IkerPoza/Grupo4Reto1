@@ -100,3 +100,9 @@
 .inicioSesion-form button:hover, .inicioSesion-form input[type="submit"]:hover, .btn-registro:hover {
   background-color: #b5c0cc;
 }
+.mensaje-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 4px;
+}
