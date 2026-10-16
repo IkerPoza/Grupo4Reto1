@@ -303,11 +303,11 @@ button {
     width: 135px;
     height: 135px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .imagenEdicion p {
     font-size: 17px;
-    font-weight: bold;
 }
 
 .imagenEdicion span {

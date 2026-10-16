@@ -16,7 +16,7 @@
             <h1>AERGIBIDE SL</h1>
         </a>
 
-        <a href="#perfil" class="iconoPerfil" >
+        <a href="usuario.php" class="iconoPerfil" >
             <img src="imagenes/Perfil.png" alt="">
         </a>
     </header>
@@ -29,45 +29,38 @@
 
     <main>
 
-        <a href="logout.php" class="cerrarSesion">
+        <a href="inicioSesion.php" class="cerrarSesion">
             <img src="imagenes/CerrarSesion.png" alt="Cerrar sesión">
         </a>
 
-        <!-- perfil -->
         <section id="vistaPerfil">
-
             <section class="perfil tarjetaPerfil" id="perfil">
 
                 <div class="imagenPerfil">
-                    <img src="imagenes/ImagenVacia.png"
-                         alt="Foto de perfil"
-                         class="fotoPerfil">
+                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
                 </div>
 
                 <div class="datosPerfil">
-
                     <div class="identidad">
                         <h2 id="nombreVisible">Marta Escriano</h2>
                         <p id="areaVisible">Producción y fabricación</p>
                     </div>
 
                     <div class="estadisticas">
-
                         <article class="estadistica">
                             <strong id="antiguedadVisible">0</strong>
-                            <span>Antigüedad (años)</span>
+                            <p>Antigüedad (años)</p>
                         </article>
 
                         <article class="estadistica">
                             <strong>X</strong>
-                            <span>Dudas</span>
+                            <p>Dudas</p>
                         </article>
 
                         <article class="estadistica">
                             <strong>X</strong>
-                            <span>Respuestas</span>
+                            <p>Respuestas</p>
                         </article>
-
                     </div>
 
                     <button type="button" class="editarPerfil" onclick="mostrarEdicion()"> Editar perfil </button>
@@ -76,18 +69,13 @@
 
             </section>
 
-            <!-- pestañas -->
             <nav class="pestanas">
-
                 <button type="button" class="pestana activa" id="botonPreguntas" aria-pressed="true" onclick="mostrarPreguntas()"> Preguntas</button>
 
                 <button type="button" class="pestana" id="botonFavoritas" aria-pressed="false" onclick="mostrarFavoritas()"> Favoritas </button>
-
             </nav>
 
-            <!-- preguntas -->
             <section id="listaPreguntas" class="listaPreguntas">
-
                 <article class="pregunta">
                     <div class="contenidoPregunta">
                         <h3>Título de la pregunta</h3>
@@ -95,10 +83,8 @@
                         <p class="descripcion">Al analizar las especificaciones de fatiga del material, se observa una discrepancia entre los estándares de tolerancia exigidos por la normativa de seguridad europea y los manuales internos del fabricante.</p>
                     </div>
 
-                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito(this)">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/>
-                        </svg>
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
+                    
                     </button>
                 </article>
 
@@ -110,43 +96,42 @@
                         </p>
                     </div>
 
-                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito(this)">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/>
-                        </svg>
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
+    
                     </button>
                 </article>
-
             </section>
 
-            <!-- favoritas -->
+
             <section id="listaFavoritas" class="listaPreguntas" hidden>
-
                 <p id="sinFavoritas" class="mensajeVacio"> Todavía no has añadido preguntas a favoritos.</p>
-
             </section>
-
         </section>
 
-        <!-- editar -->
-        <section id="vistaEdicion" hidden>
 
+        <section id="vistaEdicion" hidden>
             <div class="encabezadoEdicion">
                 <h2>Editar mi perfil</h2>
                 <p>Actualiza tu información personal y profesional.</p>
             </div>
 
             <section class="formularioPerfil">
-
                 <div class="imagenEdicion">
-                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
+                    <form action="guardarImagen.php" method="POST" enctype="multipart/form-data">
 
-                    <p>Foto de perfil</p>
-                    <span>Puedes añadir una imagen más adelante.</span>
+                        <label for="subirImagen">
+                            <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
+                        </label>
+
+                        <input type="file" id="subirImagen" name="imagen" accept="image/*" hidden>
+
+                    </form>
+
+                    <p><b>Foto de perfil</b></p>
+                    <p>Puedes añadir una imagen más adelante.</p>
                 </div>
 
                 <form id="formPerfil">
-
                     <div class="campo">
                         <label for="nombre">Nombre completo</label>
                         <input type="text" id="nombre" name="nombre" value="Marta Escriano" placeholder="Escribe tu nombre" required>
@@ -188,13 +173,7 @@
 
                         <button type="button" class="botonCancelar" onclick="cancelarEdicion()"> Cancelar </button>
                     </div>
-
-                    <p id="mensajeGuardado" class="mensajeGuardado" role="status" hidden>
-                        Los cambios se han aplicado a la vista.
-                    </p>
-
                 </form>
-
             </section>
 
         </section>
