@@ -17,7 +17,7 @@
         </a>
 
         <a href="usuario.php" class="iconoPerfil" >
-            <img src="imagenes/Perfil.png" alt="">
+            <img src="imagenes/Perfil.png" alt="perfil">
         </a>
     </header>
 
@@ -83,8 +83,8 @@
                         <p class="descripcion">Al analizar las especificaciones de fatiga del material, se observa una discrepancia entre los estándares de tolerancia exigidos por la normativa de seguridad europea y los manuales internos del fabricante.</p>
                     </div>
 
-                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
-                    
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito(this)">
+                        <img src="imagenes/FavoritoDesactivado.png" alt="Añadir a favoritas">
                     </button>
                 </article>
 
@@ -96,8 +96,8 @@
                         </p>
                     </div>
 
-                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito()">
-    
+                    <button type="button" class="favorito" aria-pressed="false" onclick="alternarFavorito(this)">
+                        <img src="imagenes/FavoritoActivado.png" alt="Eliminar a favoritas">
                     </button>
                 </article>
             </section>
@@ -131,7 +131,7 @@
                     <p>Puedes añadir una imagen más adelante.</p>
                 </div>
 
-                <form id="formPerfil">
+                <form id="formPerfil" action="guardarPerfil.php" method="POST">
                     <div class="campo">
                         <label for="nombre">Nombre completo</label>
                         <input type="text" id="nombre" name="nombre" value="Marta Escriano" placeholder="Escribe tu nombre" required>
@@ -204,43 +204,7 @@
 
     </footer>
 
-    <script>
-
-        function mostrarPreguntas() {
-            listaPreguntas.hidden = false;
-            listaFavoritas.hidden = true;
-
-            botonPreguntas.classList.add("activa");
-            botonFavoritas.classList.remove("activa");
-
-            botonPreguntas.setAttribute("aria-pressed", "true");
-            botonFavoritas.setAttribute("aria-pressed", "false");
-        }
-
-        function mostrarFavoritas() {
-            listaPreguntas.hidden = true;
-            listaFavoritas.hidden = false;
-
-            botonFavoritas.classList.add("activa");
-            botonPreguntas.classList.remove("activa");
-
-            botonFavoritas.setAttribute("aria-pressed", "true");
-            botonPreguntas.setAttribute("aria-pressed", "false");
-        }
-
-         function mostrarEdicion() {
-            vistaPerfil.hidden = true;
-            vistaEdicion.hidden = false;
-        }
-
-
-        function cancelarEdicion() {
-            vistaEdicion.hidden = true;
-            vistaPerfil.hidden = false;
-        }
-
-
-    </script>
-
+     <script src="scripts/usuario.script.js" ></script>
+    
 </body>
 </html>
