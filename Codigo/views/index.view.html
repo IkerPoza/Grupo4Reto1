@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AERGIBIDE SL</title>
+
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="estilos/inicioSesion-estilo.css">
+</head>
+
+<body>
+<header class="cabecera">
+        <a href="index.php" class="logo">
+            <img src="imagenes/Logo.png" alt="Logo de AERGIBIDE SL">
+            <h1>AERGIBIDE SL</h1>
+        </a>
+
+        <a href="usuario.php" class="iconoPerfil" >
+            <img src="imagenes/Perfil.png" alt="perfil">
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a href="index.php" >
+            <img src="imagenes/FlechaVolver.png" alt="Volver">
+        </a>
+    </nav>
+
+
+<main class="login-contenedor">
+<div class="login-division">
+    <h2 class="login-titulo">Inicio Sesion</h2>
+
+    <form class="inicioSesion-form">
+        <div class="input-email">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Escribe tu email"><br>
+            <small class="mensaje-error" id="error-email"></small>
+        </div>
+        
+        <div class="input-password">
+            <label for="password">Contrase&ntilde;a:</label>
+            <input type="password" id="password" name="password" placeholder="Escribe tu contraseña">
+            <small class="mensaje-error" id="error-password"></small>
+        </div>
+        
+        <div class="botones">
+            <input type="submit" id="bInicio" value="Iniciar Sesion">
+            <a href="Registro.view.html" id="bRegistro" class="btn-registro">Registrarse</a>
+        </div>
+    </form>
+</div>
+</main>
+<footer class="pie">
+
+        <div class="direccion">
+            <p>
+                Calle Pozoa, 01013,<br>
+                Vitoria-Gasteiz, España
+            </p>
+        </div>
+
+        <div class="redesSociales">
+            <a href="#" ><img src="imagenes/TikTok.png" alt="TikTok"></a>
+            <a href="#" ><img src="imagenes/Youtube.png" alt="YouTube"></a>
+            <a href="#" ><img src="imagenes/Messenger.png" alt="Messenger"></a>
+            <a href="#" ><img src="imagenes/Facebook.png" alt="Facebook"></a>
+        </div>
+
+        <div class="contacto">
+            <h2>Contacto</h2>
+            <p>aergibidesl@gmail.com</p>
+            <p>689 38 56 10</p>
+        </div>
+
+    </footer>
+
+    </body>
+
+<script src="scripts/index.script.js"></script>
+
+</html>
