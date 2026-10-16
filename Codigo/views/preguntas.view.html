@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AERGIBIDE SL</title>
+
+    <link rel="stylesheet" href="estilos/preguntas-estilo.css">
+</head>
+
+<body>
+
+
+    <header class="cabecera">
+        <div class="logo">
+            <img src="imagenes/Logo.png" alt="Logo de AERGIBIDE SL">
+            <h1>AERGIBIDE SL</h1>
+        </div>
+
+        <div class="perfil">
+            <img src="imagenes/Perfil.png" alt="Icono de perfil">
+        </div>
+    </header>
+
+
+
+    <nav class="navegacion">
+        <a href="index.php">
+            <img src="imagenes/FlechaVolver.png" alt="Volver">
+        </a>
+    </nav>
+
+   
+
+
+
+    <main class="contenido">
+        <section class="publicacion">
+            <div class="informacionPublicacion">
+                <h2>Titulo</h2>
+                <p class="autorPublicacion">Autor</p>
+                <p class="temaPublicacion">Tema</p>
+            </div>
+
+            <button class="anadirImagen" type="button">
+                <img src="imagenes/ImagenVacia.png" alt="imagen vacia">
+            </button>
+
+            <p class="descripcionPublicacion">Descripción</p>
+        </section>
+
+
+        <form class="formularioRespuesta">
+            <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
+
+            <button type="submit">
+                <p class="iconoEnviar" onclick="enviarRespuesta()"><img src="imagenes/Enviar.png" alt="enviar"></p>
+            </button>
+        </form>
+
+
+        <section class="listaRespuestas" id="listaRespuestas">
+            <article class="respuesta">
+                <div class="textoRespuesta">
+                    <h3>Autor</h3>
+                    <p>Descripción</p>
+                </div>
+
+                <div class="accionesRespuesta">
+                    <button type="button" onclick="votar()"><img src="imagenes/FlechaAbajo.png" alt="flecha abajo"></button>
+
+                    <button type="button" onclick="votar()"><img src="imagenes/FlechaArriba.png" alt="flecha arriba"></button>
+
+                    <button type="button" onclick="mostrarFormulario()"><img src="imagenes/Responder.png" alt="responder"></button>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+
+    
+
+    <footer class="pie">
+
+        <div class="direccion">
+            <p>
+                Calle Pozoa, 01013,<br>
+                Vitoria-Gasteiz, España
+            </p>
+        </div>
+
+
+        <div class="redesSociales">
+            <a href="#" ><img src="imagenes/TikTok.png" alt="TikTok"></a>
+
+            <a href="#" ><img src="imagenes/Youtube.png" alt="YouTube"></a>
+
+            <a href="#" ><img src="imagenes/Messenger.png" alt="Messenger"></a>
+
+            <a href="#" ><img src="imagenes/Facebook.png" alt="Facebook"></a>
+        </div>
+
+
+        <div class="contacto">
+            <h2>Contacto</h2>
+
+            <p>aergibidesl@gmail.com</p>
+
+            <p>689 38 56 10</p>
+        </div>
+
+    </footer>
+
+    
+</body>
+</html>
