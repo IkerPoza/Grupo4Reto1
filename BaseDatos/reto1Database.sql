@@ -24,7 +24,7 @@ CREATE TABLE pregunta (
     titulo VARCHAR(255) NOT NULL,
     tema VARCHAR(100),
     descripcion TEXT,
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
@@ -35,7 +35,7 @@ CREATE TABLE respuesta (
     idPregunta INT NOT NULL,
     idRespuesta int,
     texto TEXT NOT NULL,
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE,
