@@ -1,4 +1,5 @@
 /* coer datos */
+const navegacion = document.querySelector(".navegacion");
 const vistaPerfil = document.getElementById("vistaPerfil");
 const vistaEdicion = document.getElementById("vistaEdicion");
 
@@ -48,6 +49,7 @@ function mostrarFavoritas() {
 function mostrarEdicion() {
     vistaPerfil.hidden = true;
     vistaEdicion.hidden = false;
+    navegacion.hidden = true;
 }
 
 
@@ -57,80 +59,119 @@ function cancelarEdicion() {
 
     vistaEdicion.hidden = true;
     vistaPerfil.hidden = false;
+    navegacion.hidden = false;
 }
 
 
-/* actualizar lista favoritas */
-function actualizarFavoritas() {
-    const preguntasAnteriores =
-        listaFavoritas.querySelectorAll(".pregunta");
+/* DETECTAR LOS CLICS EN LOS FAVORITOS */
 
-    preguntasAnteriores.forEach(function (pregunta) {
-        pregunta.remove();
-    });
+document.addEventListener("click", async function (evento) {
+    const boton = evento.target.closest(".favorito");
 
-    const botonesFavoritos = listaPreguntas.querySelectorAll(
-        ".favorito[aria-pressed='true']"
-    );
-
-    sinFavoritas.hidden = botonesFavoritos.length > 0;
-
-    botonesFavoritos.forEach(function (boton) {
-        const pregunta = boton.closest(".pregunta");
-        const copia = pregunta.cloneNode(true);
-
-        const botonCopia = copia.querySelector(".favorito");
-
-        if (botonCopia) {
-            botonCopia.onclick = function () {
-                alternarFavorito(boton);
-            };
-        }
-
-        listaFavoritas.appendChild(copia);
-    });
-}
-
-
-
-/* coger la foto que elijas */
-subirImagen.addEventListener("change", function () {
-    if (subirImagen.files.length > 0) {
-        subirImagen.form.submit();
+    // Si el clic no es en un favorito, no hacemos nada.
+    if (!boton) {
+        return;
     }
-});
 
-
-/* para que la foto de favoritos se cambie dependiendo de si esta en favoritos o no */
-function alternarFavorito(boton) {
-    const imagen = boton.querySelector("img");
+    const idPregunta = boton.dataset.id;
 
     const esFavorita =
         boton.getAttribute("aria-pressed") === "true";
 
-    if (esFavorita) {
-        boton.setAttribute("aria-pressed", "false");
-        imagen.src = "imagenes/FavoritoDesactivado.png";
-        imagen.alt = "Añadir a favoritas";
-    } else {
-        boton.setAttribute("aria-pressed", "true");
-        imagen.src = "imagenes/FavoritoActivado.png";
-        imagen.alt = "Quitar de favoritas";
+    const nuevaEstado = !esFavorita;
+
+    try {
+        // Enviar el cambio a PHP.
+        const respuesta = await fetch("favoritos.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idPregunta: idPregunta,
+                favorita: nuevaEstado
+            })
+        });
+
+        if (!respuesta.ok) {
+            throw new Error("Error al guardar el favorito.");
+        }
+
+        const resultado = await respuesta.json();
+
+        if (!resultado.ok) {
+            throw new Error(
+                resultado.mensaje || "No se pudo actualizar el favorito."
+            );
+        }
+
+        // Actualizar el estado con la respuesta del servidor.
+        actualizarEstadoFavorito(
+            idPregunta,
+            resultado.favorita
+        );
+
+    } catch (error) {
+        console.error(error);
+        alert("No se ha podido actualizar el favorito.");
+    }
+});
+
+
+/* ACTUALIZAR EL ICONO Y LAS DOS LISTAS */
+
+function actualizarEstadoFavorito(idPregunta, esFavorita) {
+    // Buscar el botón original de la pregunta.
+    const botonOriginal = document.querySelector(
+        '#listaPreguntas .favorito[data-id="' + idPregunta + '"]'
+    );
+
+    if (!botonOriginal) {
+        return;
     }
 
-    actualizarFavoritas();
+    // Actualizar el botón original.
+    cambiarIcono(botonOriginal, esFavorita);
+
+    // Buscar la copia de esa pregunta en Favoritas.
+    const preguntaFavorita = Array.from(
+        listaFavoritas.querySelectorAll(".pregunta")
+    ).find(function (pregunta) {
+        return pregunta.querySelector(".favorito")?.dataset.id
+            === idPregunta;
+    });
+
+    if (esFavorita) {
+        // Si no está en Favoritas, añadir una copia.
+        if (!preguntaFavorita) {
+            const pregunta = botonOriginal.closest(".pregunta");
+            const copia = pregunta.cloneNode(true);
+
+            listaFavoritas.appendChild(copia);
+        }
+    } else {
+        // Si se ha desmarcado, quitarla de Favoritas.
+        if (preguntaFavorita) {
+            preguntaFavorita.remove();
+        }
+    }
+
+    // Mostrar el mensaje solo si no hay preguntas favoritas.
+    const hayFavoritas =
+        listaFavoritas.querySelector(".pregunta") !== null;
+
+    sinFavoritas.hidden = hayFavoritas;
 }
 
 
+/* CAMBIAR EL ICONO */
 
-/* para que se vea la imagen de favoritos */
-document.querySelectorAll("#listaPreguntas .favorito").forEach(
-    function (boton) {
-        const imagen = boton.querySelector("img");
+function cambiarIcono(boton, esFavorita) {
+    boton.setAttribute("aria-pressed", String(esFavorita));
 
-        const esFavorita =
-            boton.getAttribute("aria-pressed") === "true";
+    const imagen = boton.querySelector("img");
 
+    if (imagen) {
         if (esFavorita) {
             imagen.src = "imagenes/FavoritoActivado.png";
             imagen.alt = "Quitar de favoritas";
@@ -139,7 +180,4 @@ document.querySelectorAll("#listaPreguntas .favorito").forEach(
             imagen.alt = "Añadir a favoritas";
         }
     }
-);
-
-
-actualizarFavoritas();
+}
