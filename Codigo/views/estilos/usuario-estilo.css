@@ -19,7 +19,6 @@ body {
     flex-direction: column;
 }
 
-/* CABECERA */
 
 .cabecera {
     min-height: 70px;
@@ -53,7 +52,6 @@ body {
     height: 50px;
 }
 
-/* NAVEGACIÓN */
 
 .navegacion {
     min-height: 40px;
@@ -67,7 +65,7 @@ body {
     height: 27px;
 }
 
-/* CONTENIDO PRINCIPAL */
+/* de esta bista */
 
 main {
     width: 100%;
@@ -86,7 +84,6 @@ main {
     height: 30px;
 }
 
-/* PERFIL */
 
 .tarjetaPerfil {
     width: 100%;
@@ -161,8 +158,7 @@ button {
     cursor: pointer;
 }
 
-.editarPerfil,
-.pestana {
+.editarPerfil, .pestana {
     border: none;
     background-color: #E9E9E9;
     color: #171717;
@@ -175,13 +171,11 @@ button {
     align-self: end;
 }
 
-.editarPerfil:hover,
-.pestana:hover {
+.editarPerfil:hover, .pestana:hover {
     background-color: #D8DDE5;
 }
 
 
-/* PESTAÑAS PREGUNTAS Y FAVORITAS */
 
 .pestanas {
     display: flex;
@@ -199,7 +193,6 @@ button {
     color: white;
 }
 
-/* LISTA DE PREGUNTAS */
 
 .listaPreguntas {
     display: flex;
@@ -240,7 +233,6 @@ button {
     line-height: 1.4;
 }
 
-/* BOTÓN DE FAVORITOS */
 
 .favorito {
     flex-shrink: 0;
@@ -274,7 +266,6 @@ button {
     box-shadow: 0 3px 6px #00000025;
 }
 
-/* EDICIÓN DEL PERFIL */
 
 .encabezadoEdicion {
     margin: 5px 0 25px;
@@ -341,8 +332,7 @@ button {
     font-weight: bold;
 }
 
-.campo input,
-.campo select {
+.campo input, .campo select {
     width: 100%;
     min-height: 43px;
     padding: 10px 12px;
@@ -354,8 +344,7 @@ button {
     box-shadow: 0 2px 4px #0000000D;
 }
 
-.campo input:focus,
-.campo select:focus {
+.campo input:focus, .campo select:focus {
     outline: 2px solid #8DA6D0;
     outline-offset: 1px;
 }
@@ -364,7 +353,6 @@ button {
     color: #A6AAB1;
 }
 
-/* BOTONES DEL FORMULARIO */
 
 .botones {
     display: flex;
@@ -400,7 +388,7 @@ button {
 .botonCancelar {
     background-color: transparent;
     color: #20365E;
-    border: 1px solid #C8CDD5 !important;
+    border: 1px solid #C8CDD5;
 }
 
 .botonCancelar:hover {
@@ -413,13 +401,12 @@ button {
     font-size: 14px;
 }
 
-/* OCULTAR VISTAS */
 
 [hidden] {
-    display: none !important;
+    display: none ;
 }
 
-/* PIE DE PÁGINA */
+/* comun otra vez */
 
 .pie {
     width: 100%;
@@ -432,8 +419,7 @@ button {
     gap: 25px;
 }
 
-.pie p,
-.pie h2 {
+.pie p, .pie h2 {
     color: white;
 }
 
