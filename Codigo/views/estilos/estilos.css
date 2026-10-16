@@ -123,12 +123,12 @@ body {
 
 .buscador{
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid rgb(0, 0, 0);
     width: 50rem;
+    border-radius: 5rem;
 }
 
 .buscador input{
     background-color: transparent;
     border: 0px solid;
-    width: 100%;
 }
