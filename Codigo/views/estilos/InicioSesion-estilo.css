@@ -10,6 +10,10 @@
   font-family: 'mifuente';
 }
 
+@font-face{
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
 
 .login-contenedor {
   display: flex;
@@ -26,7 +30,7 @@
   max-width: 380px;
   padding: 35px 30px;
   background-color: #5B6F8F;
-  border-radius: 12px;
+  border-radius: 2px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -57,7 +61,7 @@
   padding: 12px 15px;
   background-color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
   text-align: center;
   font-size: 15px;
   outline: none;
@@ -84,7 +88,7 @@
   background-color: #C8D0DA;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
