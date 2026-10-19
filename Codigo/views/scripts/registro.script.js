@@ -1,56 +1,234 @@
-/*Botones */
-document.getElementById("bInicio").addEventListener('click', validar);
+/* espera a que el html este cargado  */
+document.addEventListener("DOMContentLoaded", () => {
 
+    /* guardar constantes que necesito */
+    const nombreInput = document.getElementById("nombre");
+    const apellidoInput = document.getElementById("apellidos");
+    const emailInput = document.getElementById("email");
+    const areaSelect = document.getElementById("area");
+    const antiguedadInput = document.getElementById("antiguedad");
+    const passwordInput = document.getElementById("password");
+    //boton Registrarse 
+    const btnRegistro = document.getElementById("bRegistro");
 
-
-/*VALIDACIONES */
-
-/*Funcion validar general */
-function validar(event){
-
-    event.preventDefault();
-
-    try{
-
-        /*Recoger datos */
-        const emailUser = document.getElementById("email").value;
-        const passwordUser = document.getElementById("password").value;
-
-        /*Campos rellenos */
-        if (emailUser === "" && passwordUser === "") {
-            throw new Error("Por favor, rellena todos los campos (Email y Contraseña).");
+    /* vaalida el nombre cuando el usuario sale de ese campo */
+    nombreInput.addEventListener("blur", () => {
+        if (nombreInput.value.trim() !== "") {
+            validarNombre();
+        } else {
+            limpiarError("error-nombre");
         }
-        if (emailUser === "") {
-            throw new Error("El campo 'Email' está vacío.");
+    });
+
+    /* valida los apelldios cuando el usuario sale de ese campo */
+    apellidoInput.addEventListener("blur", () => {
+        if (apellidoInput.value.trim() !== "") {
+            validarApellido();
+        } else {
+            limpiarError("error-apellidos");
         }
-        if (passwordUser === "") {
-            throw new Error("El campo 'Contraseña' está vacío.");
+    });
+ 
+    /*vaalida el correo cuando el usuario sale de ese campo */
+    emailInput.addEventListener("blur", () => {
+        if (emailInput.value.trim() !== "") {
+            validarEmail();
+        } else {
+            limpiarError("error-email");
+        }
+    });
+
+    /*validar select cuando el usuario sale de ese campo */
+    areaSelect.addEventListener("blur", () => {
+        if (areaSelect.value !== "") {
+            validarArea();
+        } else {
+            limpiarError("error-area");
+        }
+    });
+
+    /*validar select cuando el usuario sale de ese campo */
+    antiguedadInput.addEventListener("blur", () => {
+        if (antiguedadInput.value !== "") {
+            validarAntiguedad();
+        } else {
+            limpiarError("error-area");
+        }
+    });
+
+    /*valida la contraseña cuando el usuario sale de ese campo*/
+    passwordInput.addEventListener("blur", () => {
+        // solo valida si ha escrito algo
+        if (passwordInput.value !== "") {
+            validarPassword();
+        } else {
+            limpiarError("error-password");
         }
 
 
-        /*validar email*/
-        validarDato( emailUser, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "El correo electrónico no es válido.\nEjemplo correcto: usuario@dominio.com");
-        /*Validar contraseña */
-        validarDato(
-            passwordUser,
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/,
-            "La contraseña no cumple con los requisitos mínimos de seguridad:\n" +
-            "• Debe tener al menos 8 caracteres.\n" +
-            "• Debe contener al menos una letra mayúscula (A-Z).\n" +
-            "• Debe contener al menos una letra minúscula (a-z).\n" +
-            "• Debe contener al menos un número (0-9).\n" +
-            "• Debe contener al menos un carácter especial (ej. @, #, $, !, %, *)."
-        );
 
-        alert("Validacion correcta");
+    /* validar todos los campos al pulsar el boton de registrarse */
+    btnRegistro.addEventListener('click', (event) => {
+        event.preventDefault();
 
-    }catch(e){
-        alert(e.message);
+        //comprobar todos los campos para asegurarnos otra vez de que todo esta bien 
+        // Comprueba todos los campos
+        const okNombre = validarNombre();
+        const okApellidos = validarApellido();
+        const okEmail = validarEmail();
+        const okArea = validarArea();
+        const okAntiguedad = validarAntiguedad();
+        const okPassword = validarPassword();
+
+        // y si algo falla no continua
+        if (!okNombre ||!okApellidos ||!okEmail ||!okArea || !okAntiguedad ||!okPassword) {
+            return;
+        }
+
+        // recoge todos los datos del formulario
+        const datosEmpleado = {
+            nombre: nombreInput.value.trim(),
+            apellidos: apellidoInput.value.trim(),
+            email: emailInput.value.trim(),
+            area: areaSelect.value,
+            antiguedad: antiguedadInput.value,
+            password: passwordInput.value
+        };
+
+
+        //eviar los datos al servidor
+        fetch("registroModel.php", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(datosEmpleado)
+            })
+
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error("Error al registrar al empleado:", error);
+        });
+
+
+        
+    });
+
+
+ 
+
+});
+});
+
+
+//VALIDACIONES
+
+    /* validar nombre */
+    function validarNombre() {
+        const nombre = document.getElementById("nombre").value.trim();
+        const expregNombre = /^[A-Za-zÁÉÍÓÚáéíóú]+$/;
+
+        if (nombre === "") {
+            mostrarError("error-nombre", "El campo 'Nombre' no puede estar vacio");
+            return false;
+        }
+        if (!expregNombre.test(nombre)) {
+            mostrarError("error-email", "Formato de nombre no valido");
+            return false;
+        }
+        limpiarError("error-nombre");
+        return true;
     }
-}
 
-function validarDato(campo, expresionRegular, mensajeError) {
-    if (!expresionRegular.test(campo)) {
-        throw new Error(mensajeError);
+    /* validar apellidos */
+    function validarApellido() {
+        const apellidos = document.getElementById("apellidos").value.trim();
+        const expregApellidos = /^[A-Za-zÁÉÍÓÚáéíóú]+$/;
+
+        if (apellidos === "") {
+            mostrarError("error-apellidos", "El campo 'Apellidos' no puede estar vacio");
+            return false;
+        }
+        if (!expregApellidos.test(apellidos)) {
+            mostrarError("error-apellidos", "Formato de apellido no valido");
+            return false;
+        }
+        limpiarError("error-apellidos");
+        return true;
     }
-}
+
+    /* validar email */
+    function validarEmail() {
+        const email = document.getElementById("email").value.trim();
+        const expregEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === "") {
+            mostrarError("error-email", "El campo Email no puede estar vacío");
+            return false;
+        }
+        if (!expregEmail.test(email)) {
+            mostrarError("error-email", "Formato de correo no válido");
+            return false;
+        }
+        limpiarError("error-email");
+        return true;
+    }
+    
+    /* validar select */
+    function validarArea() {
+        const area = document.getElementById("area").value;
+        if (area === "") {
+            mostrarError("error-area", "Debes seleccionar un área de trabajo.");
+            return false;
+        }
+        limpiarError("error-area");
+        return true;
+    }
+
+    /* validar antiguedad */
+    function validarAntiguedad() {
+        const antiguedad = document.getElementById("antiguedad").value.trim();
+        const expregAntiguedad = /^[0-9]+$/;
+
+        if (antiguedad === "") {
+            mostrarError("error-antiguedad", "El campo Email no puede estar vacío");
+            return false;
+        }
+        if (!expregAntiguedad.test(antiguedad)) {
+            mostrarError("error-antiguedad", "Formato de correo no válido");
+            return false;
+        }
+        limpiarError("error-antiguedad");
+        return true;
+
+    }
+
+    /* validar contraseña */
+    function validarPassword() {
+        const password = document.getElementById("password").value;
+        // 8 caracteres, mayuscula, minuscula, numero y sumbolo
+        const expregPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
+        if (password === "") {
+            mostrarError("error-password", "El campo Contraseña no puede estar vacío.");
+            return false;
+        }
+        if (!expregPass.test(password)) {
+            mostrarError("error-password", "Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.");
+            return false;
+        }
+        limpiarError("error-password");
+        return true;
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
