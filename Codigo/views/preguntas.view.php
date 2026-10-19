@@ -8,6 +8,9 @@
     <title>AERGIBIDE SL</title>
 
     <link rel="stylesheet" href="views/estilos/estilos.css">
+    <link rel="stylesheet" href="views/estilos/preguntas-estilo.css">
+
+    <script src="views/scripts/preguntas.view.script.js" defer></script>
 </head>
 
 <body>
@@ -94,18 +97,46 @@
                 </section>
             </div>
         </aside>
-        <div class="opcionesPreguntas">
-            <p>Mostrando nº preguntas</p>
-            <div>
-                <label for="ordenar">Ordenar por:</label>
-                <select name="ordenar" id="ordenar">
-                    <option value="Mas recientes">Mas recientes</option>
-                    <option value="Mas respuestas">Mas respuestas</option>
-                    <option value="Sin responder">Sin responder</option>
-                </select>
+        <div class="der">
+            <div class="opcionesPreguntas">
+                <p>Mostrando nº preguntas</p>
+                <div>
+                    <label for="ordenar">Ordenar por:</label>
+                    <select name="ordenar" id="ordenar">
+                        <option value="Mas recientes">Mas recientes</option>
+                        <option value="Mas respuestas">Mas respuestas</option>
+                        <option value="Sin responder">Menos respuestas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="listaPreguntas">
+                <?php foreach ($preguntas as $pregunta): ?>
+                <section>
+                    <div class="autor">
+                        <svg width="25" height="25" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.5 0C18.0499 0 13.6998 1.3196 9.99968 3.79193C6.29957 6.26426 3.41569 9.77828 1.71272 13.8896C0.00974887 18.001 -0.435826 22.525 0.432341 26.8895C1.30051 31.2541 3.44343 35.2632 6.59011 38.4099C9.73679 41.5566 13.7459 43.6995 18.1105 44.5677C22.475 45.4358 26.999 44.9903 31.1104 43.2873C35.2217 41.5843 38.7357 38.7004 41.2081 35.0003C43.6804 31.3002 45 26.9501 45 22.5C44.9932 16.5347 42.6205 10.8157 38.4024 6.59761C34.1843 2.37952 28.4653 0.0068058 22.5 0ZM35.3459 36.8454C35.3147 34.7368 34.4559 32.725 32.9547 31.2439C31.4535 29.7629 29.4302 28.9313 27.3214 28.9286H17.6786C15.57 28.9317 13.5472 29.7635 12.0464 31.2445C10.5455 32.7255 9.68693 34.737 9.65572 36.8454C6.74127 34.243 4.686 30.8168 3.76206 27.0203C2.83813 23.2239 3.0891 19.2364 4.48175 15.5858C5.8744 11.9352 8.34304 8.79375 11.5608 6.57734C14.7785 4.36093 18.5936 3.17415 22.5008 3.17415C26.408 3.17415 30.2231 4.36093 33.4408 6.57734C36.6586 8.79375 39.1272 11.9352 40.5199 15.5858C41.9125 19.2364 42.1635 23.2239 41.2396 27.0203C40.3156 30.8168 38.2603 34.243 35.3459 36.8454Z" fill="#C8D0DA"/>
+                            <path d="M22.5 9.64288C20.9107 9.64288 19.3571 10.1142 18.0356 10.9971C16.7141 11.8801 15.6842 13.1351 15.076 14.6035C14.4678 16.0718 14.3086 17.6875 14.6187 19.2463C14.9288 20.8051 15.6941 22.2369 16.8179 23.3607C17.9417 24.4845 19.3735 25.2498 20.9323 25.5599C22.4911 25.87 24.1068 25.7108 25.5751 25.1026C27.0435 24.4944 28.2985 23.4645 29.1815 22.143C30.0644 20.8215 30.5357 19.2679 30.5357 17.6786C30.5357 15.5474 29.6891 13.5035 28.1821 11.9965C26.6751 10.4895 24.6312 9.64288 22.5 9.64288Z" fill="#C8D0DA"/>
+                        </svg>
+                        <p><?= $pregunta->autor_nombre ?></p>   
+                    </div>
+                    
+                    <h1><?= $pregunta->pregunta_titulo ?></h1>
+                    <h2><?= $pregunta->pregunta_descripcion ?></h2>
+                    <hr>
+                    <div class="abajoPregunta">
+                        <p><?= $pregunta->pregunta_tema ?> · <?= $pregunta->num_respuestas ?> respuestas</p>
+                        <svg class="botonFavorito" width="15" height="20" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.8C1 2.82 1 2.33 1.19075 1.9555C1.35853 1.62623 1.62623 1.35853 1.9555 1.19075C2.33 1 2.82 1 3.8 1H8.7C9.68 1 10.17 1 10.5445 1.19075C10.8738 1.35853 11.1415 1.62623 11.3092 1.9555C11.5 2.33 11.5 2.82 11.5 3.8V15.4419C11.5 15.8671 11.5 16.0797 11.4116 16.1961C11.3734 16.2467 11.3247 16.2884 11.2688 16.3184C11.2129 16.3483 11.1512 16.3657 11.0879 16.3694C10.9417 16.3781 10.765 16.26 10.4115 16.0246L6.25 13.25L2.0885 16.0237C1.735 16.26 1.55825 16.3781 1.41125 16.3694C1.34811 16.3656 1.28654 16.3481 1.2308 16.3182C1.17506 16.2883 1.12647 16.2466 1.08837 16.1961C1 16.0797 1 15.8671 1 15.4419V3.8Z" stroke="#FFDD33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </section>
+
+                <?php endforeach; ?>
+                
             </div>
         </div>
-
+        
+        
     </div>
 </main>
 <?php require __DIR__.'/layout/footer.php'; ?>

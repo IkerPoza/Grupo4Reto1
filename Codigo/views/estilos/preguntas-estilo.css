@@ -1,386 +1,190 @@
-@font-face {
-    font-family: 'mifuente';
-    src: url('../tipografia/Archivo/static/Archivo-Regular.ttf');
+/*PREGUNTAS VIEW*/
+
+main{
+    padding-bottom: 0px !important;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'mifuente';
+/*BUSCADOR*/
+
+.buscador{
+    justify-items: center;
+    font-size: 12px;
 }
 
-body {
-    min-height: 100vh;
-    background-color: #F7F7F8;
-    color: #171717;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.cabecera {
-    min-height: 70px;
-    padding: 8px 25px;
-    background-color: #1D325A;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    text-decoration: none;
-}
-
-.logo img {
-    width: 48px;
-    height: 48px;
-}
-
-.logo h1 {
-    color: white;
-    font-size: 23px;
-    font-weight: bold;
-}
-
-.iconoPerfil img {
-    width: 50px;
-    height: 50px;
-}
-
-
-
-.navegacion {
-    min-height: 40px;
-    padding: 5px 25px;
-    display: flex;
-    align-items: center;
-}
-
-.navegacion img {
-    width: 27px;
-    height: 27px;
-}
-
-/* esta vista */
-
-.contenido {
-    flex: 1;
-    padding: 12px 4.2% 30px;
-    background-color: #F7F7F8;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-
-.publicacion {
+.buscador form{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 40%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 160px;
-    grid-template-rows: auto auto;
-    column-gap: 30px;
-    row-gap: 42px;
-    align-items: start;
+    grid-template-columns: 1fr auto;
+    grid-gap: .5rem;
+    padding: .5rem 1rem;
 }
 
-.informacionPublicacion {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.informacionPublicacion h2 {
-    font-size: 29px;
-    font-weight: bold;
-}
-
-.autorPublicacion, .temaPublicacion {
-    font-size: 17px;
-    font-weight: bold;
-}
-
-.anadirImagen {
-    grid-column: 2;
-    grid-row: 1;
-    width: 145px;
-    height: 105px;
-    margin-top: 22px;
-    border: none;
+.buscador .busqueda{
     background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 0px solid;
+}
+
+.buscador .busqueda:focus{
+    outline: none;
+}
+
+.buscador .buscar{
+    justify-self: right;
+}
+
+.buscador .buscar:hover{
     cursor: pointer;
 }
 
+/*CONTENIDO PREGUNTAS*/
 
-.descripcionPublicacion {
-    grid-column: 1;
-    grid-row: 2;
-    font-size: 17px;
-}
-
-
-.formularioRespuesta {
-    width: 100%;
-    min-height: 92px;
-    padding: 12px 15px;
-    border: 1.5px solid #111111;
-    border-radius: 13px;
-    background-color: #FFFFFF;
-    box-shadow: 0 4px 5px #00000035;
+.contenidoPreguntas{
     display: flex;
+    margin-top: 2rem;
+    gap: 2rem;
     align-items: stretch;
-    gap: 10px;
 }
 
-.formularioRespuesta textarea {
-    flex: 1;
-    min-width: 0;
-    min-height: 65px;
-    padding: 4px 0;
-    border: none;
-    background-color: transparent;
-    font-size: 17px;
-}
+/*LATERAL PREGUNTAS*/
 
-.formularioRespuesta button {
-    width: 32px;
-    min-width: 32px;
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.iconoEnviar img{
-    width: 20px;
-    height: 20px;
-}
-
-
-.listaRespuestas {
+.contenidoPreguntas aside{
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 1rem;
 }
 
-.respuesta {
-    width: 100%;
-    min-height: 68px;
-    padding: 9px 15px;
-    border-radius: 13px;
-    background-color: #D6DDE4;
-    box-shadow: 0 5px 5px #00000035;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
+/*BOTON PUBLICAR*/
 
-.respuestaAnidada {
-    width: 86%;
-    align-self: flex-end;
-}
-
-.textoRespuesta {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
-}
-
-.textoRespuesta h3 {
-    font-size: 17px;
-    font-weight: bold;
-}
-
-.textoRespuesta p {
-    font-size: 17px;
-}
-
-.accionesRespuesta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.accionesRespuesta button {
-    padding: 0;
-    border: none;
-    background-color: transparent;
-    color: #20365E;
-    font-size: 35px;
-    font-weight: bold;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.puntuacion {
-    color: #20365E;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.formularioAnidado {
-    width: 86%;
-    align-self: flex-end;
-}
-
-/* comun */
-
-.pie {
-    width: 100%;
-    min-height: 115px;
-    padding: 20px 4%;
-    background-color: #20365E;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    gap: 25px;
-}
-
-.pie p, .pie h2 {
+.publicarPregunta{
+    background-color: #5B6F8F;
     color: white;
-}
-
-.direccion p {
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.redesSociales {
-    display: flex;
-    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: .5rem 1rem;
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
-}
-
-.redesSociales a {
-    display: flex;
-    align-items: center;
+    gap: .5rem;
+    width: 100%;
     justify-content: center;
 }
 
-.redesSociales img {
-    width: 34px;
-    height: 34px;
+/*FILTRAR TEMA*/
+
+.filtrarTema{
+    width: fit-content;
+    background-color: white;
+    border: 1px solid black;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0 3px 6px #00000025;
 }
 
-.contacto {
-    justify-self: end;
+.filtrarTema h5{
+    margin-bottom: 1rem;
 }
 
-.contacto h2 {
-    font-size: 22px;
-    margin-bottom: 8px;
+.filtrarTema section{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem;
 }
 
-.contacto p {
-    font-size: 13px;
-    margin-bottom: 5px;
+.filtrarTema section:hover{
+    background-color: rgb(245, 245, 245);
 }
 
-/* peque */
+.filtrarTema section svg{
+    width: 1rem;
+}
 
-@media (max-width: 700px) {
+.filtrarTema section p:first-of-type{
+    width: 15rem;
+}
 
-    body {
-        padding: 7px;
-    }
+.filtrarTema section p:last-of-type{
+    background-color: #D9D9D9;
+    padding: .2rem .5rem;
+    border-radius: 10rem;
+}
 
-    .cabecera {
-        min-height: 65px;
-        padding: 8px 12px;
-    }
+/*PREGUNTAS DERECHA*/
 
-    .logo {
-        gap: 10px;
-    }
+.contenidoPreguntas .der{
+    width: 100%;
+}
 
-    .logo img, .iconoPerfil img {
-        width: 45px;
-        height: 45px;
-    }
+/*OPCIONES PREGUNTAS*/
 
-    .logo h1 {
-        font-size: 19px;
-    }
+.opcionesPreguntas{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    padding: .5rem 0rem;
+    border-bottom: 1px solid black;
+}
 
-    .contenido {
-        padding: 15px 12px 25px;
-        gap: 20px;
-    }
+.opcionesPreguntas select{
+    border: 1px solid black;
+    box-shadow: 0 3px 6px #00000025;
+}
 
-    .publicacion {
-        grid-template-columns: minmax(0, 1fr) 75px;
-        column-gap: 10px;
-        row-gap: 30px;
-    }
+/*LISTA PREGUNTAS*/
 
-    .informacionPublicacion h2 {
-        font-size: 24px;
-    }
+.listaPreguntas{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 69.6vh;
+    overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
+    overflow-x: hidden;
+    scrollbar-width: none; 
+}
 
-    .anadirImagen {
-        width: 75px;
-        height: 75px;
-    }
+.listaPreguntas::-webkit-scrollbar{
+    display: none;
+}
 
-    .iconoImagen {
-        font-size: 55px;
-    }
+.listaPreguntas section{
+    color: white;
+    background-color: #5B6F8F;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px #00000025;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
 
-    .iconoMas {
-        width: 30px;
-        height: 30px;
-        font-size: 23px;
-    }
+.listaPreguntas .autor{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
 
-    .respuesta, .respuestaAnidada, .formularioAnidado {
-        width: 100%;
-    }
+.listaPreguntas h1{
+    font-size: 24px;
+}
 
-    .respuesta {
-        padding: 10px;
-        gap: 8px;
-    }
+.listaPreguntas h2{
+    font-size: 16px;
+}
 
-    .accionesRespuesta {
-        gap: 5px;
-    }
+.listaPreguntas section hr{
+    border: 1px solid lightgray;
+}
 
-    .accionesRespuesta button {
-        font-size: 25px;
-    }
-
-    .textoRespuesta p, .textoRespuesta h3 {
-        font-size: 14px;
-    }
-
-    .pie {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-        gap: 20px;
-        padding: 22px 10px;
-    }
-
-    .contacto {
-        justify-self: center;
-    }
-
-    .redesSociales img {
-        width: 36px;
-        height: 36px;
-    }
-
+.listaPreguntas .abajoPregunta{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
