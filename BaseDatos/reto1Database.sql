@@ -7,12 +7,13 @@ DROP TABLE IF EXISTS usuario;
 
 CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT,
-    tipo ENUM('admin', 'user') NOT NULL,
+    tipo ENUM('admin', 'user') NOT NULL DEFAULT 'user',
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100),
+    email VARCHAR(255) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL,
     area VARCHAR(100),
-    contacto VARCHAR(100),
-    antiguedad INT,
+    antiguedad INT DEFAULT 0,
     numPreguntas INT DEFAULT 0,
     numRespuestas INT DEFAULT 0,
     PRIMARY KEY (id)
@@ -24,7 +25,7 @@ CREATE TABLE pregunta (
     titulo VARCHAR(255) NOT NULL,
     tema VARCHAR(100),
     descripcion TEXT,
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
@@ -35,7 +36,7 @@ CREATE TABLE respuesta (
     idPregunta INT NOT NULL,
     idRespuesta int,
     texto TEXT NOT NULL,
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE,

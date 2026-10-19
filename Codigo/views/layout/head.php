@@ -1,3 +1,8 @@
+<?php
+    $titulo = $titulo ?? '';
+    $css = $css ?? '';
+    $script = $script ?? '':
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,9 +10,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AERGIBIDE SL</title>
+    <title><?= $titulo !== '' ? ($titulo) . ' · ' : '' ?>AERGIBIDE SL</title>
 
-    <link rel="stylesheet" href="views/estilos/estilos.css">
+    <link rel="stylesheet" href="views/<?= ($css) ?>">
+    <link rel="stylesheet" href="views/estilo.css">
+    <script src="scripts/<?= $script ?>" defer></script>
+
 </head>
 
 <body>

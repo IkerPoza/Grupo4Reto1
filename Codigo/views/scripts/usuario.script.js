@@ -82,7 +82,7 @@ document.addEventListener("click", async function (evento) {
 
     try {
         // Enviar el cambio a PHP.
-        const respuesta = await fetch("favoritos.php", {
+        const respuesta = await fetch("index.php?controller=PreguntasController&accion=favorita", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -127,6 +127,14 @@ function actualizarEstadoFavorito(idPregunta, esFavorita) {
     );
 
     if (!botonOriginal) {
+        // Pregunta de otro usuario: solo aparece en la pestaña Favoritas
+        if (!esFavorita) {
+            const botonFav = listaFavoritas.querySelector('.favorito[data-id="' + idPregunta + '"]');
+            if (botonFav) {
+                botonFav.closest(".pregunta").remove();
+            }
+            sinFavoritas.hidden = listaFavoritas.querySelector(".pregunta") !== null;
+        }
         return;
     }
 
@@ -173,10 +181,10 @@ function cambiarIcono(boton, esFavorita) {
 
     if (imagen) {
         if (esFavorita) {
-            imagen.src = "imagenes/FavoritoActivado.png";
+            imagen.src = "views/imagenes/FavoritoActivado.png";
             imagen.alt = "Quitar de favoritas";
         } else {
-            imagen.src = "imagenes/FavoritoDesactivado.png";
+            imagen.src = "views/imagenes/FavoritoDesactivado.png";
             imagen.alt = "Añadir a favoritas";
         }
     }
