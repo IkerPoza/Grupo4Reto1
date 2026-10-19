@@ -1,5 +1,9 @@
 /*PREGUNTAS VIEW*/
 
+main{
+    padding-bottom: 0px !important;
+}
+
 /*BUSCADOR*/
 
 .buscador{
@@ -134,12 +138,18 @@
 
 .listaPreguntas{
     padding-top: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-height: 40rem;
+    max-height: 69.6vh;
     overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
     overflow-x: hidden;
+    scrollbar-width: none; 
+}
+
+.listaPreguntas::-webkit-scrollbar{
+    display: none;
 }
 
 .listaPreguntas section{
@@ -159,6 +169,14 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+.listaPreguntas h1{
+    font-size: 24px;
+}
+
+.listaPreguntas h2{
+    font-size: 16px;
 }
 
 .listaPreguntas section hr{
