@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(res => res.json())
             .then(data => console.log(data));
+
+
+            jhgf
             */
         }
     });
@@ -58,6 +61,8 @@ function validarEmail() {
     if (email === "") {
         mostrarError("error-email", "El campo Email no puede estar vacío.");
         return false;
+
+        
     }
 
     if (!regExEmail.test(email)) {
