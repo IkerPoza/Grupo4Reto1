@@ -11,7 +11,7 @@ CREATE TABLE usuario (
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100),
     email VARCHAR(255) NOT NULL UNIQUE,
-    contraseña VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
     area VARCHAR(100),
     antiguedad INT DEFAULT 0,
     numPreguntas INT DEFAULT 0,
