@@ -5,7 +5,7 @@ require_once __DIR__ . '/../models/UsuarioModel.php';
 class UsuarioController extends BaseController {
 
     public function index() {
-       show();
+        $this->show();
     }
 
     public function store() {
@@ -14,10 +14,11 @@ class UsuarioController extends BaseController {
 
     public function show() {
 
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : $this->usuarioId();
+        $id = isset($_GET['id']) ? $_GET['id'] : $this->usuarioId();
         $usuario = UsuarioModel::getById($id);
         if (!$usuario) {
-            $this->noEncontrado('Usuario no encontrado.');
+            echo 'Usuario no encontrado.';
+            return;
         }
 
         $esPropio = ($id === $this->usuarioId());

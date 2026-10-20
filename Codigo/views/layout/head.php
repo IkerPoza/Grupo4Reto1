@@ -1,7 +1,7 @@
 <?php
     $titulo = $titulo ?? '';
     $css = $css ?? '';
-    $script = $script ?? '':
+    $script = $script ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
