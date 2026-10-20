@@ -1,7 +1,7 @@
 <?php
-    $titulo = $titulo ?? '';
-    $css = $css ?? '';
-    $script = $script ?? '';
+$titulo = $titulo ?? '';
+$css = $css ?? [];
+$scripts = $scripts ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,13 +10,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?= $titulo !== '' ? ($titulo) . ' · ' : '' ?>AERGIBIDE SL</title>
+    <title><?= htmlspecialchars($titulo) ?> · AERGIBIDE SL</title>
 
-    <link rel="stylesheet" href="views/<?= ($css) ?>">
-    <link rel="stylesheet" href="../estilos/estilo.css">
-    <script src="scripts/<?= $script ?>" defer></script>
+    <!-- CSS común -->
+    <link rel="stylesheet" href="views/estilos/estilos.css">
+
+    <!-- CSS específico de cada vista -->
+    <?php foreach ($css as $archivo): ?>
+        <link rel="stylesheet" href="views/estilos/<?= htmlspecialchars($archivo) ?>">
+    <?php endforeach; ?>
+
+    <!-- JavaScript específico de cada vista -->
+    <?php foreach ($scripts as $archivo): ?>
+        <script src="views/scripts/<?= htmlspecialchars($archivo) ?>" defer></script>
+    <?php endforeach; ?>
 
 </head>
+
+<body>
+
 
 <body>
 

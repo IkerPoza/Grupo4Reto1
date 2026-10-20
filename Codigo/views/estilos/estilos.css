@@ -20,65 +20,55 @@ body {
 
 
 .cabecera {
-    min-height: 70px;
-    padding: 8px 25px;
+    min-height: 90px;
+    padding: 8px 36px;
     background-color: #1D325A;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+
 .logo {
     display: flex;
     align-items: center;
-    gap: 18px;
-    text-decoration: none;
+    gap: 35px;
 }
 
-.logo img {
-    width: 48px;
-    height: 48px;
+.logo form {
+    margin: 0;
+}
+
+.logo button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
 }
 
 .logo h1 {
     color: white;
-    font-size: 23px;
+    font-size: 38px;
     font-weight: bold;
-}
-
-.iconoPerfil img {
-    width: 50px;
-    height: 50px;
-}
-
-.botonLogo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    background: transparent;
-    border: none;
-    padding: 0;
     margin: 0;
+}
 
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
+
+.perfil form {
+    margin: 0;
 }
 
 .botonPerfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: transparent;
+    background-color: transparent;
     border: none;
-    padding: 0;
-    margin: 0;
-
-    cursor: pointer;
 }
-
 
 
 

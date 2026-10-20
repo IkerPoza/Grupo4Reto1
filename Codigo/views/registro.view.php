@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+$titulo = 'Registro';
+$css = ['Registro-estilo.css'];
+$scripts = ['registro.script.js'];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/estilos/estilos.css">
-    <link rel="stylesheet" href="views/estilos/registro-estilo.css">
-</head>
-
-<body>
-
-<?php require __DIR__.'/layout/head.php';?>
-
+require __DIR__ . '/layout/head.php';
+require __DIR__ . '/layout/nav.php';
+?>
 
 <main class="registro-contenedor">
     <div class="registro-division">
@@ -66,7 +57,5 @@
 </main>
 
 <?php require __DIR__.'/layout/footer.php'; ?>
-
-<script src="scripts/registro.script.js"></script>
 
 </html>
