@@ -82,8 +82,8 @@ class UsuarioController extends BaseController {
             $_SESSION['rol'] = $usuario -> tipo;
             echo $_SESSION['usuario_id'];
             $this -> redirect("index.php");
-        }catch(err){
-
+        }catch(Exception $e){
+            echo "Usuario o Contraseña no valido.";
         }
         
     }
