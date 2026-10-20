@@ -67,4 +67,24 @@ class UsuarioController extends BaseController {
     public function destroyAll() {
     }
 
+    public function validarUsuario(){
+        try{
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $usuario = UsuarioModel::validarUsuario($email, $password); 
+
+            $_SESSION['usuario_id'] = $usuario -> id;
+            $_SESSION['nombre_usuario'] = $usuario -> nombre;
+            $_SESSION['rol'] = $usuario -> tipo;
+            echo $_SESSION['usuario_id'];
+            $this -> redirect("index.php");
+        }catch(err){
+
+        }
+        
+    }
+
 }
