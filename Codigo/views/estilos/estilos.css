@@ -19,6 +19,12 @@ body {
 }
 
 
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+
 .cabecera {
     min-height: 90px;
     padding: 8px 36px;
