@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
 
-        //eviar los datos al servidor
-        fetch("registroModel.php", {
+        //ENVIAR DATOS AL SERVIDOR 
+        fetch("index.php?controller=registro&action=store", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(datosEmpleado)
@@ -105,19 +105,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            if (data.ok) {
+            alert(data.mensaje);
+            window.location.href = "index.php"; // rredirigir al login
+    } else {
+        alert(data.mensaje);
+    }
         })
         .catch(error => {
             console.error("Error al registrar al empleado:", error);
         });
-
-
         
     });
-
-
- 
-
 });
 });
 

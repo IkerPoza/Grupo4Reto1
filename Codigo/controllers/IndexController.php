@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
-require_once __DIR__ . '/../models/UsuarioModel.php';
+require_once __DIR__ . '/../models/IndexModel.php';
 
 class UsuarioController extends BaseController {
 
