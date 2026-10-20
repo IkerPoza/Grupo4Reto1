@@ -1,7 +1,7 @@
 <?php
 $titulo = 'Perfil';
-$css = ['estilos/estilos.css', 'estilos/usuario-estilo.css'];
-$scripts = ['views/scripts/usuario.script.js'];
+$css = ['../estilos/usuario-estilo.css'];
+$scripts = ['../scripts/usuario.script.js'];
 require __DIR__ . '/layout/head.php';
 require __DIR__ . '/layout/nav.php';
 ?>
