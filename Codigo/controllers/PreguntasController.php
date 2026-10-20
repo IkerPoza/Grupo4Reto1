@@ -5,7 +5,8 @@ require_once __DIR__ . '/../models/PreguntasModel.php';
 class PreguntasController extends BaseController {
     
     public function index() {
-        if(isset($_SESSION)){
+        session_start();
+        if(isset($_SESSION["usuario_id"])){
             $preguntas = $this->show();
             $this -> render('preguntas.view.php', ['preguntas' => $preguntas]);
         }else{
