@@ -18,9 +18,4 @@ class BaseController {
         header("Location: {$url}");
         exit;
     }
-
-    protected function usuarioId() { 
-        return ($_SESSION['usuario']['id'] ?? 0); 
-    }
-
 }

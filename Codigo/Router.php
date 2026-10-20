@@ -5,7 +5,7 @@ class Router {
     // Como el router no tiene estados, los métodos pueden ser estáticos.
     public static function dispatch() {
         // Determinar controlador (por defecto EmpleadoController)
-        $controllerName = $_GET['controller'] ?? 'PreguntasController';
+        $controllerName = $_GET['controller'] ?? 'UsuarioController';
         
         // Determinar acción (por defecto index)
         $action = $_GET['accion'] ?? 'index';
