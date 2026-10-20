@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+$titulo = 'Inicio de sesión';
+$css = ['InicioSesion-estilo.css'];
+$scripts = ['index.script.js'];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+require __DIR__ . '/layout/head.php';
+require __DIR__ . '/layout/nav.php';
+?>
 
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/estilos/estilos.css">
-    <link rel="stylesheet" href="views/estilos/inicioSesion-estilo.css">
-</head>
-
-<body>
-
-<?php require __DIR__.'/layout/head.php';?>
 
 <body>
 <main class="login-contenedor">

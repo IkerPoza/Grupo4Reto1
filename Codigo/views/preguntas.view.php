@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+$titulo = 'Preguntas';
+$css = ['preguntas-estilo.css'];
+$scripts = ['preguntas.view.script.js'];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+require __DIR__ . '/layout/head.php';
+require __DIR__ . '/layout/nav.php';
+?>
 
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/estilos/estilos.css">
-    <link rel="stylesheet" href="views/estilos/preguntas-estilo.css">
-
-    <script src="views/scripts/preguntas.view.script.js" defer></script>
-</head>
-
-<body>
-<?php require __DIR__.'/layout/head.php';?>
 <main>
     <div class="buscador">
         <form action="index.php" method="post">

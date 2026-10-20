@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/estilos/estilos.css">
-    <link rel="stylesheet" href="views/estilos/crearPregunta-estilo.css">
-</head>
-
-<body>
-
-<?php require __DIR__.'/layout/head.php';?>
+<?php
+$titulo = 'Perfil';
+$css = ['../estilos/crearPregunta-estilo.css'];
+$scripts = [''];
+require __DIR__ . '/layout/head.php';
+require __DIR__ . '/layout/nav.php';
+?>
 
 <main class="crearPregunta-contenedor">
     <div class="crearPregunta-division">
