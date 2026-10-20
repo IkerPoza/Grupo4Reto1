@@ -59,8 +59,21 @@ require __DIR__ . '/layout/nav.php';
                     </article>
                     </div>
 
-                    <?php if ($esPropio): ?>
-                        <button type="button" class="editarPerfil" onclick="mostrarEdicion()"> Editar perfil </button>
+                    <?php if ($esAdmin || $esPropio): ?>
+                        <div class="botonesPerfil">
+                            <?php if ($esAdmin): ?>
+                                <form method="POST" action="index.php?controller=UsuarioController&accion=destroy" onsubmit="return confirm('¿Seguro que quieres eliminar este perfil?');">
+
+                                    <input type="hidden" name="id" value="<?= $usuario->id ?>">
+
+                                    <button type="submit" class="eliminarPerfil"> Eliminar perfil </button>
+                                </form>
+                            <?php endif; ?>
+
+                            <?php if ($esPropio): ?>
+                                <button type="button" class="editarPerfil" onclick="mostrarEdicion()"> Editar perfil </button>
+                            <?php endif; ?>
+                        </div>
                     <?php endif; ?>
 
                 </div>

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/UsuarioModel.php';
+require_once __DIR__ . '/../models/PreguntasModel.php';
 
 class UsuarioController extends BaseController {
 
@@ -14,22 +15,35 @@ class UsuarioController extends BaseController {
 
     public function show() {
 
-        $id = isset($_GET['id']) ? $_GET['id'] : $this->usuarioId();
+        $id = isset($_GET['id']) ? $_GET['id'] : $idUsuario;
         $usuario = UsuarioModel::getById($id);
         if (!$usuario) {
             echo 'Usuario no encontrado.';
             return;
         }
 
-        $esPropio = ($id === $this->usuarioId());
+        $idUsuario = $_SESSION['usuario']['id'] ?? 0;
+
+        $esPropio = ($id == $idUsuario);
+        $usuarioActual = UsuarioModel::getById($idUsuario);
+        $esAdmin = $usuarioActual && $usuarioActual->tipo === 'admin';
+
         $stats = UsuarioModel::getEstadisticas($id);
         $preguntas = PreguntasModel::getByUsuario($id);
         $guardadas = $esPropio ? PreguntasModel::getGuardadas($id) : [];
 
-        $this->render('usuario.view.php', compact('usuario', 'stats', 'preguntas', 'guardadas', 'esPropio'));
+        $this->render('usuario.view.php', compact(
+            'usuario',
+            'stats',
+            'preguntas',
+            'guardadas',
+            'esPropio',
+            'esAdmin'
+        ));
     }
 
     public function update() {
+        $idUsuario = $_SESSION['usuario']['id'] ?? 0;
 
         $datos = [
             'nombre'     => ('nombre'),
@@ -56,13 +70,33 @@ class UsuarioController extends BaseController {
             $error;
         } else {
             $datos['antiguedad'] = $datos['antiguedad'];
-            UsuarioModel::update($this->usuarioId(), $datos);
+            UsuarioModel::update($idUsuario, $datos);
             $_SESSION['usuario_nombre'] = $datos['nombre'];
         }
         $this->redirect(url('UsuarioController', 'show'));
     }
 
     public function destroy() {
+        $idUsuario = $_SESSION['usuario']['id'] ?? 0;
+        $usuarioActual = UsuarioModel::getById($idUsuario);
+
+        if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
+            exit('No tienes permiso para eliminar perfiles.');
+        }
+
+        if (!isset($_POST['id'])) {
+            $this->redirect('index.php');
+        }
+
+        $id = $_POST['id'];
+
+        if (!$id || !UsuarioModel::getById($id)) {
+            exit('El perfil no existe.');
+        }
+
+        UsuarioModel::deleteById($id);
+
+        $this->redirect('index.php');
     }
 
     public function destroyAll() {
