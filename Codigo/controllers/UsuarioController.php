@@ -2,6 +2,11 @@
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/UsuarioModel.php';
 require_once __DIR__ . '/../models/PreguntasModel.php';
+require_once __DIR__ . '/../config/config.php';
+
+function nombreArea($area) {
+    return AREAS[$area] ?? $area;
+}
 
 class UsuarioController extends BaseController {
 
@@ -18,6 +23,7 @@ class UsuarioController extends BaseController {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
+            $idUsuario = $_SESSION['usuario_id'] ?? 0;
 
             $id = isset($_GET['id']) ? $_GET['id'] : $idUsuario;
             $usuario = UsuarioModel::getById($id);
@@ -25,8 +31,6 @@ class UsuarioController extends BaseController {
                 echo 'Usuario no encontrado.';
                 return;
             }
-
-            $idUsuario = $_SESSION['usuario']['id'] ?? 0;
 
             $esPropio = ($id == $idUsuario);
             $usuarioActual = UsuarioModel::getById($idUsuario);
@@ -44,58 +48,111 @@ class UsuarioController extends BaseController {
                 'esPropio',
                 'esAdmin'
             ));
-        }catch(err){
-
+        } catch (Throwable $e) {
+            echo "Error al cargar el perfil: " . $e->getMessage();
         }
     }
 
+    
     public function update() {
-        try{
+        try {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $idUsuario = $_SESSION['usuario']['id'] ?? 0;
+
+            $idUsuario = $_SESSION['usuario_id'] ?? 0;
+
+            if (!$idUsuario) {
+                exit('Debes iniciar sesión.');
+            }
 
             $datos = [
-                'nombre'     => ('nombre'),
-                'apellidos'  => ('apellidos'),
-                'area'       => ('area'),
-                'contacto'   => ('contacto'),
-                'antiguedad' => ('antiguedad'),
+                'nombre'     => trim($_POST['nombre'] ?? ''),
+                'apellidos'  => trim($_POST['apellidos'] ?? ''),
+                'area'       => $_POST['area'] ?? '',
+                'contacto'   => trim($_POST['contacto'] ?? ''),
+                'antiguedad' => $_POST['antiguedad'] ?? '',
+                'foto'       => null
             ];
 
-            $error = null;
             if ($datos['nombre'] === '' || mb_strlen($datos['nombre']) > 100) {
-                $error = 'El nombre es obligatorio (máximo 100 caracteres).';
+                exit('El nombre es obligatorio (máximo 100 caracteres).');
+
             } elseif ($datos['apellidos'] === '' || mb_strlen($datos['apellidos']) > 100) {
-                $error = 'Los apellidos son obligatorios (máximo 100 caracteres).';
-            } elseif (!array_key_exists($datos['area'])) {
-                $error = 'Selecciona un área de trabajo válida.';
-            } elseif (!filter_var($datos['contacto']) || mb_strlen($datos['contacto']) > 100) {
-                $error = 'El correo de contacto no es válido.';
-            } elseif (!ctype_digit($datos['antiguedad']) || $datos['antiguedad'] > 60) {
-                $error = 'La antigüedad debe ser un número de años entre 0 y 60.';
+                exit('Los apellidos son obligatorios (máximo 100 caracteres).');
+
+            } elseif (!array_key_exists($datos['area'], AREAS)) {
+                exit('Selecciona un área de trabajo válida.');
+
+            } elseif (!filter_var($datos['contacto'], FILTER_VALIDATE_EMAIL) || mb_strlen($datos['contacto']) > 100) {
+                exit('El correo de contacto no es válido.');
+
+            } elseif (!ctype_digit((string) $datos['antiguedad']) || $datos['antiguedad'] > 60) {
+                exit('La antigüedad debe estar entre 0 y 60 años.');
             }
 
-            if ($error) {
-                $error;
-            } else {
-                $datos['antiguedad'] = $datos['antiguedad'];
-                UsuarioModel::update($idUsuario, $datos);
-                $_SESSION['usuario_nombre'] = $datos['nombre'];
-            }
-            $this->redirect(url('UsuarioController', 'show'));
-        }catch(err){
+            // imagen
+            if (isset($_FILES['foto']) &&
+                $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
 
+                if ($_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+                    exit('Error al subir la imagen.');
+                }
+
+                if ($_FILES['foto']['size'] > 2 * 1024 * 1024) {
+                    exit('La imagen no puede superar los 2 MB.');
+                }
+
+                $temporal = $_FILES['foto']['tmp_name'];
+
+                $tipo = (new finfo(FILEINFO_MIME_TYPE))->file($temporal);
+
+                $extensiones = [
+                    'image/jpeg' => 'jpg',
+                    'image/png'  => 'png',
+                    'image/webp' => 'webp'
+                ];
+
+                if (!isset($extensiones[$tipo]) || @getimagesize($temporal) === false) {
+                    exit('Selecciona una imagen JPG, PNG o WEBP válida.');
+                }
+
+                $carpeta = __DIR__ . '/../uploads/perfiles/';
+
+                if (!is_dir($carpeta) && !mkdir($carpeta, 0755, true) && !is_dir($carpeta)) {
+                    exit('No se pudo crear la carpeta de imágenes.');
+                }
+
+                $nombreArchivo = 'usuario_' . $idUsuario . '.' . $extensiones[$tipo];
+
+                if (!move_uploaded_file($temporal, $carpeta . $nombreArchivo)) {
+                    exit('No se pudo guardar la imagen.');
+                }
+
+                $datos['foto'] = 'uploads/perfiles/' . $nombreArchivo;
+            }
+
+            if (!UsuarioModel::update($idUsuario, $datos)) {
+                exit('No se pudieron guardar los cambios.');
+            }
+
+            $_SESSION['usuario_nombre'] = $datos['nombre'];
+
+            $this->redirect('index.php?controller=UsuarioController&accion=show');
+
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+            echo 'Error al intentar actualizar el usuario.';
         }
     }
+
 
     public function destroy() {
         try{
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $idUsuario = $_SESSION['usuario']['id'] ?? 0;
+            $idUsuario = $_SESSION['usuario_id'] ?? 0;
             $usuarioActual = UsuarioModel::getById($idUsuario);
 
             if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
@@ -115,8 +172,8 @@ class UsuarioController extends BaseController {
             UsuarioModel::deleteById($id);
 
             $this->redirect('index.php');
-        }catch(err){
-
+        }catch(Exception $e){
+            echo "Error al eliminar el usuario.";
         }
     }
 
@@ -130,11 +187,16 @@ class UsuarioController extends BaseController {
             }
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $usuario = UsuarioModel::validarUsuario($email, $password); 
+            $usuario = UsuarioModel::validarUsuario($email, $password);
 
-            $_SESSION['usuario_id'] = $usuario -> id;
-            $_SESSION['nombre_usuario'] = $usuario -> nombre;
-            $_SESSION['rol'] = $usuario -> tipo;
+            if (!$usuario) {
+                echo "Usuario o contraseña no válidos.";
+                return;
+            }
+
+            $_SESSION['usuario_id'] = $usuario->id;
+            $_SESSION['nombre_usuario'] = $usuario->nombre;
+            $_SESSION['rol'] = $usuario->tipo;
             echo $_SESSION['usuario_id'];
             $this -> redirect("index.php");
         }catch(Exception $e){
