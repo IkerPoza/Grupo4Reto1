@@ -13,7 +13,7 @@
     <title><?= $titulo !== '' ? ($titulo) . ' · ' : '' ?>AERGIBIDE SL</title>
 
     <link rel="stylesheet" href="views/<?= ($css) ?>">
-    <link rel="stylesheet" href="views/estilo.css">
+    <link rel="stylesheet" href="../estilos/estilo.css">
     <script src="scripts/<?= $script ?>" defer></script>
 
 </head>
