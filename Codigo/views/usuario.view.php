@@ -19,7 +19,7 @@ require __DIR__ . '/layout/nav.php';
     <main>
 
         <?php if ($esPropio): ?>
-            <form method="post" action="index.php?controller=AuthController&accion=logout">
+            <form method="post" action="index.php?controller=UsuarioController&accion=logout">
                 <button type="submit" class="cerrarSesion" title="Cerrar sesión">
                     <img src="views/imagenes/CerrarSesion.png" alt="Cerrar sesión">
                 </button>
