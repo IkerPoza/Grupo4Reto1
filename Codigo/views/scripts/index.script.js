@@ -1,11 +1,15 @@
+/* espera a que el html este cargado */
 document.addEventListener("DOMContentLoaded", () => {
+
+    // guadar las constantes de los elementos que necesitamos 
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
     const btnInicio = document.getElementById("bInicio");
 
-    /* 1. Validaciones en tiempo real al salir de cada campo (blur) */
+
+    // vaalida el correo cuando el usuario sale de ese campo
     emailInput.addEventListener("blur", () => {
-        // soolo valida si el usuario ha escrito algo
+        // solo valida si ha escrito algo
         if (emailInput.value.trim() !== "") {
             validarEmail();
         } else {
@@ -13,7 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+
+    // valida la contraseña cuando el usuario sale de ese campo
     passwordInput.addEventListener("blur", () => {
+        // solo valida si ha escrito algo
         if (passwordInput.value !== "") {
             validarPassword();
         } else {
@@ -21,89 +28,93 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* 2. Validación completa al hacer click en boton */
+
+    // valida los dos campos cuando se pulsa el botpn
     btnInicio.addEventListener("click", (event) => {
+        // evita que el formulario se envie automaticamente
         event.preventDefault();
 
         const okEmail = validarEmail();
         const okPassword = validarPassword();
 
-        // si ambos son válidos se hace  con el fetch
         if (okEmail && okPassword) {
-            console.log("Formulario correcto. Preparado para Fetch a PHP.");
-            
-            /* aqui el fetch:
-            fetch('login.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: emailInput.value,
-                    password: passwordInput.value
-                })
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+           
+            // enviar  correo y  contraseña
+            fetch("indexModel.php", {
+                method: "POST",
+                headers: {"Content-Type": "application/json" },
+                body: JSON.stringify({email: email,
+                                      password: password
+                                    })
             })
-            .then(res => res.json())
-            .then(data => console.log(data));
 
-
-            jhgf
-            */
+            .then(response => response.json())
+            .then(data => {console.log(data);})
+            .catch(error => {
+                console.error("Error al enviar los datos:", error);
+            });
         }
+        
     });
+
 });
 
-/* VALIDACIONES */
 
+/* comprobar correo sea valido y no vacio */
 function validarEmail() {
-    const emailInput = document.getElementById("email");
-    const email = emailInput.value.trim();
-    const regExEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const email = document.getElementById("email").value.trim();
+    const expregEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email === "") {
         mostrarError("error-email", "El campo Email no puede estar vacío.");
         return false;
-
-        
     }
 
-    if (!regExEmail.test(email)) {
-        mostrarError("error-email", "Formato de correo no válido (ejemplo: usuario@dominio.com).");
+    if (!expregEmail.test(email)) {
+        mostrarError("error-email", "Formato de correo no válido.");
         return false;
     }
-
     limpiarError("error-email");
     return true;
 }
 
-function validarPassword() {
-    const passwordInput = document.getElementById("password");
-    const password = passwordInput.value;
-    const regExPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
 
+/* comprueba que la contraseña cumpla todos los requisitos */
+function validarPassword() {
+    const password = document.getElementById("password").value;
+    //8 caracteres, mayuscula, minuscula, numero y sumbolo
+    const expregPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
     if (password === "") {
         mostrarError("error-password", "El campo Contraseña no puede estar vacío.");
         return false;
     }
-
-    if (!regExPass.test(password)) {
+    if (!expregPass.test(password)) {
         mostrarError("error-password", "Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.");
         return false;
     }
-
     limpiarError("error-password");
     return true;
 }
 
-/* FUNCIONES PARA MOSTRAR / LIMPIAR MENSAJES */
 
+/* mestra mensaje en el elemento de error  */
 function mostrarError(idElemento, mensaje) {
+    // busca el elemento donde se mostrara el error
     const errorContenedor = document.getElementById(idElemento);
+    // si existe escribe el mensaje
     if (errorContenedor) {
         errorContenedor.textContent = mensaje;
     }
 }
 
+
+/* elimina el mensaje de error del elemento indicado */
 function limpiarError(idElemento) {
+    // busca el elemento tiene el error
     const errorContenedor = document.getElementById(idElemento);
+    // si existe deja  contenido vacio
     if (errorContenedor) {
         errorContenedor.textContent = "";
     }
