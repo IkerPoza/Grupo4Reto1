@@ -5,8 +5,12 @@ require_once __DIR__ . '/../models/PreguntasModel.php';
 class PreguntasController extends BaseController {
     
     public function index() {
-        $preguntas = $this->show();
-        $this -> render('preguntas.view.php', ['preguntas' => $preguntas]);
+        if(isset($_SESSION)){
+            $preguntas = $this->show();
+            $this -> render('preguntas.view.php', ['preguntas' => $preguntas]);
+        }else{
+            $this -> render('index.view.php');
+        }
     }
     
     public function show() {

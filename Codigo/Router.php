@@ -5,10 +5,10 @@ class Router {
     // Como el router no tiene estados, los métodos pueden ser estáticos.
     public static function dispatch() {
         // Determinar controlador (por defecto EmpleadoController)
-        $controllerName = $_GET['controller'] ?? 'UsuarioController';
+        $controllerName = $_POST['controller'] ?? 'PreguntasController';
         
         // Determinar acción (por defecto index)
-        $action = $_GET['accion'] ?? 'index';
+        $action = $_POST['accion'] ?? 'index';
         
         // Cargar y ejecutar controlador
         self::loadController($controllerName, $action);
