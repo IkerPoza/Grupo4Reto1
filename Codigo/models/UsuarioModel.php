@@ -67,4 +67,19 @@ class UsuarioModel {
         return $stmt->execute(['id' => $id]);
     }
 
+    public static function validarUsuario($email, $password){
+        $db = Database::getConnection();
+
+        $stmt = $db -> prepare("SELECT * FROM usuario WHERE email = :email AND contrasena = :password");
+
+        $data =[
+            'email' => $email,
+            'password' => $password
+        ];
+        
+        $stmt->execute($data);
+        return $stmt->fetch();
+
+    }
+
 }
