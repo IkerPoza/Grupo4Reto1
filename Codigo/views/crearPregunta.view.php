@@ -1,4 +1,13 @@
 <?php
+$areas = [
+    'desarrollo' => 'Desarrollo',
+    'diseno' => 'Diseño',
+    'formacion' => 'Formación y Recursos',
+    'administracion' => 'Administración',
+    'soporte' => 'Soporte'
+];
+$nombreArea = $areas[$usuario->area] ?? $usuario->area ?? 'Sin especificar';
+
 $titulo = 'Perfil';
 $css = ['../estilos/crearPregunta-estilo.css'];
 $scripts = [''];
@@ -24,21 +33,11 @@ require __DIR__ . '/layout/nav.php';
             <input type="email" name="gmail" id="gmail" placeholder="Introduce tu gmail" required>
             </div>
             <div>
-            <label for="Tema">Tema</label>
-            <select id="tema" name="tema">
-                            <option value="" selected> --Selecciona el tema de tu pregunta-- </option>
-                            <option value="ingenieriaYDiseno"> Ingeniería y diseño </option>
-                            <option value="produccionYFabricacion"> Producción y fabricación </option>
-                            <option value="mantenimientoYReparacion"> Mantenimiento y reparación </option>
-                            <option value="calidadYSeguridad"> Calidad y seguridad </option>
-                            <option value="investigacionYDesarrollo">Investigación y desarrollo </option>
-                            <option value="electronicaYSistemasInformaticos"> Electrónica y sistemas informáticos </option>
-                            <option value="logisticaYAlmacen"> Logística y almacén </option>
-                            <option value="administracionYRecursosHumanos"> Administración y recursos humanos</option>
-                            <option value="comercialYMarketing"> Comercial y marketing </option>
-                            <option value="informaticaYCiberseguridad"> Informática y ciberseguridad </option>
-                            <option value="comprasYProveedores"> Compras y proveedores </option>
-                            <option value="gestionDeProyectos"> Gestión de proyectos </option>
+            <label for="area">Area</label>
+            <select id="area" name="area" required>
+                <?php foreach (AREAS as $clave => $texto): ?>
+                    <option value="<?= $clave ?>" <?= $usuario->area === $clave ? 'selected' : '' ?>><?= $texto ?></option>
+                <?php endforeach; ?>
             </select>
             </div>
                 
