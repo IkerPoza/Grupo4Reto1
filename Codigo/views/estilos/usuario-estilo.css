@@ -1,0 +1,677 @@
+
+@font-face {
+    font-family: 'mifuente';
+    src: url('../tipografia/Archivo/static/Archivo-Regular.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'mifuente';
+}
+
+body {
+    min-height: 100vh;
+    background-color: #F7F7F8;
+    color: #171717;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.cabecera {
+    min-height: 70px;
+    padding: 8px 25px;
+    background-color: #1D325A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 48px;
+    height: 48px;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.iconoPerfil img {
+    width: 50px;
+    height: 50px;
+}
+
+
+.navegacion {
+    min-height: 40px;
+    padding: 5px 25px;
+    display: flex;
+    align-items: center;
+}
+
+.navegacion img {
+    width: 25px;
+    height: 15px;
+}
+
+/* de esta bista */
+
+main {
+    width: 100%;
+    flex: 1;
+    padding: 12px 3.5% 45px;
+}
+
+.cerrarSesion {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+    border: none;
+}
+
+.cerrarSesion img {
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+
+
+.tarjetaPerfil {
+    width: 100%;
+    min-height: 235px;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 6px #00000025;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    align-items: center;
+    gap: 20px;
+    padding: 28px 30px;
+}
+
+.imagenPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fotoPerfil {
+    width: 112px;
+    height: 112px;
+}
+
+.datosPerfil {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 25px 20px;
+}
+
+.identidad {
+    grid-column: 1 / -1;
+}
+
+.identidad h2 {
+    font-size: 23px;
+    margin-bottom: 4px;
+}
+
+.identidad p {
+    font-size: 16px;
+    color: #687386;
+}
+
+.estadisticas {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(20px, 5vw, 65px);
+}
+
+.estadistica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.estadistica strong {
+    font-size: 23px;
+}
+
+.estadistica span {
+    font-size: 15px;
+}
+
+.editarPerfil, .pestana {
+    border: none;
+    background-color: #E9E9E9;
+    color: #171717;
+    box-shadow: 0 3px 6px #00000025;
+    padding: 12px 18px;
+    font-size: 16px;
+}
+
+.editarPerfil {
+    align-self: end;
+}
+
+.editarPerfil:hover, .pestana:hover {
+    background-color: #D8DDE5;
+}
+
+
+
+.pestanas {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 25px 5px 30px;
+}
+
+.pestana {
+    min-width: 115px;
+}
+
+.pestana.activa {
+    background-color: #20365E;
+    color: white;
+}
+
+
+.listaPreguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.pregunta {
+    width: 100%;
+    min-width: 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 6px #00000025;
+    padding: 20px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.contenidoPregunta {
+    flex: 1;
+    min-width: 0;
+}
+
+.contenidoPregunta h3 {
+    font-size: 21px;
+    margin-bottom: 2px;
+}
+
+.tema {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 8px 3px;
+}
+
+.descripcion {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+.favorito {
+    flex-shrink: 0;
+    width: 34px;
+    height: 42px;
+    padding: 3px;
+    background: transparent;
+    border: none;
+    color: #FFD82F;
+}
+
+.favorito svg {
+    width: 100%;
+    height: 100%;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+}
+
+
+.favorito.guardado svg {
+    fill: #FFD82F;
+}
+
+.mensajeVacio {
+    padding: 35px 20px;
+    text-align: center;
+    background-color: white;
+    color: #687386;
+    box-shadow: 0 3px 6px #00000025;
+}
+
+
+.encabezadoEdicion {
+    margin: 5px 0 25px;
+}
+
+.encabezadoEdicion h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.encabezadoEdicion p {
+    color: #687386;
+    font-size: 15px;
+}
+
+.formularioPerfil {
+    display: grid;
+    grid-template-columns: minmax(200px, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: 50px;
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 3px 6px #00000025;
+}
+
+.imagenEdicion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.imagenEdicion .fotoPerfil {
+    width: 135px;
+    height: 135px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.imagenEdicion p {
+    font-size: 17px;
+}
+
+.imagenEdicion span {
+    font-size: 13px;
+    color: #687386;
+}
+
+.formularioPerfil form {
+    width: 100%;
+    max-width: 530px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.campo label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.campo input, .campo select {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    border: 1px solid #C8CDD5;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 15px;
+    color: #171717;
+    box-shadow: 0 2px 4px #0000000D;
+}
+
+.campo input:focus, .campo select:focus {
+    outline: 2px solid #8DA6D0;
+    outline-offset: 1px;
+}
+
+.campo input::placeholder {
+    color: #A6AAB1;
+}
+
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.botones button {
+    padding: 12px 18px;
+    border: none;
+    font-size: 14px;
+}
+
+.botonesPerfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.eliminarPerfil {
+    padding: 12px 18px;
+    background-color: #eeeeee;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px #bdbdbd;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.eliminarPerfil:hover {
+    background-color: #dddddd;
+}
+
+.botonGuardar {
+    background-color: #20365E;
+    color: white;
+}
+
+.botonGuardar:hover {
+    background-color: #304B7A;
+}
+
+.botonBorrar {
+    background-color: #D9DEE6;
+    color: #171717;
+}
+
+.botonBorrar:hover {
+    background-color: #C6CEDA;
+}
+
+.botonCancelar {
+    background-color: transparent;
+    color: #20365E;
+    border: 1px solid #C8CDD5;
+}
+
+.botonCancelar:hover {
+    background-color: #F0F2F5;
+}
+
+.mensajeGuardado {
+    margin-top: 18px;
+    color: #267344;
+    font-size: 14px;
+}
+
+
+[hidden] {
+    display: none ;
+}
+
+/* comun otra vez */
+
+.pie {
+    width: 100%;
+    min-height: 115px;
+    padding: 20px 4%;
+    background-color: #20365E;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 25px;
+}
+
+.pie p, .pie h2 {
+    color: white;
+}
+
+.direccion p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.redesSociales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.redesSociales a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.redesSociales img {
+    width: 34px;
+    height: 34px;
+}
+
+.contacto {
+    justify-self: end;
+}
+
+.contacto h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.contacto p {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+/* mediano */
+
+@media (max-width: 800px) {
+
+    main {
+        padding: 12px 22px 35px;
+    }
+
+    .tarjetaPerfil {
+        grid-template-columns: 125px minmax(0, 1fr);
+        padding: 25px 20px;
+        gap: 15px;
+    }
+
+    .fotoPerfil {
+        width: 95px;
+        height: 95px;
+    }
+
+    .datosPerfil {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .identidad {
+        grid-column: auto;
+    }
+
+    .estadisticas {
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .editarPerfil {
+        justify-self: start;
+    }
+
+    .formularioPerfil {
+        gap: 30px;
+        padding: 30px;
+        grid-template-columns: minmax(150px, 0.7fr) minmax(0, 1.3fr);
+    }
+
+    .pie {
+        padding: 20px 25px;
+        gap: 15px;
+    }
+
+    .redesSociales {
+        gap: 9px;
+    }
+
+    .redesSociales img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* oequeño */
+
+@media (max-width: 550px) {
+
+    .cabecera {
+        min-height: 62px;
+        padding: 8px 15px;
+    }
+
+    .logo {
+        gap: 10px;
+    }
+
+    .logo img,
+    .iconoPerfil img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo h1 {
+        font-size: 18px;
+    }
+
+    .navegacion {
+        padding-left: 15px;
+    }
+
+    main {
+        padding: 10px 15px 30px;
+    }
+
+    .tarjetaPerfil {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 25px 18px;
+    }
+
+    .datosPerfil {
+        text-align: center;
+        justify-items: center;
+    }
+
+    .identidad {
+        width: 100%;
+    }
+
+    .identidad h2 {
+        font-size: 21px;
+    }
+
+    .estadisticas {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .estadistica strong {
+        font-size: 20px;
+    }
+
+    .estadistica span {
+        font-size: 12px;
+    }
+
+    .editarPerfil {
+        justify-self: center;
+    }
+
+    .pestanas {
+        gap: 12px;
+        margin: 22px 0;
+    }
+
+    .pestana {
+        flex: 1;
+        min-width: 0;
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .listaPreguntas {
+        gap: 18px;
+    }
+
+    .pregunta {
+        padding: 16px 13px;
+        gap: 10px;
+    }
+
+    .contenidoPregunta h3 {
+        font-size: 18px;
+    }
+
+    .descripcion {
+        font-size: 13px;
+    }
+
+    .favorito {
+        width: 29px;
+        height: 36px;
+    }
+
+    .encabezadoEdicion h2 {
+        font-size: 23px;
+    }
+
+    .formularioPerfil {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 24px 18px;
+    }
+
+    .formularioPerfil form {
+        max-width: none;
+    }
+
+    .botones {
+        gap: 10px;
+    }
+
+    .botones button {
+        flex: 1;
+        padding: 12px 10px;
+    }
+
+    .pie {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 22px;
+        padding: 25px 15px;
+    }
+
+    .redesSociales {
+        grid-row: 2;
+    }
+
+    .contacto {
+        justify-self: center;
+    }
+}

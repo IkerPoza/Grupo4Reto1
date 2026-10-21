@@ -1,0 +1,123 @@
+@font-face{
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'mifuente';
+}
+
+@font-face{
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
+.login-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 40px 20px;
+  background-color: #F7F7F8;
+}
+
+
+.login-division {
+  width: 100%;
+  max-width: 380px;
+  padding: 35px 30px;
+  background-color: #5B6F8F;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.login-titulo {
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.input-email, .input-password {
+  margin-bottom: 18px;
+}
+
+.inicioSesion-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+.inicioSesion-form input[type="email"], .inicioSesion-form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 15px;
+  outline: none;
+}
+
+.inicioSesion-form input[type="email"]::placeholder, .inicioSesion-form input[type="password"]::placeholder {
+  color: #a3a3a3;
+}
+
+
+.botones {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 15px;
+}
+
+.botones form{
+  width: 100%;
+}
+
+#bRegistro{
+  width: 100%;
+}
+
+
+.inicioSesion-form button, .inicioSesion-form input[type="submit"], .btn-registro {
+  flex: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #C8D0DA;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+}
+
+.inicioSesion-form button:hover, .inicioSesion-form input[type="submit"]:hover, .btn-registro:hover {
+  background-color: #b5c0cc;
+}
+.mensajeError {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.mensaje-error{
+  color: red;
+}

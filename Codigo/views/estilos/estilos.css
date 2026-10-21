@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'mifuente';
+}
+
+body {
+    min-height: 100vh;
+    background-color: #F7F7F8;
+    color: #171717;
+    display: flex;
+    flex-direction: column;
+}
+
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+
+.cabecera {
+    min-height: 90px;
+    padding: 8px 36px;
+    background-color: #1D325A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.logo form {
+    margin: 0;
+}
+
+.logo button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.perfil form {
+    margin: 0;
+}
+
+.botonPerfil {
+    background-color: transparent;
+    border: none;
+}
+
+
+
+
+
+
+
+
+.navegacion {
+    min-height: 40px;
+    padding: 5px 25px;
+    display: flex;
+    align-items: center;
+}
+
+.navegacion img {
+    width: 27px;
+    height: 27px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.pie {
+    width: 100%;
+    min-height: 115px;
+    padding: 20px 4%;
+    background-color: #20365E;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 25px;
+}
+
+.pie p, .pie h2 {
+    color: white;
+}
+
+.direccion p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.redesSociales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.redesSociales a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.redesSociales img {
+    width: 34px;
+    height: 34px;
+}
+
+.contacto {
+    justify-self: end;
+}
+
+.contacto h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.contacto p {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+main {
+    width: 100%;
+    flex: auto;
+    padding: 12px 3.5% 45px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

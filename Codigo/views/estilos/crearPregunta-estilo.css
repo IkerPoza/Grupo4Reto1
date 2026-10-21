@@ -1,0 +1,144 @@
+@font-face{
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
+
+body {
+  background-color: #EAEBED; 
+}
+
+.crearPregunta-contenedor {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 90%;                    
+  max-width: 1250px;          
+  min-height: 580px;            
+  margin: 20px auto 40px auto; 
+  padding: 50px 80px;             
+  background-color: #ffffff;     
+  border-radius: 2px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.crearPregunta-division {
+  width: 100%;
+  max-width: 480px;           
+}
+
+.crearPregunta-titulo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #111111;
+}
+
+.crearPregunta-form div {
+  margin-bottom: 20px;
+}
+
+.crearPregunta-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.crearPregunta-form input[type="text"],
+.crearPregunta-form input[type="email"],
+.crearPregunta-form select {
+  width: 100%;
+  padding: 12px 16px;            
+  background-color: #ffffff;
+  border: 1.5px solid #111111;
+  border-radius: 2px;
+  font-size: 15px;
+  color: #333333;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.crearPregunta-form input::placeholder {
+  color: #b5b5b5;
+}
+
+.crearPregunta-form select {
+  cursor: pointer;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+}
+
+
+
+.crearPregunta-form .btn-annadir,
+.crearPregunta-form .btn-eliminar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
+  padding: 11px 26px;
+  margin-top: 15px;
+  margin-right: 15px;
+  background-color: #C8D0DA; 
+  color: #111111;
+  text-decoration: none;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.crearPregunta-form .btn-annadir:hover,
+.crearPregunta-form .btn-eliminar:hover {
+  background-color: #b5c0cc;
+}
+
+.crearPregunta-form .btn-annadir:active,
+.crearPregunta-form .btn-eliminar:active {
+  transform: translateY(1px);
+}
+
+
+
+.crearPregunta-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crearPregunta-imagen label {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.crearPregunta-imagen label:hover {
+  transform: scale(1.05);
+}
+
+.crearPregunta-imagen img {
+  width: 250px;                  
+  height: auto;
+  display: block;
+}
+
+.mensaje-error{
+  color: red;
+}
+
+.mensajeError {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
