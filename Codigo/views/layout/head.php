@@ -1,7 +1,7 @@
 <?php
 $titulo = $titulo ?? '';
-$css = $css ?? [];
-$scripts = $scripts ?? [];
+$css = $css ?? '';
+$scripts = $scripts ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +11,7 @@ $scripts = $scripts ?? [];
     <title><?= $titulo !== '' ? $titulo . ' · ' : '' ?>AERGIBIDE SL</title>
     <link rel="stylesheet" href="views/estilos/<?= $css ?>">
     <link rel="stylesheet" href="views/estilos/estilos.css">
-    <script src="views/scripts/<?= $script ?>" defer></script>
+    <script src="views/scripts/<?= $scripts ?>" defer></script>
 </head>
 <body>
     <header class="cabecera">

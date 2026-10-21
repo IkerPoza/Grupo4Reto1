@@ -14,23 +14,14 @@ class RegistroModel {
 
     /* Inserta el nuevo usuario con la contraseña cifrada */
     public static function registrarUsuario($datos) {
-        $db = getConnection();
-        
-        $passwordHash = password_hash($datos['password'], PASSWORD_DEFAULT);
+        $db = Database::getConnection();
 
         $stmt = $db->prepare(
-            "INSERT INTO usuario (nombre, apellido, email, area, antiguedad, contraseña)
-            VALUES (:nombre, :apellidos, :email, :area, :antiguedad, :contrasena)"
+            "INSERT INTO usuario (nombre, apellidos, email, area, antiguedad, contrasena)
+            VALUES (:nombre, :apellidos, :email, :area, :antiguedad, :password)"
         );
 
-        return $stmt->execute([
-            "nombre"     => $datos['nombre'],
-            "apellidos"  => $datos['apellidos'],
-            "email"      => $datos['email'],
-            "area"       => $datos['area'],
-            "antiguedad" => $datos['antiguedad'],
-            "contrasena" => $passwordHash
-        ]);
+        $stmt->execute($datos);
     }
 }
 
