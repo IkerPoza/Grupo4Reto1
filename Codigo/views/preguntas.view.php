@@ -1,10 +1,9 @@
 <?php
 $titulo = 'Preguntas';
-$css = ['preguntas-estilo.css'];
-$scripts = ['preguntas.view.script.js'];
+$css = 'preguntas-estilo.css';
+$scripts = 'preguntas.view.script.js';
 
 require __DIR__ . '/layout/head.php';
-require __DIR__ . '/layout/nav.php';
 ?>
 
 <main>
