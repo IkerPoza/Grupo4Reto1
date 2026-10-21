@@ -23,6 +23,8 @@ require __DIR__ . '/layout/head.php';
     <div class="contenidoPreguntas">
         <aside>
             <form action="index.php" method="POST">
+                <input type="hidden" name="controller" value="CrearPreguntaController">
+                <input type="hidden" name="accion" value="store">
                 <label class="publicarPregunta">
                     <input name="publicar" type="submit" hidden>
                     <svg width="15" height="15" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
