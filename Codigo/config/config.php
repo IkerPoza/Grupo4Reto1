@@ -8,7 +8,7 @@ define('DB_PASS', '');
 
 if (!defined('AREAS')) {
     define('AREAS', [
-        "ingenieriaYDiseno" => "Ingeniería y diseño" ,
+        "ingenieriaYDiseno" => "Ingeniería y diseño",
         "produccionYFabricacion" => "Producción y fabricación",
         "mantenimientoYReparacion" => "Mantenimiento y reparación",
         "calidadYSeguridad" => "Calidad y seguridad",
@@ -19,6 +19,6 @@ if (!defined('AREAS')) {
         "comercialYMarketing" => "Comercial y marketing",
         "informaticaYCiberseguridad" => "Informática y ciberseguridad",
         "comprasYProveedores" => "Compras y proveedores",
-        "gestionDeProyectos" => "Gestión de proyectos"
+        "gestionDeProyectos" => "Gestión de proyectos" 
     ]);
 }
