@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nombreInput.value.trim() !== "") {
             validarNombre();
         } else {
-            limpiarError("error-nombre");
+            mostrarError("error-nombre", "*El campo no puede estar vacio");
         }
     });
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (apellidoInput.value.trim() !== "") {
             validarApellido();
         } else {
-            limpiarError("error-apellidos");
+            mostrarError("error-apellidos", "*El campo no puede estar vacio");
         }
     });
  
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (emailInput.value.trim() !== "") {
             validarEmail();
         } else {
-            limpiarError("error-email");
+            mostrarError("error-email", "*El campo no puede estar vacio");
         }
     });
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (areaSelect.value !== "") {
             validarArea();
         } else {
-            limpiarError("error-area");
+            mostrarError("error-area", "*El campo no puede estar vacio");
         }
     });
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (antiguedadInput.value !== "") {
             validarAntiguedad();
         } else {
-            limpiarError("error-area");
+            mostrarError("error-antiguedad", "*El campo no puede estar vacio");
         }
     });
 
@@ -62,62 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (passwordInput.value !== "") {
             validarPassword();
         } else {
-            limpiarError("error-password");
+            mostrarError("error-password", "*El campo no puede estar vacio");
         }
-
-
-
-    /* validar todos los campos al pulsar el boton de registrarse */
-    btnRegistro.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        //comprobar todos los campos para asegurarnos otra vez de que todo esta bien 
-        // Comprueba todos los campos
-        const okNombre = validarNombre();
-        const okApellidos = validarApellido();
-        const okEmail = validarEmail();
-        const okArea = validarArea();
-        const okAntiguedad = validarAntiguedad();
-        const okPassword = validarPassword();
-
-        // y si algo falla no continua
-        if (!okNombre ||!okApellidos ||!okEmail ||!okArea || !okAntiguedad ||!okPassword) {
-            return;
-        }
-
-        // recoge todos los datos del formulario
-        const datosEmpleado = {
-            nombre: nombreInput.value.trim(),
-            apellidos: apellidoInput.value.trim(),
-            email: emailInput.value.trim(),
-            area: areaSelect.value,
-            antiguedad: antiguedadInput.value,
-            password: passwordInput.value
-        };
-
-
-        //ENVIAR DATOS AL SERVIDOR 
-        fetch("index.php?controller=registro&action=store", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(datosEmpleado)
-            })
-
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-            alert(data.mensaje);
-            window.location.href = "index.php"; // rredirigir al login
-    } else {
-        alert(data.mensaje);
-    }
-        })
-        .catch(error => {
-            console.error("Error al registrar al empleado:", error);
-        });
-        
     });
-});
 });
 
 
@@ -126,14 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     /* validar nombre */
     function validarNombre() {
         const nombre = document.getElementById("nombre").value.trim();
-        const expregNombre = /^[A-Za-zÁÉÍÓÚáéíóú]+$/;
+        const expregNombre = /^[A-ZÁÉÍÓÚ][a-záéíóúñ]+$/;
 
-        if (nombre === "") {
-            mostrarError("error-nombre", "El campo 'Nombre' no puede estar vacio");
-            return false;
-        }
         if (!expregNombre.test(nombre)) {
-            mostrarError("error-email", "Formato de nombre no valido");
+            mostrarError("error-nombre", "Formato de nombre no valido");
             return false;
         }
         limpiarError("error-nombre");
@@ -143,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* validar apellidos */
     function validarApellido() {
         const apellidos = document.getElementById("apellidos").value.trim();
-        const expregApellidos = /^[A-Za-zÁÉÍÓÚáéíóú]+$/;
+        const expregApellidos = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$/;
 
         if (apellidos === "") {
             mostrarError("error-apellidos", "El campo 'Apellidos' no puede estar vacio");
@@ -218,6 +161,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         limpiarError("error-password");
         return true;
+    }
+
+    /* mestra mensaje en el elemento de error  */
+    function mostrarError(idElemento, mensaje) {
+        // busca el elemento donde se mostrara el error
+        const errorContenedor = document.getElementById(idElemento);
+        // si existe escribe el mensaje
+        if (errorContenedor) {
+            errorContenedor.textContent = mensaje;
+        }
+    }
+
+    /* elimina el mensaje de error del elemento indicado */
+    function limpiarError(idElemento) {
+        // busca el elemento tiene el error
+        const errorContenedor = document.getElementById(idElemento);
+        // si existe deja  contenido vacio
+        if (errorContenedor) {
+            errorContenedor.textContent = "";
+        }
     }
 
     

@@ -5,34 +5,15 @@ $scripts = $scripts ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title><?= htmlspecialchars($titulo) ?> · AERGIBIDE SL</title>
-
-    <!-- CSS común -->
+    <title><?= $titulo !== '' ? $titulo . ' · ' : '' ?>AERGIBIDE SL</title>
+    <link rel="stylesheet" href="views/estilos/<?= $css ?>">
     <link rel="stylesheet" href="views/estilos/estilos.css">
-
-    <!-- CSS específico de cada vista -->
-    <?php foreach ($css as $archivo): ?>
-        <link rel="stylesheet" href="views/estilos/<?= htmlspecialchars($archivo) ?>">
-    <?php endforeach; ?>
-
-    <!-- JavaScript específico de cada vista -->
-    <?php foreach ($scripts as $archivo): ?>
-        <script src="views/scripts/<?= htmlspecialchars($archivo) ?>" defer></script>
-    <?php endforeach; ?>
-
+    <script src="views/scripts/<?= $script ?>" defer></script>
 </head>
-
 <body>
-
-
-<body>
-
-
     <header class="cabecera">
         <div class="logo">
             <form action="index.php" method="POST">

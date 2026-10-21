@@ -203,31 +203,4 @@ class UsuarioController extends BaseController {
         exit;
     }
 
-
-    //validar el ususario
-    public function validarUsuario(){
-        try{
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-            $usuario = UsuarioModel::validarUsuario($email, $password);
-
-            if (!$usuario) {
-                echo "Usuario o contraseña no válidos.";
-                return;
-            }
-
-            $_SESSION['usuario_id'] = $usuario->id;
-            $_SESSION['nombre_usuario'] = $usuario->nombre;
-            $_SESSION['rol'] = $usuario->tipo;
-            echo $_SESSION['usuario_id'];
-            $this -> redirect("index.php");
-        }catch(Exception $e){
-            echo "Usuario o Contraseña no valido.";
-        }
-        
-    }
-
 }

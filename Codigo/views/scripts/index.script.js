@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (emailInput.value.trim() !== "") {
             validarEmail();
         } else {
-            limpiarError("error-email");
+            mostrarError("error-email", "*El campo no puede estar vacio");
         }
     });
 
@@ -24,39 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (passwordInput.value !== "") {
             validarPassword();
         } else {
-            limpiarError("error-password");
+            mostrarError("error-password", "*El campo no puede estar vacio");
         }
-    });
-
-
-    // valida los dos campos cuando se pulsa el botpn
-    btnInicio.addEventListener("click", (event) => {
-        // evita que el formulario se envie automaticamente
-        event.preventDefault();
-
-        const okEmail = validarEmail();
-        const okPassword = validarPassword();
-
-        if (okEmail && okPassword) {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-           
-            // enviar  correo y  contraseña
-            fetch("indexModel.php", {
-                method: "POST",
-                headers: {"Content-Type": "application/json" },
-                body: JSON.stringify({email: email,
-                                      password: password
-                                    })
-            })
-
-            .then(response => response.json())
-            .then(data => {console.log(data);})
-            .catch(error => {
-                console.error("Error al enviar los datos:", error);
-            });
-        }
-        
     });
 
 });
