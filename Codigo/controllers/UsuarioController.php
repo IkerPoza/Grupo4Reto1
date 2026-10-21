@@ -24,14 +24,18 @@ class UsuarioController extends BaseController {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $idUsuario = $_SESSION['usuario_id'] ?? 0;
+            
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
 
             $id = isset($_GET['id']) ? $_GET['id'] : $idUsuario;
+
             $usuario = UsuarioModel::getById($id);
+
             if (!$usuario) {
                 echo 'Usuario no encontrado.';
                 return;
             }
+
 
             $esPropio = ($id == $idUsuario);
             $usuarioActual = UsuarioModel::getById($idUsuario);
@@ -62,7 +66,7 @@ class UsuarioController extends BaseController {
                 session_start();
             }
 
-            $idUsuario = $_SESSION['usuario_id'] ?? 0;
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
 
             if (!$idUsuario) {
                 exit('Debes iniciar sesión.');
@@ -154,7 +158,7 @@ class UsuarioController extends BaseController {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $idUsuario = $_SESSION['usuario_id'] ?? 0;
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
             $usuarioActual = UsuarioModel::getById($idUsuario);
 
             if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
