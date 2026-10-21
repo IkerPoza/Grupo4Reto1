@@ -18,6 +18,7 @@ class UsuarioController extends BaseController {
         
     }
 
+    //datos del usuario
     public function show() {
         try{
             if (session_status() === PHP_SESSION_NONE) {
@@ -54,6 +55,7 @@ class UsuarioController extends BaseController {
     }
 
     
+    //actualizar usuario
     public function update() {
         try {
             if (session_status() === PHP_SESSION_NONE) {
@@ -146,7 +148,7 @@ class UsuarioController extends BaseController {
         }
     }
 
-
+    //eliminar usuario si eres admin
     public function destroy() {
         try{
             if (session_status() === PHP_SESSION_NONE) {
@@ -177,6 +179,7 @@ class UsuarioController extends BaseController {
         }
     }
 
+    //cerrar sesion
     public function logout(){
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -200,6 +203,8 @@ class UsuarioController extends BaseController {
         exit;
     }
 
+
+    //validar el ususario
     public function validarUsuario(){
         try{
             if (session_status() === PHP_SESSION_NONE) {

@@ -17,7 +17,7 @@ require __DIR__ . '/layout/nav.php';
 ?>
 
     <main>
-
+        <!-- si es tu perfil -->
         <?php if ($esPropio): ?>
             <form method="post" action="index.php?controller=UsuarioController&accion=logout">
                 <button type="submit" class="cerrarSesion" title="Cerrar sesión">
@@ -60,6 +60,7 @@ require __DIR__ . '/layout/nav.php';
                     </article>
                     </div>
 
+                    <!-- si es tu perfil o eres admin -->
                     <?php if ($esAdmin || $esPropio): ?>
                         <div class="botonesPerfil">
                             <?php if ($esAdmin): ?>

@@ -79,6 +79,8 @@ class UsuarioModel {
         return $stmt->execute(['id' => $id]);
     }
 
+
+    //validar el usuario
     public static function validarUsuario($email, $password){
         $db = Database::getConnection();
 
