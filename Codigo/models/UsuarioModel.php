@@ -29,9 +29,17 @@ class UsuarioModel {
     public static function update($id, $datos) {
         $db = Database::getConnection();
         
-        $stmt = $db->prepare("UPDATE usuario SET nombre = :nombre, apellidos = :apellidos, area = :area, contacto = :contacto, antiguedad = :antiguedad WHERE id = :id");
-        
-        $data =[
+        $sql = "UPDATE usuario SET nombre = :nombre, apellidos = :apellidos, area = :area, email = :contacto, antiguedad = :antiguedad";
+
+        if ($datos['foto'] !== null) {
+            $sql .= ", foto = :foto";
+        }
+
+        $sql .= " WHERE id = :id";
+
+        $stmt = $db->prepare($sql);
+
+        $data = [
             'nombre'     => $datos['nombre'],
             'apellidos'  => $datos['apellidos'],
             'area'       => $datos['area'],
@@ -39,7 +47,11 @@ class UsuarioModel {
             'antiguedad' => $datos['antiguedad'],
             'id'         => $id
         ];
-        
+
+        if ($datos['foto'] !== null) {
+            $data['foto'] = $datos['foto'];
+        }
+
         return $stmt->execute($data);
     }
 

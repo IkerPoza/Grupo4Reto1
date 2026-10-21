@@ -2,7 +2,7 @@
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/IndexModel.php';
 
-class UsuarioController extends BaseController {
+class IndexController extends BaseController {
 
     public function index() {
        

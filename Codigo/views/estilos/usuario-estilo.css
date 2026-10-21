@@ -77,11 +77,13 @@ main {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 12px;
+    border: none;
 }
 
 .cerrarSesion img {
     width: 30px;
     height: 30px;
+    border: none;
 }
 
 
@@ -151,11 +153,6 @@ main {
 
 .estadistica span {
     font-size: 15px;
-}
-
-button {
-    font: inherit;
-    cursor: pointer;
 }
 
 .editarPerfil, .pestana {

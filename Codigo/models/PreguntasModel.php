@@ -46,7 +46,7 @@ class PreguntasModel {
 
         $stmt = $db -> prepare("SELECT p.*, (SELECT COUNT(*) FROM respuesta r WHERE r.idPregunta=p.id) AS totalRespuestas, EXISTS(SELECT 1 FROM preguntaGuardada g WHERE g.idPregunta=p.id AND g.idUsuario=?) AS guardada FROM pregunta p WHERE p.idUsuario=? ORDER BY p.fecha DESC");
         
-        $stmt->execute(["id" => $id]); 
+        $stmt->execute([$id, $id]);
         
         return $stmt->fetchAll();
     }
@@ -56,7 +56,7 @@ class PreguntasModel {
         
         $stmt = $db -> prepare("SELECT p.*, (SELECT COUNT(*) FROM respuesta r WHERE r.idPregunta=p.id) AS totalRespuestas, 1 AS guardada FROM preguntaGuardada g JOIN pregunta p ON p.id=g.idPregunta WHERE g.idUsuario=? ORDER BY p.fecha DESC"); 
         
-        $stmt->execute(["id" => $id]); 
+        $stmt->execute([$id]);
         
         return $stmt->fetchAll();
     }

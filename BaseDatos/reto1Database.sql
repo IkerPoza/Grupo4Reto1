@@ -16,6 +16,7 @@ CREATE TABLE usuario (
     antiguedad INT DEFAULT 0,
     numPreguntas INT DEFAULT 0,
     numRespuestas INT DEFAULT 0,
+    foto VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (id)
 );
 

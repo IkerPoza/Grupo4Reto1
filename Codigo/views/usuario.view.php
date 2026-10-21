@@ -1,24 +1,25 @@
 <?php
+$areas = [
+    'desarrollo' => 'Desarrollo',
+    'diseno' => 'Diseño',
+    'formacion' => 'Formación y Recursos',
+    'administracion' => 'Administración',
+    'soporte' => 'Soporte'
+];
+$nombreArea = $areas[$usuario->area] ?? $usuario->area ?? 'Sin especificar';
+
 $titulo = 'Perfil';
-$css = ['estilos/estilos.css', 'estilos/usuario-estilo.css'];
-$scripts = ['views/scripts/usuario.script.js'];
+$css = ['usuario-estilo.css'];
+$scripts = ['usuario.script.js'];
+
 require __DIR__ . '/layout/head.php';
 require __DIR__ . '/layout/nav.php';
 ?>
 
-    <nav class="navegacion">
-        <a href="index.php">
-            <svg width="30" height="19" viewBox="0 0 23 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.39156 0.54592C9.39176 0.432169 9.32391 0.321233 9.19752 0.228636C9.07113 0.136039 8.89252 0.0664156 8.68669 0.0295081C8.48085 -0.00739933 8.25809 -0.00974339 8.04958 0.022804C7.84107 0.0553514 7.65725 0.121161 7.52383 0.211024L0.219844 5.11992C0.077359 5.21566 0 5.33351 0 5.45481C0 5.57612 0.077359 5.69396 0.219844 5.78971L7.52383 10.6986C7.65725 10.7885 7.84107 10.8543 8.04958 10.8868C8.25809 10.9194 8.48085 10.917 8.68669 10.8801C8.89252 10.8432 9.07113 10.7736 9.19752 10.681C9.32391 10.5884 9.39176 10.4775 9.39156 10.3637V8.18743C15.0042 8.24852 17.7004 8.80541 19.0547 9.41084C20.3423 9.98627 20.5781 10.6631 20.8233 11.3722L20.887 11.5549C20.9338 11.6857 21.0704 11.803 21.2711 11.8847C21.4718 11.9665 21.7228 12.0071 21.9767 11.999C22.2307 11.9908 22.4702 11.9344 22.6502 11.8404C22.8302 11.7463 22.9382 11.6211 22.954 11.4884C23.1324 9.98954 22.8643 7.81763 20.839 6.00079C18.8732 4.23741 15.3339 2.88146 9.39156 2.73965V0.54592Z" fill="#5B6F8F"/>
-            </svg>
-        </a>
-    </nav>
-
-
     <main>
-
+        <!-- si es tu perfil -->
         <?php if ($esPropio): ?>
-            <form method="post" action="<?= url('AuthController', 'logout') ?>">
+            <form method="post" action="index.php?controller=UsuarioController&accion=logout">
                 <button type="submit" class="cerrarSesion" title="Cerrar sesión">
                     <img src="views/imagenes/CerrarSesion.png" alt="Cerrar sesión">
                 </button>
@@ -29,13 +30,13 @@ require __DIR__ . '/layout/nav.php';
             <section class="perfil tarjetaPerfil" id="perfil">
 
                 <div class="imagenPerfil">
-                    <img src="imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
+                    <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.png', ENT_QUOTES, 'UTF-8') ?>" alt="Foto de perfil" class="fotoPerfil">
                 </div>
 
                 <div class="datosPerfil">
                     <div class="identidad">
                         <h2 id="nombreVisible"><?= $usuario->nombre . ' ' . $usuario->apellidos ?></h2>
-                        <p id="areaVisible"><?= nombreArea($usuario->area) ?></p>
+                        <p id="areaVisible"><?= htmlspecialchars($nombreArea) ?></p>
                     </div>
 
                     <div class="estadisticas">
@@ -59,6 +60,7 @@ require __DIR__ . '/layout/nav.php';
                     </article>
                     </div>
 
+                    <!-- si es tu perfil o eres admin -->
                     <?php if ($esAdmin || $esPropio): ?>
                         <div class="botonesPerfil">
                             <?php if ($esAdmin): ?>
@@ -92,17 +94,27 @@ require __DIR__ . '/layout/nav.php';
                 <?php if (!$preguntas): ?>
                     <p class="mensajeVacio">Todavía no ha publicado ninguna pregunta.</p>
                 <?php endif; ?>
-                <?php foreach ($preguntas as $p) { 
-                    $tarjeta($p, (bool)$p->guardada); 
-                } ?>
+                <?php foreach ($preguntas as $p): ?>
+                    <article class="tarjetaPregunta">
+                        <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                        <p><?= htmlspecialchars($p->descripcion) ?></p>
+                        <p>Tema: <?= htmlspecialchars($p->tema) ?></p>
+                        <p>Respuestas: <?= $p->totalRespuestas ?></p>
+                    </article>
+                <?php endforeach; ?>
             </section>
 
 
             <section id="listaFavoritas" class="listaPreguntas" hidden>
                 <p id="sinFavoritas" class="mensajeVacio" <?= $guardadas ? 'hidden' : '' ?>> Todavía no has añadido preguntas a favoritos.</p>
-                <?php foreach ($guardadas as $p) { 
-                    $tarjeta($p, true); 
-                } ?>
+                <?php foreach ($guardadas as $p): ?>
+                    <article class="tarjetaPregunta">
+                        <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                        <p><?= htmlspecialchars($p->descripcion) ?></p>
+                        <p>Tema: <?= htmlspecialchars($p->tema) ?></p>
+                        <p>Respuestas: <?= $p->totalRespuestas ?></p>
+                    </article>
+                <?php endforeach; ?>
             </section>
         </section>
 
@@ -113,13 +125,19 @@ require __DIR__ . '/layout/nav.php';
                 <p>Actualiza tu información personal y profesional.</p>
             </div>
 
+            
             <section class="formularioPerfil">
-                <div class="imagenEdicion">
-                    <img src="views/imagenes/ImagenVacia.png" alt="Foto de perfil" class="fotoPerfil">
-                    <p><b>Foto de perfil</b></p>
-                    <p>Podrás añadir una imagen más adelante.</p>
-                </div>
-                <form id="formPerfil" action="<?= url('UsuarioController', 'update') ?>" method="POST">
+                <form id="formPerfil" action="index.php?controller=UsuarioController&accion=update" method="POST" enctype="multipart/form-data">
+
+                    <div class="imagenEdicion">
+                        <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.png', ENT_QUOTES, 'UTF-8') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
+
+                        <p><b>Foto de perfil</b></p>
+
+                        <label for="foto">Selecciona una imagen</label>
+                        <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
+                    </div>
+
                     <div class="campo">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre" value="<?= $usuario->nombre ?>" placeholder="Escribe tu nombre" maxlength="100" required>
@@ -138,7 +156,7 @@ require __DIR__ . '/layout/nav.php';
                     </div>
                     <div class="campo">
                         <label for="contacto">Correo electrónico de contacto</label>
-                        <input type="email" id="contacto" name="contacto" value="<?= $usuario->contacto ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
+                        <input type="email" id="contacto" name="contacto" value="<?= $usuario->email ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
                     </div>
                     <div class="campo">
                         <label for="antiguedad">Antigüedad (años)</label>
