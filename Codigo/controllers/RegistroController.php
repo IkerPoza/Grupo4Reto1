@@ -28,7 +28,7 @@ class RegistroController extends BaseController {
                     throw new Exception();
             }
 
-            $usuario = RegistroModel::registrarUsuario($datos);
+            RegistroModel::registrarUsuario($datos);
 
             if(isset($_COOKIE['error'])):
                 setcookie("error", "", time() - 3600);
