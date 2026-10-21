@@ -1,37 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/estilos/estilos.css">
-    <link rel="stylesheet" href="views/estilos/registro-estilo.css">
-</head>
-
-<body>
-
-<?php require __DIR__.'/layout/head.php';?>
-
+<?php 
+    $titulo = 'Registro';
+    $css = 'Registro-estilo.css';
+    $script = 'registro.script.js';
+    require __DIR__.'/layout/head.php';
+?>
 
 <main class="registro-contenedor">
     <div class="registro-division">
         <h2 class="registro-titulo">Registrarse</h2>
 
-        <form class="registro-form">
+        <form action="index.php" class="registro-form" method="POST">
             <p>
             <label for="Nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" required>
+            <small class="mensaje-error" id="error-nombre"></small>
             </p>
             <p>
             <label for="Apellidos">Apellidos</label>
             <input type="text" name="apellidos" id="apellidos" placeholder="Introduce tus apellidos" required>
+            <small class="mensaje-error" id="error-apellidos"></small>
             </p>
             <p>
-            <label for="Gmail">Gmail</label>
-            <input type="email" name="gmail" id="gmail" placeholder="Introduce tu gmail" required>
+            <label for="Email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Introduce tu email" required>
+            <small class="mensaje-error" id="error-email"></small>
             </p>
             <p>
             <label for="Area">Area de trabajo</label>
@@ -50,23 +42,28 @@
                             <option value="comprasYProveedores"> Compras y proveedores </option>
                             <option value="gestionDeProyectos"> Gestión de proyectos </option>
             </select>
+            <small class="mensaje-error" id="error-area"></small>
             </p>
             <p>
             <label for="antiguedad">Tiempo de antigüedad</label>
             <input type="number" name="antiguedad" id="antiguedad" placeholder="Tiempo de antigüedad" required>
+            <small class="mensaje-error" id="error-antiguedad"></small>
             </p>
             <p>
             <label for="password">Contraseña</label>
             <input type="password" name="password" id="password" placeholder="Introduce tu contraseña" required>
+            <small class="mensaje-error" id="error-password"></small>
             </p>
-            
-            <a href="index.view.html" class="btn-registro">Registrarse</a>
+            <input type="hidden" name="controller" value="RegistroController">
+            <input type="hidden" name="accion" value="store">
+            <input id="bRegistro" class="btn-registro" type="submit" value="Registrarse">
         </form>
+        <p class="mensajeError"><?php 
+            if(isset($_COOKIE["error"])):
+                echo $_COOKIE["error"]; 
+            endif;
+        ?></p>
     </div>
 </main>
 
 <?php require __DIR__.'/layout/footer.php'; ?>
-
-<script src="scripts/registro.script.js"></script>
-
-</html>

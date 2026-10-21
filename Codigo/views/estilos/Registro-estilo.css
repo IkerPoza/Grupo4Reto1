@@ -107,8 +107,22 @@
   text-align: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   transition: background-color 0.2s ease;
+  border: none;
 }
 
 .registro-form .btn-registro:hover {
   background-color: #b5c0cc;
+}
+
+.mensaje-error{
+  color: red;
+}
+
+.mensajeError {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

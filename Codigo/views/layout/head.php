@@ -5,22 +5,15 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title><?= $titulo !== '' ? ($titulo) . ' · ' : '' ?>AERGIBIDE SL</title>
-
-    <link rel="stylesheet" href="views/<?= ($css) ?>">
-    <link rel="stylesheet" href="views/estilo.css">
-    <script src="scripts/<?= $script ?>" defer></script>
-
+    <title><?= $titulo !== '' ? $titulo . ' · ' : '' ?>AERGIBIDE SL</title>
+    <link rel="stylesheet" href="views/estilos/<?= $css ?>">
+    <link rel="stylesheet" href="views/estilos/estilos.css">
+    <script src="views/scripts/<?= $script ?>" defer></script>
 </head>
-
 <body>
-
-
     <header class="cabecera">
         <div class="logo">
             <svg width="60" height="65" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
