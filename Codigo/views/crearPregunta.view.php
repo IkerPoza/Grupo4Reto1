@@ -1,16 +1,8 @@
 <?php
-$areas = [
-    'desarrollo' => 'Desarrollo',
-    'diseno' => 'Diseño',
-    'formacion' => 'Formación y Recursos',
-    'administracion' => 'Administración',
-    'soporte' => 'Soporte'
-];
-$nombreArea = $areas[$usuario->area] ?? $usuario->area ?? 'Sin especificar';
 
-$titulo = 'Perfil';
-$css = ['../estilos/crearPregunta-estilo.css'];
-$scripts = [''];
+$titulo = 'NuevaPregunta';
+$css = 'crearPregunta-estilo.css';
+$scripts = 'crearPregunta.script.js';
 require __DIR__ . '/layout/head.php';
 require __DIR__ . '/layout/nav.php';
 ?>
@@ -19,45 +11,53 @@ require __DIR__ . '/layout/nav.php';
     <div class="crearPregunta-division">
         <h2 class="crearPregunta-titulo">Nueva pregunta</h2>
 
-        <form class="crearPregunta-form">
+        <form action="index.php" class="crearPregunta-form" method="POST">
+             <input type="hidden" name="controller" value="CrearPreguntaController">
+             <input type="hidden" name="accion" value="store">
             <div>
-            <label for="titulo">Titulo</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Titulo de la pregunta" required>
+                <label for="titulo">Titulo</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Titulo de la pregunta" required>
+                <small class="mensaje-error" id="error-titulo"></small>
             </div>
             <div>
-            <label for="Descripcion">Descripcion</label>
-            <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion de la pregunta" required>
+                <label for="Descripcion">Descripcion</label>
+                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion de la pregunta" required>
+                <small class="mensaje-error" id="error-descripcion"></small>
             </div>
             <div>
-            <label for="Gmail">Gmail</label>
-            <input type="email" name="gmail" id="gmail" placeholder="Introduce tu gmail" required>
-            </div>
-            <div>
-            <label for="area">Area</label>
-            <select id="area" name="area" required>
-                <?php foreach (AREAS as $clave => $texto): ?>
-                    <option value="<?= $clave ?>" <?= $usuario->area === $clave ? 'selected' : '' ?>><?= $texto ?></option>
-                <?php endforeach; ?>
+            <label for="Tema">Tema</label>
+            <select id="tema" name="tema">
+                            <option value="" selected> --Selecciona el tema de tu pregunta-- </option>
+                            <option value="ingenieriaYDiseno"> Ingeniería y Diseño </option>
+                            <option value="normativaYCalidad"> Normativa y Calidad </option>
+                            <option value="mantenimiento"> Mantenimiento </option>
+                            <option value="sostenibilidadEInnovacion"> Sostenibilidad e Innovacion </option>
+                            <option value="formacionYRecursos"> Formacion y Recursos </option>
             </select>
+            <small class="mensaje-error" id="error-tema"></small>
             </div>
-                
             
+            <button type="submit" id="bAnadir" class="btn-annadir">Añadir</button>
+            <button type="submit" id="bEliminar" class="btn-eliminar">Eliminar</button>
             
-            
-            <a href="inicio.view.html" class="btn-annadir">Añadir</a>
-            <button type="submit" class="btn-eliminar">Eliminar</button>
-            
-        </form>
+        </form> 
+        <p class="mensajeError"><?php 
+                            if(isset($_COOKIE["error"])):
+                                echo $_COOKIE["error"]; 
+                            endif;
+                            ?>
+        </p>
     </div>
     <div class="crearPregunta-imagen">
         <label for="subir-imagen">
-            <img src="imagenes/ImagenVacia.png" alt="Añadir imagen">
+            <img src="views/imagenes/ImagenVacia.png" alt="Añadir imagen">
             <input type="file" id="subir-imagen" name="imagen" style="display: none;">
         </label>
     </div>
+   
 </main>
 
 <?php require __DIR__.'/layout/footer.php'; ?>
-<script src="scripts/registro.script.js"></script>
+<script src="scripts/crearPregunta.script.js"></script>
 
 </html>
