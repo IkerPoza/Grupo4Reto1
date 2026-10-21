@@ -1,31 +1,38 @@
 <?php
 $areas = [
-    'desarrollo' => 'Desarrollo',
-    'diseno' => 'Diseño',
-    'formacion' => 'Formación y Recursos',
-    'administracion' => 'Administración',
-    'soporte' => 'Soporte'
+    "ingenieriaYDiseno" => "Ingeniería y diseño",
+    "produccionYFabricacion" => "Producción y fabricación",
+    "mantenimientoYReparacion" => "Mantenimiento y reparación",
+    "calidadYSeguridad" => "Calidad y seguridad",
+    "investigacionYDesarrollo" => "Investigación y desarrollo",
+    "electronicaYSistemasInformaticos" => "Electrónica y sistemas informáticos",
+    "logisticaYAlmacen" => "Logística y almacén",
+    "administracionYRecursosHumanos" => "Administración y recursos humanos",
+    "comercialYMarketing" => "Comercial y marketing",
+    "informaticaYCiberseguridad" => "Informática y ciberseguridad",
+    "comprasYProveedores" => "Compras y proveedores",
+    "gestionDeProyectos" => "Gestión de proyectos" 
 ];
 $nombreArea = $areas[$usuario->area] ?? $usuario->area ?? 'Sin especificar';
 
 $titulo = 'Perfil';
-$css = ['usuario-estilo.css'];
-$scripts = ['usuario.script.js'];
+$css = 'usuario-estilo.css';
+$scripts = 'usuario.script.js';
 
 require __DIR__ . '/layout/head.php';
 require __DIR__ . '/layout/nav.php';
 ?>
 
-    <main>
-        <!-- si es tu perfil -->
-        <?php if ($esPropio): ?>
+            <?php if ($esPropio): ?>
             <form method="post" action="index.php?controller=UsuarioController&accion=logout">
                 <button type="submit" class="cerrarSesion" title="Cerrar sesión">
                     <img src="views/imagenes/CerrarSesion.png" alt="Cerrar sesión">
                 </button>
             </form>
         <?php endif; ?>
+    </nav>
 
+    <main>
         <section id="vistaPerfil">
             <section class="perfil tarjetaPerfil" id="perfil">
 
