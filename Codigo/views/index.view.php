@@ -1,7 +1,7 @@
 <?php 
     $titulo = 'Login';
     $css = 'InicioSesion-estilo.css';
-    $script = 'index.script.js';
+    $scripts = 'index.script.js';
     require __DIR__.'/layout/head.php';
 ?>
 

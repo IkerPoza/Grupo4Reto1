@@ -1,7 +1,7 @@
 <?php 
     $titulo = 'Registro';
     $css = 'Registro-estilo.css';
-    $script = 'registro.script.js';
+    $scripts = 'registro.script.js';
     require __DIR__.'/layout/head.php';
 ?>
 
