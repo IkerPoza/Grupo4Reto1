@@ -60,4 +60,43 @@ class PreguntasModel {
         
         return $stmt->fetchAll();
     }
+
+    public static function getDetalleById($id) {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("SELECT p.*, u.nombre AS autor_nombre, u.apellidos AS autor_apellidos, u.id AS autor_id FROM pregunta p JOIN usuario u ON p.idUsuario = u.id WHERE p.id = ?");
+        
+        $stmt->execute([$id]);
+        
+        return $stmt->fetch();
+    }
+
+    public static function getRespuestasByPregunta($idPregunta) {
+        $db = Database::getConnection();
+       
+        $stmt = $db->prepare("SELECT r.id, r.idUsuario, r.idPregunta, r.idRespuesta, r.texto, r.fecha, u.nombre AS autor_nombre, u.apellidos AS autor_apellidos FROM respuesta r JOIN usuario u ON r.idUsuario = u.id WHERE r.idPregunta = ? ORDER BY r.fecha ASC, r.id ASC");
+        
+        $stmt->execute([$idPregunta]);
+        
+        return $stmt->fetchAll();
+    }
+
+    public static function crearRespuesta($idUsuario, $idPregunta, $idRespuesta, $texto) {
+        $db = Database::getConnection();
+        
+        $stmt = $db->prepare("INSERT INTO respuesta (idUsuario, idPregunta, idRespuesta, texto) VALUES (?, ?, ?, ?)");
+        
+        $stmt->execute([$idUsuario, $idPregunta, $idRespuesta ?: null, $texto]);
+        
+        return $db->lastInsertId();
+    }
+
+    public static function eliminarRespuesta($idRespuesta) {
+        $db = Database::getConnection();
+        
+        $stmt = $db->prepare("DELETE FROM respuesta WHERE id = ?");
+        
+        return $stmt->execute([$idRespuesta]);
+    }
+    
 }

@@ -129,13 +129,26 @@ class UsuarioController extends BaseController {
                     exit('No se pudo crear la carpeta de imágenes.');
                 }
 
+                
                 $nombreArchivo = 'usuario_' . $idUsuario . '.' . $extensiones[$tipo];
+
+                $usuarioAnterior = UsuarioModel::getById($idUsuario);
 
                 if (!move_uploaded_file($temporal, $carpeta . $nombreArchivo)) {
                     exit('No se pudo guardar la imagen.');
                 }
 
+                if ($usuarioAnterior && !empty($usuarioAnterior->foto)) {
+                    $fotoAnterior = basename($usuarioAnterior->foto);
+                    $rutaAnterior = $carpeta . $fotoAnterior;
+
+                    if ($fotoAnterior !== $nombreArchivo && is_file($rutaAnterior)) {
+                        unlink($rutaAnterior);
+                    }
+                }
+
                 $datos['foto'] = 'uploads/perfiles/' . $nombreArchivo;
+
             }
 
             if (!UsuarioModel::update($idUsuario, $datos)) {

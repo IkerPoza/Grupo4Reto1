@@ -1,88 +1,18 @@
-@font-face {
-    font-family: 'mifuente';
-    src: url('../tipografia/Archivo/static/Archivo-Regular.ttf');
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'mifuente';
-}
-
-body {
-    min-height: 100vh;
-    background-color: #F7F7F8;
-    color: #171717;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.cabecera {
-    min-height: 70px;
-    padding: 8px 25px;
-    background-color: #1D325A;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    text-decoration: none;
-}
-
-.logo img {
-    width: 48px;
-    height: 48px;
-}
-
-.logo h1 {
-    color: white;
-    font-size: 23px;
-    font-weight: bold;
-}
-
-.iconoPerfil img {
-    width: 50px;
-    height: 50px;
-}
-
-
-
-.navegacion {
-    min-height: 40px;
-    padding: 5px 25px;
-    display: flex;
-    align-items: center;
-}
-
-.navegacion img {
-    width: 27px;
-    height: 27px;
-}
-
-/* esta vista */
-
-.contenido {
-    flex: 1;
+.detallePregunta {
+    flex: 1 0 auto;
     padding: 12px 4.2% 30px;
-    background-color: #F7F7F8;
     display: flex;
     flex-direction: column;
     gap: 22px;
+    background: #F7F7F8;
 }
 
-
-.publicacion {
+.detallePregunta .publicacion {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 160px;
+    grid-template-columns: minmax(0, 1fr) 145px;
     grid-template-rows: auto auto;
-    column-gap: 30px;
-    row-gap: 42px;
+    column-gap: 28px;
+    row-gap: 34px;
     align-items: start;
 }
 
@@ -91,49 +21,69 @@ body {
     grid-row: 1;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 5px;
+    overflow-wrap: anywhere;
 }
 
 .informacionPublicacion h2 {
-    font-size: 29px;
-    font-weight: bold;
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: 700;
 }
 
 .autorPublicacion, .temaPublicacion {
-    font-size: 17px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.imagenPublicacion {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #BBC8D5;
+}
+
+.imagenPublicacion span {
+    position: relative;
+    font-size: 66px;
+    line-height: 1;
     font-weight: bold;
 }
 
-.anadirImagen {
-    grid-column: 2;
-    grid-row: 1;
-    width: 145px;
-    height: 105px;
-    margin-top: 22px;
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.imagenPublicacion b {
+    position: absolute;
+    right: -8px;
+    bottom: -3px;
+    font-size: 30px;
+    background: #BBC8D5;
+    color: #F7F7F8;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
 }
-
 
 .descripcionPublicacion {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 2;
-    font-size: 17px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
-
 .formularioRespuesta {
-    width: 100%;
-    min-height: 92px;
-    padding: 12px 15px;
-    border: 1.5px solid #111111;
-    border-radius: 13px;
-    background-color: #FFFFFF;
-    box-shadow: 0 4px 5px #00000035;
+    width: 86%;
+    min-height: 60px;
+    margin: 0;
+    padding: 9px 11px;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: 0 3px 4px #00000035;
     display: flex;
     align-items: stretch;
     gap: 10px;
@@ -142,50 +92,48 @@ body {
 .formularioRespuesta textarea {
     flex: 1;
     min-width: 0;
-    min-height: 65px;
-    padding: 4px 0;
-    border: none;
-    background-color: transparent;
-    font-size: 17px;
+    min-height: 38px;
+    resize: vertical;
+    padding: 2px 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 13px;
+    color: #171717;
 }
 
 .formularioRespuesta button {
-    width: 32px;
-    min-width: 32px;
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    cursor: pointer;
+    align-self: flex-end;
+    width: 25px;
+    min-width: 25px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #172D52;
+    font-size: 23px;
+    line-height: 1;
 }
-
-.iconoEnviar img{
-    width: 20px;
-    height: 20px;
-}
-
 
 .listaRespuestas {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 9px;
 }
 
 .respuesta {
     width: 100%;
-    min-height: 68px;
-    padding: 9px 15px;
-    border-radius: 13px;
-    background-color: #D6DDE4;
-    box-shadow: 0 5px 5px #00000035;
+    min-height: 48px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background: #D6DDE4;
+    box-shadow: 0 3px 4px #00000035;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 12px;
 }
 
-.respuestaAnidada {
+.respuestaAnidada, .formularioAnidado {
     width: 86%;
     align-self: flex-end;
 }
@@ -194,193 +142,61 @@ body {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 7px;
+    overflow-wrap: anywhere;
 }
 
 .textoRespuesta h3 {
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .textoRespuesta p {
-    font-size: 17px;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .accionesRespuesta {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 7px;
 }
 
 .accionesRespuesta button {
     padding: 0;
-    border: none;
-    background-color: transparent;
+    border: 0;
+    background: transparent;
     color: #20365E;
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     line-height: 1;
-    cursor: pointer;
 }
 
-.puntuacion {
-    color: #20365E;
-    font-size: 15px;
-    font-weight: bold;
+.accionesRespuesta .accionVoto:disabled {
+    opacity: 1;
+    cursor: default;
 }
 
-.formularioAnidado {
-    width: 86%;
-    align-self: flex-end;
-}
+.formAccion { margin: 0; }
+.formAccion button { cursor: pointer; }
+.accionesRespuesta .eliminarRespuesta { color: #D71920; font-size: 19px; }
+.errorRespuesta { color: #B00020; font-size: 14px; }
+.sinRespuestas { padding: 15px 0; color: #555; font-size: 14px; }
 
-/* comun */
-
-.pie {
-    width: 100%;
-    min-height: 115px;
-    padding: 20px 4%;
-    background-color: #20365E;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    gap: 25px;
-}
-
-.pie p, .pie h2 {
-    color: white;
-}
-
-.direccion p {
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.redesSociales {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-}
-
-.redesSociales a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.redesSociales img {
-    width: 34px;
-    height: 34px;
-}
-
-.contacto {
-    justify-self: end;
-}
-
-.contacto h2 {
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-
-.contacto p {
-    font-size: 13px;
-    margin-bottom: 5px;
-}
-
-/* peque */
+/* Evita que el estilo global de los formularios altere esta vista. */
+.detallePregunta form { box-shadow: none; }
 
 @media (max-width: 700px) {
-
-    body {
-        padding: 7px;
-    }
-
-    .cabecera {
-        min-height: 65px;
-        padding: 8px 12px;
-    }
-
-    .logo {
-        gap: 10px;
-    }
-
-    .logo img, .iconoPerfil img {
-        width: 45px;
-        height: 45px;
-    }
-
-    .logo h1 {
-        font-size: 19px;
-    }
-
-    .contenido {
-        padding: 15px 12px 25px;
-        gap: 20px;
-    }
-
-    .publicacion {
-        grid-template-columns: minmax(0, 1fr) 75px;
-        column-gap: 10px;
-        row-gap: 30px;
-    }
-
-    .informacionPublicacion h2 {
-        font-size: 24px;
-    }
-
-    .anadirImagen {
-        width: 75px;
-        height: 75px;
-    }
-
-    .iconoImagen {
-        font-size: 55px;
-    }
-
-    .iconoMas {
-        width: 30px;
-        height: 30px;
-        font-size: 23px;
-    }
-
-    .respuesta, .respuestaAnidada, .formularioAnidado {
-        width: 100%;
-    }
-
-    .respuesta {
-        padding: 10px;
-        gap: 8px;
-    }
-
-    .accionesRespuesta {
-        gap: 5px;
-    }
-
-    .accionesRespuesta button {
-        font-size: 25px;
-    }
-
-    .textoRespuesta p, .textoRespuesta h3 {
-        font-size: 14px;
-    }
-
-    .pie {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-        gap: 20px;
-        padding: 22px 10px;
-    }
-
-    .contacto {
-        justify-self: center;
-    }
-
-    .redesSociales img {
-        width: 36px;
-        height: 36px;
-    }
-
+    .detallePregunta { padding: 12px 4% 24px; gap: 18px; }
+    .detallePregunta .publicacion { grid-template-columns: minmax(0, 1fr) 75px; column-gap: 10px; row-gap: 24px; }
+    .informacionPublicacion h2 { font-size: 22px; }
+    .imagenPublicacion { min-height: 70px; }
+    .imagenPublicacion span { font-size: 46px; }
+    .imagenPublicacion b { width: 25px; height: 25px; font-size: 22px; }
+    .formularioRespuesta, .respuestaAnidada, .formularioAnidado { width: 100%; }
+    .respuesta { padding: 9px; gap: 7px; }
+    .accionesRespuesta { gap: 4px; }
+    .accionesRespuesta button { font-size: 21px; }
+    .textoRespuesta p, .textoRespuesta h3 { font-size: 12px; }
 }
