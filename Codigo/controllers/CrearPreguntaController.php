@@ -13,29 +13,26 @@ class CrearPreguntaController extends BaseController {
 
     public function store() {
         try {
+            setcookie("error", "", time() - 3600);
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+            $usuario = $_SESSION['usuario'];
+
+            $datos = [
+                "titulo" => $_POST["titulo"],
+                "descripcion" => $_POST["descripcion"],
+                "tema" => $_POST["tema"],
+                "idUsuario" => $usuario->id
+            ];
+
+            CrearPreguntaModel::insertarPregunta($datos);
+
+            $this->redirect('index.php');
+
+            
+        } catch (Throwable $e) {
+            setcookie('error', "Error al insertar", 0);
+            $this -> render('crearPregunta.view.php');
         }
-
-        $usuario = $_SESSION['usuario'];
-
-        $datos = [
-            "titulo" => $_POST["titulo"],
-            "descripcion" => $_POST["descripcion"],
-            "tema" => $_POST["tema"],
-            "idUsuario" => $usuario->id
-        ];
-
-        CrearPreguntaModel::insertarPregunta($datos);
-
-        $this->redirect('index.php');
-
-        
-    } catch (Throwable $e) {
-        setcookie('error', "Error al insertar", 0);
-        $this -> redirect('index.php?controller=CrearPreguntaController');
-    }
 }
 
     public function show() {
