@@ -48,8 +48,6 @@ main{
     align-items: stretch;
 }
 
-.contenidoPreguntas
-
 /*LATERAL PREGUNTAS*/
 
 .contenidoPreguntas aside{
@@ -71,6 +69,7 @@ main{
     gap: .5rem;
     width: 100%;
     justify-content: center;
+    cursor: pointer;
 }
 
 /*FILTRAR TEMA*/

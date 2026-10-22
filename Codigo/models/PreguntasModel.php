@@ -3,7 +3,7 @@ require_once __DIR__ . '/Database.php';
 
 class PreguntasModel {
     
-    public static function getAll() {
+    public static function getAll($usuario_id) {
         $db = Database::getConnection();
         $stmt = $db->prepare("
         SELECT p.id AS pregunta_id,
@@ -14,15 +14,74 @@ class PreguntasModel {
             u.id AS autor_id,
             u.nombre AS autor_nombre,
             u.apellidos AS autor_apellidos,
-            COUNT(r.id) AS num_respuestas
+            COUNT(DISTINCT r.id) AS num_respuestas,
+            CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
         FROM pregunta p
         INNER JOIN usuario u ON p.idUsuario = u.id
         LEFT JOIN respuesta r ON p.id = r.idPregunta
-        GROUP BY p.id
+        LEFT JOIN preguntaGuardada pg
+            ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
+        GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
+                u.id, u.nombre, u.apellidos, pg.id
         ORDER BY p.fecha DESC");
-        $stmt->execute();
+        $datos = [
+            "usuario_id" => $usuario_id
+        ];
+
+        $stmt->execute($datos);
         return $stmt->fetchAll();
-        
+    }
+
+    public static function mostrarPorNombre($usuario_id, $busqueda) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("
+        SELECT p.id AS pregunta_id,
+            p.titulo AS pregunta_titulo,
+            p.tema AS pregunta_tema,
+            p.descripcion AS pregunta_descripcion,
+            p.fecha AS pregunta_fecha,
+            u.id AS autor_id,
+            u.nombre AS autor_nombre,
+            u.apellidos AS autor_apellidos,
+            COUNT(DISTINCT r.id) AS num_respuestas,
+            CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
+        FROM pregunta p
+        INNER JOIN usuario u ON p.idUsuario = u.id
+        LEFT JOIN respuesta r ON p.id = r.idPregunta
+        LEFT JOIN preguntaGuardada pg
+            ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
+        WHERE p.titulo LIKE :busqueda
+        OR p.descripcion LIKE :busqueda
+        GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
+                u.id, u.nombre, u.apellidos, pg.id
+        ORDER BY p.fecha DESC");
+        $datos = [
+            "usuario_id" => $usuario_id,
+            "busqueda" => $busqueda
+        ];
+
+        $stmt->execute($datos);
+        return $stmt->fetchAll();
+    }
+
+    public static function preguntasPorTema($usuario_id){
+        $db = Database::getConnection();
+        $stmt = $db->prepare("
+        SELECT
+            COUNT(*) AS total_todas,
+            (SELECT COUNT(*) FROM preguntaGuardada WHERE idUsuario = :usuario_id) AS total_favoritos,
+            SUM(tema = 'Ingeniería y Diseño') AS total_ingenieria,
+            SUM(tema = 'Normativa y Calidad') AS total_normativa,
+            SUM(tema = 'Mantenimiento') AS total_mantenimiento,
+            SUM(tema = 'Sostenibilidad e innovación') AS total_sostenibilidad,
+            SUM(tema = 'Formación y Recursos') AS total_formacion
+        FROM pregunta");
+        $datos = [
+            "usuario_id" => $usuario_id
+        ];
+
+        $stmt->execute($datos);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
     
     public static function getById($id) {
@@ -99,4 +158,34 @@ class PreguntasModel {
         return $stmt->execute([$idRespuesta]);
     }
     
+    public static function anadirFavoritos($pregunta_id, $usuario_id){
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare(
+            "INSERT INTO preguntaguardada (idUsuario, idPregunta)
+            VALUES (:usuario_id, :pregunta_id)"
+        );
+
+        $datos = [
+            "usuario_id" => $usuario_id,
+            "pregunta_id" => $pregunta_id
+        ];
+
+        error_log(print_r($datos, true));
+        $stmt->execute($datos);
+    }
+
+    public static function eliminarFavoritos($pregunta_id, $usuario_id){
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare(
+            "DELETE FROM preguntaguardada WHERE idUsuario = :usuario_id AND idPregunta = :pregunta_id"
+        );
+
+        $datos = [
+            "usuario_id" => $usuario_id,
+            "pregunta_id" => $pregunta_id
+        ];
+        $stmt->execute($datos);
+    }
 }

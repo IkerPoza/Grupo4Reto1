@@ -2,14 +2,37 @@
 const svgFavoritos = document.getElementsByClassName("botonFavorito");
 
 Array.from(svgFavoritos).forEach((boton) => {
-    boton.addEventListener('click', anadirFavoritos);
+    boton.addEventListener('click', Favoritos);
 });
 
-function anadirFavoritos(){
+async function Favoritos(){
+    if(this.getAttribute('fill') == 'none'){
+        let response = await fetch("index.php?accion=anadirFavoritos", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ pregunta_id : this.dataset.id})
+        });
 
-    if(this.getAttribute('fill') == "none"){
-        this.setAttribute('fill', '#FFDD33');
-    } else {
-        this.setAttribute('fill', 'none');
+        if(response.ok){
+            window.location.href = "index.php";
+        }else{
+            alert("Problemas con el servidor. Intentalo más tarde.");
+        }
+    }else{
+        let response = await fetch("index.php?accion=eliminarFavoritos", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ pregunta_id : this.dataset.id})
+        });
+
+        if(response.ok){
+            window.location.href = "index.php";
+        }else{
+            alert("Problemas con el servidor. Intentalo más tarde.");
+        }
     }
 }
