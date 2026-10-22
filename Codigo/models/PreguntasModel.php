@@ -70,11 +70,11 @@ class PreguntasModel {
         SELECT
             COUNT(*) AS total_todas,
             (SELECT COUNT(*) FROM preguntaGuardada WHERE idUsuario = :usuario_id) AS total_favoritos,
-            SUM(tema = 'Ingeniería y Diseño') AS total_ingenieria,
-            SUM(tema = 'Normativa y Calidad') AS total_normativa,
-            SUM(tema = 'Mantenimiento') AS total_mantenimiento,
-            SUM(tema = 'Sostenibilidad e innovación') AS total_sostenibilidad,
-            SUM(tema = 'Formación y Recursos') AS total_formacion
+            IFNULL(SUM(tema = 'Ingeniería y Diseño'), 0) AS total_ingenieria,
+            IFNULL(SUM(tema = 'Normativa y Calidad'), 0) AS total_normativa,
+            IFNULL(SUM(tema = 'Mantenimiento'), 0) AS total_mantenimiento,
+            IFNULL(SUM(tema = 'Sostenibilidad e innovación'), 0) AS total_sostenibilidad,
+            IFNULL(SUM(tema = 'Formación y Recursos'), 0) AS total_formacion
         FROM pregunta");
         $datos = [
             "usuario_id" => $usuario_id
