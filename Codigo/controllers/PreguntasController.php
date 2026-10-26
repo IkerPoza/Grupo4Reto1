@@ -116,21 +116,73 @@ class PreguntasController extends BaseController {
         exit;
     }
 
-    public function anadirFavoritos(){
-        $data = json_decode(file_get_contents('php://input'), true);
-        $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
-        $usuario_id = $_SESSION['usuario']->id;
 
-        PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+    
+    public function favorita() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            $usuario_id = ($_SESSION['usuario']->id ?? 0);
+
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            $pregunta_id = filter_var($data['idPregunta'] ?? null);
+
+            $favorita = $data['favorita'] ?? null;
+
+            if ($favorita) {
+                PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+            } else {
+                PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+            }
+
+            echo json_encode(['ok' => true, 'favorita' => $favorita]);
+
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+        }
     }
 
-    public function eliminarFavoritos(){
+    public function anadirFavoritos() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $usuario_id = (int) ($_SESSION['usuario']->id ?? 0);
         $data = json_decode(file_get_contents('php://input'), true);
         $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
-        $usuario_id = $_SESSION['usuario']->id;
 
-        PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+        try {
+            PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+        } catch (Throwable $e) {
+            echo "Error al añadir a favoritos: " . $e->getMessage();
+        }
     }
+
+    public function eliminarFavoritos() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $usuario_id = (int) ($_SESSION['usuario']->id ?? 0);
+        $data = json_decode(file_get_contents('php://input'), true);
+        $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
+
+        try {
+            PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+        } catch (Throwable $e) {
+            echo "Error al eliminar de favoritos: " . $e->getMessage();
+        }
+    }
+
 
     public function buscar(){
         if($_POST["busqueda"] == ''):
