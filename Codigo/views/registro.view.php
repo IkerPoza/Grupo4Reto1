@@ -22,7 +22,8 @@
             </p>
             <p>
             <label for="Email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Introduce tu email" required>
+            <input type="email" name="email" id="email" placeholder="Introduce tu email" required
+            autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
             <small class="mensaje-error" id="error-email"></small>
             </p>
             <p>
@@ -51,7 +52,8 @@
             </p>
             <p>
             <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password" placeholder="Introduce tu contraseña" required>
+            <input type="password" name="password" id="password" placeholder="Introduce tu contraseña" required
+            autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
             <small class="mensaje-error" id="error-password"></small>
             </p>
             <input type="hidden" name="controller" value="RegistroController">
