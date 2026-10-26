@@ -3,7 +3,13 @@ require_once __DIR__ . '/Database.php';
 
 class PreguntasModel {
     
-    public static function getAll($usuario_id) {
+    public static function getAll($usuario_id, $orden) {
+        $orderBy = match ($orden) {
+            'Más antiguos'       => 'p.fecha ASC',
+            'Más respuestas' => 'num_respuestas DESC',
+            'Menos respuestas'  => 'num_respuestas ASC',
+            default           => 'p.fecha DESC',
+        };
         $db = Database::getConnection();
         $stmt = $db->prepare("
         SELECT p.id AS pregunta_id,
@@ -23,7 +29,7 @@ class PreguntasModel {
             ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
                 u.id, u.nombre, u.apellidos, pg.id
-        ORDER BY p.fecha DESC");
+        ORDER BY $orderBy");
         $datos = [
             "usuario_id" => $usuario_id
         ];
@@ -84,7 +90,13 @@ class PreguntasModel {
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public static function buscarPorTema($usuario_id, $tema) {
+    public static function buscarPorTema($usuario_id, $tema, $orden) {
+        $orderBy = match ($orden) {
+            'Más antiguos'       => 'p.fecha ASC',
+            'Más respuestas' => 'num_respuestas DESC',
+            'Menos respuestas'  => 'num_respuestas ASC',
+            default           => 'p.fecha DESC',
+        };
         $db = Database::getConnection();
         $stmt = $db->prepare("
         SELECT p.id AS pregunta_id,
@@ -105,10 +117,45 @@ class PreguntasModel {
         WHERE p.tema = :tema
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
                 u.id, u.nombre, u.apellidos, pg.id
-        ORDER BY p.fecha DESC");
+        ORDER BY $orderBy");
         $datos = [
             "usuario_id" => $usuario_id,
             "tema" => $tema
+        ];
+
+        $stmt->execute($datos);
+        return $stmt->fetchAll();
+    }
+
+    public static function mostrarFavoritas($usuario_id, $orden) {
+        $orderBy = match ($orden) {
+            'Más antiguos'       => 'p.fecha ASC',
+            'Más respuestas' => 'num_respuestas DESC',
+            'Menos respuestas'  => 'num_respuestas ASC',
+            default           => 'p.fecha DESC',
+        };
+        $db = Database::getConnection();
+        $stmt = $db->prepare("
+        SELECT p.id AS pregunta_id,
+            p.titulo AS pregunta_titulo,
+            p.tema AS pregunta_tema,
+            p.descripcion AS pregunta_descripcion,
+            p.fecha AS pregunta_fecha,
+            u.id AS autor_id,
+            u.nombre AS autor_nombre,
+            u.apellidos AS autor_apellidos,
+            COUNT(DISTINCT r.id) AS num_respuestas,
+            1 AS es_favorita
+        FROM pregunta p
+        INNER JOIN usuario u ON p.idUsuario = u.id
+        INNER JOIN preguntaGuardada pg
+                ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
+        LEFT JOIN respuesta r ON p.id = r.idPregunta
+        GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
+                u.id, u.nombre, u.apellidos
+        ORDER BY $orderBy");
+        $datos = [
+            "usuario_id" => $usuario_id
         ];
 
         $stmt->execute($datos);
