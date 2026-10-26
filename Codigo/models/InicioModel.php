@@ -11,7 +11,7 @@ class InicioModel {
         $usuario = $stmt->fetch();
 
         // Comprobar que el usuario existe y coincide la contraseña
-        if ($usuario -> contrasena == $password) {
+        if ($usuario && $usuario->contrasena === $password) {
             return $usuario;
         }
         

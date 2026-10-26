@@ -2,6 +2,12 @@
     $titulo = 'Login';
     $css = 'InicioSesion-estilo.css';
     $scripts = 'index.script.js';
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    // leer el error y borrarlo para que solo salga una vez
+    $error = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
     require __DIR__.'/layout/head.php';
 ?>
 
@@ -9,16 +15,18 @@
 <div class="login-division">
     <h2 class="login-titulo">Inicio Sesion</h2>
 
-    <form action="index.php" class="inicioSesion-form" method="POST">
+    <form action="index.php" class="inicioSesion-form" method="POST" autocomplete="off">
         <div class="input-email">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Escribe tu email"><br>
+            <input type="email" id="email" name="email" placeholder="Escribe tu email"
+             autocomplete="off" readonly onfocus="this.removeAttribute('readonly')"><br>
             <small class="mensaje-error" id="error-email"></small>
         </div>
         
         <div class="input-password">
             <label for="password">Contrase&ntilde;a:</label>
-            <input type="password" id="password" name="password" placeholder="Escribe tu contraseña">
+            <input type="password" id="password" name="password" placeholder="Escribe tu contraseña"
+             autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
             <small class="mensaje-error" id="error-password"></small>
         </div>
         
@@ -41,4 +49,3 @@
 </div>
 </main>
 <?php require __DIR__.'/layout/footer.php'; ?>
-</html>

@@ -208,15 +208,71 @@ class PreguntasModel {
         return $stmt->fetch();
     }
 
+    
     public static function getRespuestasByPregunta($idPregunta) {
         $db = Database::getConnection();
-       
-        $stmt = $db->prepare("SELECT r.id, r.idUsuario, r.idPregunta, r.idRespuesta, r.texto, r.fecha, u.nombre AS autor_nombre, u.apellidos AS autor_apellidos FROM respuesta r JOIN usuario u ON r.idUsuario = u.id WHERE r.idPregunta = ? ORDER BY r.fecha ASC, r.id ASC");
-        
-        $stmt->execute([$idPregunta]);
-        
+
+        $idUsuario = $_SESSION['usuario']->id ?? 0;
+
+        $stmt = $db->prepare("SELECT r.id, r.idUsuario, r.idPregunta, r.idRespuesta, r.texto, r.fecha, u.nombre AS autor_nombre, u.apellidos AS autor_apellidos, COALESCE(v.totalVotos, 0) AS totalVotos, COALESCE(v.miVoto, 0) AS miVoto
+            FROM respuesta r
+            JOIN usuario u ON r.idUsuario = u.id
+            LEFT JOIN ( SELECT idRespuesta, SUM(voto) AS totalVotos, MAX(
+                        CASE WHEN idUsuario = ? THEN voto ELSE 0 END
+                    ) AS miVoto
+                        FROM votoRespuesta
+                        GROUP BY idRespuesta
+                    ) v ON v.idRespuesta = r.id
+                    WHERE r.idPregunta = ?
+                    ORDER BY r.fecha ASC, r.id ASC");
+
+        $stmt->execute([$idUsuario, $idPregunta]);
+
         return $stmt->fetchAll();
     }
+
+        
+    public static function votarRespuesta($idUsuario, $idRespuesta, $voto) {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("SELECT voto FROM votoRespuesta WHERE idUsuario = ? AND idRespuesta = ?");
+
+        $stmt->execute([$idUsuario, $idRespuesta]);
+
+        $actual = $stmt->fetchColumn();
+
+        if ($actual !== false && (int)$actual === (int)$voto) {
+            $stmt = $db->prepare("DELETE FROM votoRespuesta WHERE idUsuario = ? AND idRespuesta = ? ");
+
+            $stmt->execute([$idUsuario, $idRespuesta]);
+
+            return 0;
+        }
+
+        if ($actual !== false) {
+            $stmt = $db->prepare("UPDATE votoRespuesta SET voto = ? WHERE idUsuario = ? AND idRespuesta = ?");
+
+            $stmt->execute([$voto, $idUsuario, $idRespuesta]);
+        } else {
+            $stmt = $db->prepare("INSERT INTO votoRespuesta(idUsuario, idRespuesta, voto) VALUES (?, ?, ?)");
+
+            $stmt->execute([$idUsuario, $idRespuesta, $voto]);
+        }
+
+        return $voto;
+    }
+
+    public static function totalVotosRespuesta($idRespuesta) {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("SELECT COALESCE(SUM(voto), 0) FROM votoRespuesta WHERE idRespuesta = ?");
+
+        $stmt->execute([$idRespuesta]);
+
+        return $stmt->fetchColumn();
+    }
+
+
 
     public static function crearRespuesta($idUsuario, $idPregunta, $idRespuesta, $texto) {
         $db = Database::getConnection();
@@ -239,10 +295,7 @@ class PreguntasModel {
     public static function anadirFavoritos($pregunta_id, $usuario_id){
         $db = Database::getConnection();
 
-        $stmt = $db->prepare(
-            "INSERT INTO preguntaguardada (idUsuario, idPregunta)
-            VALUES (:usuario_id, :pregunta_id)"
-        );
+        $stmt = $db->prepare("INSERT INTO preguntaguardada (idUsuario, idPregunta) VALUES (:usuario_id, :pregunta_id)");
 
         $datos = [
             "usuario_id" => $usuario_id,
@@ -256,9 +309,7 @@ class PreguntasModel {
     public static function eliminarFavoritos($pregunta_id, $usuario_id){
         $db = Database::getConnection();
 
-        $stmt = $db->prepare(
-            "DELETE FROM preguntaguardada WHERE idUsuario = :usuario_id AND idPregunta = :pregunta_id"
-        );
+        $stmt = $db->prepare("DELETE FROM preguntaguardada WHERE idUsuario = :usuario_id AND idPregunta = :pregunta_id");
 
         $datos = [
             "usuario_id" => $usuario_id,

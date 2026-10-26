@@ -62,6 +62,44 @@ class PreguntasController extends BaseController {
         $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta'));
     }
 
+        
+    public function votar() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $idUsuario = (int)($_SESSION['usuario']->id ?? 0);
+
+        $datos = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $idRespuesta = filter_var($datos['idRespuesta'] ?? null);
+
+        $voto = filter_var($datos['voto'] ?? null);
+
+        try {
+            $db = Database::getConnection();
+
+            $stmt = $db->prepare('SELECT id FROM respuesta WHERE id = ?');
+
+            $stmt->execute([$idRespuesta]);
+
+            $miVoto = PreguntasModel::votarRespuesta($idUsuario, $idRespuesta, $voto);
+
+            $totalVotos = PreguntasModel::totalVotosRespuesta($idRespuesta);
+
+            echo json_encode([
+                'ok' => true,
+                'miVoto' => $miVoto,
+                'totalVotos' => $totalVotos
+            ]);
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+
     public function responder() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $idUsuario = ($_SESSION['usuario']->id ?? 0);
@@ -117,21 +155,73 @@ class PreguntasController extends BaseController {
         exit;
     }
 
-    public function anadirFavoritos(){
-        $data = json_decode(file_get_contents('php://input'), true);
-        $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
-        $usuario_id = $_SESSION['usuario']->id;
 
-        PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+    
+    public function favorita() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            $usuario_id = ($_SESSION['usuario']->id ?? 0);
+
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            $pregunta_id = filter_var($data['idPregunta'] ?? null);
+
+            $favorita = $data['favorita'] ?? null;
+
+            if ($favorita) {
+                PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+            } else {
+                PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+            }
+
+            echo json_encode(['ok' => true, 'favorita' => $favorita]);
+
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+        }
     }
 
-    public function eliminarFavoritos(){
+    public function anadirFavoritos() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $usuario_id = (int) ($_SESSION['usuario']->id ?? 0);
         $data = json_decode(file_get_contents('php://input'), true);
         $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
-        $usuario_id = $_SESSION['usuario']->id;
 
-        PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+        try {
+            PreguntasModel::anadirFavoritos($pregunta_id, $usuario_id);
+        } catch (Throwable $e) {
+            echo "Error al añadir a favoritos: " . $e->getMessage();
+        }
     }
+
+    public function eliminarFavoritos() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $usuario_id = (int) ($_SESSION['usuario']->id ?? 0);
+        $data = json_decode(file_get_contents('php://input'), true);
+        $pregunta_id = (int) ($data['pregunta_id'] ?? 0);
+
+        try {
+            PreguntasModel::eliminarFavoritos($pregunta_id, $usuario_id);
+        } catch (Throwable $e) {
+            echo "Error al eliminar de favoritos: " . $e->getMessage();
+        }
+    }
+
 
     public function buscar(){
         if($_POST["busqueda"] == ''):

@@ -4,6 +4,19 @@ const svgFavoritos = document.getElementsByClassName("botonFavorito");
 const sectionTema = document.getElementsByClassName("tema");
 
 document.getElementById('ordenar').addEventListener('change', cambiarOrden)
+const tarjetasPregunta = document.querySelectorAll(".tarjetaPregunta");
+
+tarjetasPregunta.forEach((tarjeta) => {
+    tarjeta.addEventListener("click", (event) => {
+        if (event.target.closest(".autor a")) {
+            return;
+        }
+        if (event.target.closest(".botonFavorito")) {
+            return;
+        }
+        window.location.href = tarjeta.dataset.url;
+    });
+});
 
 Array.from(svgFavoritos).forEach((boton) => {
     boton.addEventListener('click', Favoritos);
@@ -18,6 +31,15 @@ async function Favoritos() {
     const accion = esFavorito ? 'eliminarFavoritos' : 'anadirFavoritos';
 
     const response = await fetch("index.php?accion=" + accion, {
+        if (response.ok) {
+            this.setAttribute(
+                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
+            );
+        }else{
+            alert("Problemas con el servidor. Intentalo más tarde.");
+        }
+    }else{
+        let response = await fetch("index.php?accion=eliminarFavoritos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pregunta_id: this.dataset.id })
@@ -38,6 +60,12 @@ async function Favoritos() {
         this.closest('.tarjeta-pregunta').remove();
         if (document.querySelectorAll('.tarjeta-pregunta').length === 0) {
             document.querySelector('.mensajeVacio').hidden = false;
+        if (response.ok) {
+            this.setAttribute(
+                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
+            );
+        }else{
+            alert("Problemas con el servidor. Intentalo más tarde.");
         }
     }
 }

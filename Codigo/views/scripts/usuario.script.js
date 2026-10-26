@@ -1,191 +1,97 @@
-/* coer datos */
 const navegacion = document.querySelector(".navegacion");
 const vistaPerfil = document.getElementById("vistaPerfil");
 const vistaEdicion = document.getElementById("vistaEdicion");
-
 const listaPreguntas = document.getElementById("listaPreguntas");
 const listaFavoritas = document.getElementById("listaFavoritas");
 const sinFavoritas = document.getElementById("sinFavoritas");
-
 const botonPreguntas = document.getElementById("botonPreguntas");
 const botonFavoritas = document.getElementById("botonFavoritas");
-
 const formPerfil = document.getElementById("formPerfil");
 
-const nombre = document.getElementById("nombre");
-const area = document.getElementById("area");
-const email = document.getElementById("email");
-const antiguedad = document.getElementById("antiguedad");
-
-const subirImagen = document.getElementById("subirImagen");
-
-
-/* pestaña preguntas */
 function mostrarPreguntas() {
+    if (!listaPreguntas || !listaFavoritas) return;
     listaPreguntas.hidden = false;
     listaFavoritas.hidden = true;
-
-    botonPreguntas.classList.add("activa");
-    botonFavoritas.classList.remove("activa");
-
-    botonPreguntas.setAttribute("aria-pressed", "true");
-    botonFavoritas.setAttribute("aria-pressed", "false");
+    botonPreguntas?.classList.add("activa");
+    botonFavoritas?.classList.remove("activa");
+    botonPreguntas?.setAttribute("aria-pressed", "true");
+    botonFavoritas?.setAttribute("aria-pressed", "false");
 }
 
-
-/* pestaña favoritos */
 function mostrarFavoritas() {
+    if (!listaPreguntas || !listaFavoritas) return;
     listaPreguntas.hidden = true;
     listaFavoritas.hidden = false;
-
-    botonPreguntas.classList.remove("activa");
-    botonFavoritas.classList.add("activa");
-
-    botonPreguntas.setAttribute("aria-pressed", "false");
-    botonFavoritas.setAttribute("aria-pressed", "true");
+    botonPreguntas?.classList.remove("activa");
+    botonFavoritas?.classList.add("activa");
+    botonPreguntas?.setAttribute("aria-pressed", "false");
+    botonFavoritas?.setAttribute("aria-pressed", "true");
 }
 
-/*pestaña ediar*/
 function mostrarEdicion() {
-    vistaPerfil.hidden = true;
-    vistaEdicion.hidden = false;
-    navegacion.hidden = true;
-}
-
-
-/* quitar pestaña editar y no guardar los datos*/
-function cancelarEdicion() {
-    formPerfil.reset();
-
-    vistaEdicion.hidden = true;
-    vistaPerfil.hidden = false;
-    navegacion.hidden = false;
-}
-
-
-/* DETECTAR LOS CLICS EN LOS FAVORITOS */
-
-document.addEventListener("click", async function (evento) {
-    const boton = evento.target.closest(".favorito");
-
-    // Si el clic no es en un favorito, no hacemos nada.
-    if (!boton) {
-        return;
+    if (vistaPerfil && vistaEdicion) {
+        vistaPerfil.hidden = true;
+        vistaEdicion.hidden = false;
+        if (navegacion) navegacion.hidden = true;
     }
+}
+
+function cancelarEdicion() {
+    formPerfil?.reset();
+    if (vistaEdicion) vistaEdicion.hidden = true;
+    if (vistaPerfil) vistaPerfil.hidden = false;
+    if (navegacion) navegacion.hidden = false;
+}
+
+/* Añadir/quitar favoritos guardados en la base de datos */
+document.addEventListener("click", async (evento) => {
+    const boton = evento.target.closest(".favorito");
+    if (!boton || boton.disabled) return;
 
     const idPregunta = boton.dataset.id;
-
-    const esFavorita =
-        boton.getAttribute("aria-pressed") === "true";
-
-    const nuevaEstado = !esFavorita;
+    const nuevaEstado = boton.getAttribute("aria-pressed") !== "true";
+    boton.disabled = true;
 
     try {
-        // Enviar el cambio a PHP.
         const respuesta = await fetch("index.php?controller=PreguntasController&accion=favorita", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idPregunta: idPregunta,
-                favorita: nuevaEstado
-            })
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ idPregunta, favorita: nuevaEstado })
         });
-
-        if (!respuesta.ok) {
-            throw new Error("Error al guardar el favorito.");
-        }
-
         const resultado = await respuesta.json();
-
-        if (!resultado.ok) {
-            throw new Error(
-                resultado.mensaje || "No se pudo actualizar el favorito."
-            );
-        }
-
-        // Actualizar el estado con la respuesta del servidor.
-        actualizarEstadoFavorito(
-            idPregunta,
-            resultado.favorita
-        );
-
+        if (!respuesta.ok || !resultado.ok) throw new Error(resultado.mensaje || "No se pudo actualizar el favorito.");
+        actualizarEstadoFavorito(String(idPregunta), Boolean(resultado.favorita));
     } catch (error) {
         console.error(error);
-        alert("No se ha podido actualizar el favorito.");
+        alert(error.message || "No se ha podido actualizar el favorito.");
+    } finally {
+        boton.disabled = false;
     }
 });
 
-
-/* ACTUALIZAR EL ICONO Y LAS DOS LISTAS */
-
 function actualizarEstadoFavorito(idPregunta, esFavorita) {
-    // Buscar el botón original de la pregunta.
-    const botonOriginal = document.querySelector(
-        '#listaPreguntas .favorito[data-id="' + idPregunta + '"]'
-    );
+    const botonOriginal = listaPreguntas?.querySelector(`.favorito[data-id="${idPregunta}"]`);
+    const botonGuardado = listaFavoritas?.querySelector(`.favorito[data-id="${idPregunta}"]`);
 
-    if (!botonOriginal) {
-        // Pregunta de otro usuario: solo aparece en la pestaña Favoritas
-        if (!esFavorita) {
-            const botonFav = listaFavoritas.querySelector('.favorito[data-id="' + idPregunta + '"]');
-            if (botonFav) {
-                botonFav.closest(".pregunta").remove();
-            }
-            sinFavoritas.hidden = listaFavoritas.querySelector(".pregunta") !== null;
-        }
-        return;
-    }
-
-    // Actualizar el botón original.
-    cambiarIcono(botonOriginal, esFavorita);
-
-    // Buscar la copia de esa pregunta en Favoritas.
-    const preguntaFavorita = Array.from(
-        listaFavoritas.querySelectorAll(".pregunta")
-    ).find(function (pregunta) {
-        return pregunta.querySelector(".favorito")?.dataset.id
-            === idPregunta;
-    });
+    if (botonOriginal) cambiarIcono(botonOriginal, esFavorita);
 
     if (esFavorita) {
-        // Si no está en Favoritas, añadir una copia.
-        if (!preguntaFavorita) {
-            const pregunta = botonOriginal.closest(".pregunta");
-            const copia = pregunta.cloneNode(true);
-
+        if (!botonGuardado && botonOriginal) {
+            const copia = botonOriginal.closest(".tarjetaPregunta").cloneNode(true);
             listaFavoritas.appendChild(copia);
         }
-    } else {
-        // Si se ha desmarcado, quitarla de Favoritas.
-        if (preguntaFavorita) {
-            preguntaFavorita.remove();
-        }
+    } else if (botonGuardado) {
+        botonGuardado.closest(".tarjetaPregunta")?.remove();
     }
 
-    // Mostrar el mensaje solo si no hay preguntas favoritas.
-    const hayFavoritas =
-        listaFavoritas.querySelector(".pregunta") !== null;
-
-    sinFavoritas.hidden = hayFavoritas;
+    if (sinFavoritas) {
+        sinFavoritas.hidden = Boolean(listaFavoritas?.querySelector(".tarjetaPregunta"));
+    }
 }
-
-
-/* CAMBIAR EL ICONO */
 
 function cambiarIcono(boton, esFavorita) {
     boton.setAttribute("aria-pressed", String(esFavorita));
-
-    const imagen = boton.querySelector("img");
-
-    if (imagen) {
-        if (esFavorita) {
-            imagen.src = "views/imagenes/FavoritoActivado.png";
-            imagen.alt = "Quitar de favoritas";
-        } else {
-            imagen.src = "views/imagenes/FavoritoDesactivado.png";
-            imagen.alt = "Añadir a favoritas";
-        }
-    }
+    const texto = esFavorita ? "Quitar de favoritos" : "Añadir a favoritos";
+    boton.setAttribute("aria-label", texto);
+    boton.title = texto;
 }
