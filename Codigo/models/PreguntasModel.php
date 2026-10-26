@@ -161,10 +161,7 @@ class PreguntasModel {
     public static function anadirFavoritos($pregunta_id, $usuario_id){
         $db = Database::getConnection();
 
-        $stmt = $db->prepare(
-            "INSERT INTO preguntaguardada (idUsuario, idPregunta)
-            VALUES (:usuario_id, :pregunta_id)"
-        );
+        $stmt = $db->prepare("INSERT INTO preguntaguardada (idUsuario, idPregunta) VALUES (:usuario_id, :pregunta_id)");
 
         $datos = [
             "usuario_id" => $usuario_id,
@@ -178,9 +175,7 @@ class PreguntasModel {
     public static function eliminarFavoritos($pregunta_id, $usuario_id){
         $db = Database::getConnection();
 
-        $stmt = $db->prepare(
-            "DELETE FROM preguntaguardada WHERE idUsuario = :usuario_id AND idPregunta = :pregunta_id"
-        );
+        $stmt = $db->prepare("DELETE FROM preguntaguardada WHERE idUsuario = :usuario_id AND idPregunta = :pregunta_id");
 
         $datos = [
             "usuario_id" => $usuario_id,

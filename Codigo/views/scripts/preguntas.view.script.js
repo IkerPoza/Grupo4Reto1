@@ -15,8 +15,10 @@ async function Favoritos(){
         body: JSON.stringify({ pregunta_id : this.dataset.id})
         });
 
-        if(response.ok){
-            window.location.href = "index.php";
+        if (response.ok) {
+            this.setAttribute(
+                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
+            );
         }else{
             alert("Problemas con el servidor. Intentalo más tarde.");
         }
@@ -29,8 +31,10 @@ async function Favoritos(){
         body: JSON.stringify({ pregunta_id : this.dataset.id})
         });
 
-        if(response.ok){
-            window.location.href = "index.php";
+        if (response.ok) {
+            this.setAttribute(
+                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
+            );
         }else{
             alert("Problemas con el servidor. Intentalo más tarde.");
         }
