@@ -202,3 +202,11 @@ main{
     justify-content: space-between;
     align-items: center;
 }
+
+.mensajeVacio {
+    padding: 35px 20px;
+    text-align: center;
+    background-color: white;
+    color: #687386;
+    box-shadow: 0 3px 6px #00000025;
+}

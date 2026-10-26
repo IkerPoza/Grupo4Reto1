@@ -8,14 +8,15 @@ class PreguntasController extends BaseController {
         if(isset($_SESSION["usuario"])){
             $preguntas = $this->show();
             $preguntasPorTema = $this->preguntasPorTema();
-            $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema]);
+            $orden = 'Más recientes';
+            $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema, 'orden' => $orden]);
         }else{
             $this -> render('index.view.php');
         }
     }
     
     public function show() {
-        return $preguntas = PreguntasModel::getAll($_SESSION['usuario']->id);
+        return $preguntas = PreguntasModel::getAll($_SESSION['usuario']->id, 'Más recientes');
     }
 
     public function preguntasPorTema(){
@@ -139,16 +140,35 @@ class PreguntasController extends BaseController {
             $busqueda = '%' . $_POST["busqueda"] . '%';
             $preguntas = PreguntasModel::mostrarPorNombre($_SESSION['usuario']->id, $busqueda);
             $preguntasPorTema = $this->preguntasPorTema();
-            $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema]);
+            $orden = 'Más recientes';
         endif;
+
+        $this->render('preguntas.view.php', [
+            'preguntas' => $preguntas,
+            'preguntasPorTema' => $preguntasPorTema,
+            'order' => $orden
+        ]);
     }
 
-    public function buscarPorTema(){
-        $data = json_decode(file_get_contents('php://input'), true);
-        $tema = (string) ($data['pregunta_id'] ?? '');
-        $usuario_id = $_SESSION['usuario'];
-        $preguntas = PreguntasModel::buscarPorTema($_SESSION['usuario']->id, $tema);
+    public function buscarPorTema()
+    {
+        $tema = trim((string) ($_POST['tema'] ?? ''));
+        $orden = $_POST['ordenar'] ?? null;
+        if($tema === 'todas'){
+            $preguntas = PreguntasModel::getAll($_SESSION['usuario']->id, $orden);
+        }elseif($tema === 'favoritas'){
+            $preguntas = PreguntasModel::mostrarFavoritas($_SESSION['usuario']->id, $orden);
+        }else{
+            $preguntas = PreguntasModel::buscarPorTema($_SESSION['usuario']->id, $tema, $orden);
+        }
+        
         $preguntasPorTema = $this->preguntasPorTema();
-        $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema]);
+
+        $this->render('preguntas.view.php', [
+            'preguntas' => $preguntas,
+            'preguntasPorTema' => $preguntasPorTema,
+            'temaActual' => $tema !== '' ? $tema : 'todas',
+            'orden' => $orden
+        ]);
     }
 }
