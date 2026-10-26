@@ -31,15 +31,6 @@ async function Favoritos() {
     const accion = esFavorito ? 'eliminarFavoritos' : 'anadirFavoritos';
 
     const response = await fetch("index.php?accion=" + accion, {
-        if (response.ok) {
-            this.setAttribute(
-                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
-            );
-        }else{
-            alert("Problemas con el servidor. Intentalo más tarde.");
-        }
-    }else{
-        let response = await fetch("index.php?accion=eliminarFavoritos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pregunta_id: this.dataset.id })
@@ -50,22 +41,20 @@ async function Favoritos() {
         return;
     }
 
+    // Icono
     this.setAttribute('fill', esFavorito ? 'none' : '#FFDD33');
 
+    // Contador de "Mis Favoritos"
     const contador = document.querySelector('.tema[data-id="favoritas"] p:last-child');
     contador.textContent = parseInt(contador.textContent) + (esFavorito ? -1 : 1);
 
+    // Si estoy en favoritos y desmarco, quito la tarjeta
     const temaActual = document.getElementById('seleccionado')?.dataset.id;
     if (temaActual === 'favoritas' && esFavorito) {
-        this.closest('.tarjeta-pregunta').remove();
-        if (document.querySelectorAll('.tarjeta-pregunta').length === 0) {
+        this.closest('.tarjetaPregunta').remove();
+
+        if (document.querySelectorAll('.tarjetaPregunta').length === 0) {
             document.querySelector('.mensajeVacio').hidden = false;
-        if (response.ok) {
-            this.setAttribute(
-                "fill", this.getAttribute("fill") === "none" ? "#FFDD33" : "none"
-            );
-        }else{
-            alert("Problemas con el servidor. Intentalo más tarde.");
         }
     }
 }
