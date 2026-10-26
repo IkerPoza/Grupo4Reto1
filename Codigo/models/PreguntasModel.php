@@ -83,6 +83,37 @@ class PreguntasModel {
         $stmt->execute($datos);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public static function buscarPorTema($usuario_id, $tema) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("
+        SELECT p.id AS pregunta_id,
+            p.titulo AS pregunta_titulo,
+            p.tema AS pregunta_tema,
+            p.descripcion AS pregunta_descripcion,
+            p.fecha AS pregunta_fecha,
+            u.id AS autor_id,
+            u.nombre AS autor_nombre,
+            u.apellidos AS autor_apellidos,
+            COUNT(DISTINCT r.id) AS num_respuestas,
+            CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
+        FROM pregunta p
+        INNER JOIN usuario u ON p.idUsuario = u.id
+        LEFT JOIN respuesta r ON p.id = r.idPregunta
+        LEFT JOIN preguntaGuardada pg
+            ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
+        WHERE p.tema = :tema
+        GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
+                u.id, u.nombre, u.apellidos, pg.id
+        ORDER BY p.fecha DESC");
+        $datos = [
+            "usuario_id" => $usuario_id,
+            "tema" => $tema
+        ];
+
+        $stmt->execute($datos);
+        return $stmt->fetchAll();
+    }
     
     public static function getById($id) {
         
