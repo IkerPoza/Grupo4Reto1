@@ -145,6 +145,20 @@ main{
 
 /*LISTA PREGUNTAS*/
 
+.listaPreguntas .tarjetaPregunta {
+    cursor: pointer;
+}
+
+.listaPreguntas .tarjetaPregunta .autor a {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.listaPreguntas .tarjetaPregunta .autor a:hover {
+    text-decoration: underline;
+}
+
 .listaPreguntas{
     padding-top: 1rem;
     padding-bottom: 1rem;

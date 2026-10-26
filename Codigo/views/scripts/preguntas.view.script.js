@@ -3,6 +3,20 @@ const svgFavoritos = document.getElementsByClassName("botonFavorito");
 
 const sectionTema = document.getElementsByClassName("tema");
 
+const tarjetasPregunta = document.querySelectorAll(".tarjetaPregunta");
+
+tarjetasPregunta.forEach((tarjeta) => {
+    tarjeta.addEventListener("click", (event) => {
+        if (event.target.closest(".autor a")) {
+            return;
+        }
+        if (event.target.closest(".botonFavorito")) {
+            return;
+        }
+        window.location.href = tarjeta.dataset.url;
+    });
+});
+
 Array.from(svgFavoritos).forEach((boton) => {
     boton.addEventListener('click', Favoritos);
 });
