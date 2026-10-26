@@ -142,4 +142,13 @@ class PreguntasController extends BaseController {
             $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema]);
         endif;
     }
+
+    public function buscarPorTema(){
+        $data = json_decode(file_get_contents('php://input'), true);
+        $tema = (string) ($data['pregunta_id'] ?? '');
+        $usuario_id = $_SESSION['usuario'];
+        $preguntas = PreguntasModel::buscarPorTema($_SESSION['usuario']->id, $tema);
+        $preguntasPorTema = $this->preguntasPorTema();
+        $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema]);
+    }
 }
