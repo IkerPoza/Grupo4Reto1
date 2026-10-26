@@ -61,6 +61,44 @@ class PreguntasController extends BaseController {
         $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta'));
     }
 
+        
+    public function votar() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        $idUsuario = (int)($_SESSION['usuario']->id ?? 0);
+
+        $datos = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $idRespuesta = filter_var($datos['idRespuesta'] ?? null);
+
+        $voto = filter_var($datos['voto'] ?? null);
+
+        try {
+            $db = Database::getConnection();
+
+            $stmt = $db->prepare('SELECT id FROM respuesta WHERE id = ?');
+
+            $stmt->execute([$idRespuesta]);
+
+            $miVoto = PreguntasModel::votarRespuesta($idUsuario, $idRespuesta, $voto);
+
+            $totalVotos = PreguntasModel::totalVotosRespuesta($idRespuesta);
+
+            echo json_encode([
+                'ok' => true,
+                'miVoto' => $miVoto,
+                'totalVotos' => $totalVotos
+            ]);
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+
     public function responder() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $idUsuario = ($_SESSION['usuario']->id ?? 0);
