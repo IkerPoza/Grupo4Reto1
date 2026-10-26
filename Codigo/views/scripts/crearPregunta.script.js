@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* guardar constantes  */
+    const form = document.querySelector(".crearPregunta-form");
     const tituloInput = document.getElementById("titulo");
     const descripcionInput = document.getElementById("descripcion");
     const temaSelect = document.getElementById("tema");
@@ -34,6 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             mostrarError("error-tema", "* Tienes que selecionar una opcion");
         }
+    });
+
+
+    //boton eliminar
+    btnEliminar.addEventListener("click", () => {
+        form.reset(); 
+
+        
+        limpiarError("error-titulo");
+        limpiarError("error-descripcion");
+        limpiarError("error-tema");
     });
 
 });
