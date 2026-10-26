@@ -26,7 +26,7 @@ require __DIR__ . '/layout/nav.php';
             </div>
             <div>
             <label for="Tema">Tema</label>
-            <select id="tema" name="tema">
+            <select id="tema" name="tema" required>
                             <option value="" selected> --Selecciona el tema de tu pregunta-- </option>
                             <option value="Ingeniería y Diseño"> Ingeniería y Diseño </option>
                             <option value="Normativa y Calidad"> Normativa y Calidad </option>
@@ -38,7 +38,8 @@ require __DIR__ . '/layout/nav.php';
             </div>
             
             <button type="submit" id="bAnadir" class="btn-annadir">Añadir</button>
-            <button type="submit" id="bEliminar" class="btn-eliminar">Eliminar</button>
+            <button type="button" id="bEliminar" class="btn-eliminar">Eliminar</button>
+            
             
         </form> 
         <p class="mensajeError"><?php 
