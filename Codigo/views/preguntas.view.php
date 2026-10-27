@@ -3,10 +3,19 @@ $titulo = 'Preguntas';
 $css = 'preguntas-estilo.css';
 $scripts = 'preguntas.view.script.js';
 
+$esAdmin = isset($_SESSION['usuario']) && $_SESSION['usuario']->tipo === 'admin';
+
 require __DIR__ . '/layout/head.php';
 ?>
 
 <main>
+    <!--boton lista usuarios !-->
+    <?php if ($esAdmin): ?>
+    <a href="index.php?controller=ListarUsuariosController&accion=index" class="btnListarUsuarios" title="ListarUsuarios">
+        <img src="views/imagenes/ListarUsuarios.png" alt="ListarUsuarios" width="auto" height="30">
+    </a>
+    <?php endif; ?>
+
     <div class="buscador">
         <form action="index.php" method="POST">
             <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas, temas o normativas...">

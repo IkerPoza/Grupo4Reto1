@@ -216,3 +216,30 @@ main{
     justify-content: space-between;
     align-items: center;
 }
+
+/*boton de listar usuarios*/
+
+
+.btnListarUsuarios {
+    display: flex;
+    justify-content: flex-end; 
+    margin: 10px 20px 10px auto; 
+    width: fit-content; 
+    text-decoration: none;
+}
+
+.btnListarUsuarios img {
+    width: 36px; 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease; 
+}
+
+.btnListarUsuarios img:hover {
+    transform: scale(1.1); 
+    opacity: 0.85; 
+}
+
+.btnListarUsuarios img:active {
+    transform: scale(0.95);
+}
