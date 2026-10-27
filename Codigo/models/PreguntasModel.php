@@ -334,4 +334,24 @@ class PreguntasModel {
         ];
         $stmt->execute($datos);
     }
+
+        
+    public static function guardarArchivoRespuesta($idRespuesta, $nombreOriginal, $ruta, $tipoMime) {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("INSERT INTO archivoRespuesta(idRespuesta, nombreOriginal, ruta, tipoMime) VALUES (?, ?, ?, ?)");
+
+        $stmt->execute([$idRespuesta, $nombreOriginal, $ruta, $tipoMime]);
+    }
+
+    public static function getArchivosRespuestas($idPregunta) {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("SELECT a.id, a.idRespuesta, a.nombreOriginal, a.ruta, a.tipoMime FROM archivoRespuesta a INNER JOIN respuesta r ON r.id = a.idRespuesta WHERE r.idPregunta = ? ORDER BY a.id ASC");
+
+        $stmt->execute([$idPregunta]);
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
 }

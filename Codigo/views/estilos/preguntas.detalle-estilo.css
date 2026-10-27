@@ -145,10 +145,38 @@
     gap: 12px;
 }
 
-.respuestaAnidada, .formularioAnidado {
-    width: 86%;
-    align-self: flex-end;
+
+/* Respuestas principales */
+.respuesta {
+    width: 100%;
+    min-height: 48px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background: #D6DDE4;
+    box-shadow: 0 3px 4px #00000035;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
+
+/* Respuestas a otras respuestas */
+.respuestaAnidada {
+    width: 90%;
+    align-self: flex-end;
+    background: #E5E9EE;
+    margin-top: 5px;
+    padding: 7px 10px;
+}
+
+/* Formulario para responder a otra respuesta */
+.formularioAnidado {
+    width: 90%;
+    align-self: flex-end;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 
 .textoRespuesta {
     min-width: 0;
@@ -190,30 +218,35 @@
     cursor: default;
 }
 
-.formAccion { margin: 0; }
-.formAccion button { cursor: pointer; }
-.accionesRespuesta .eliminarRespuesta { color: #D71920; font-size: 19px; }
-.errorRespuesta { color: #B00020; font-size: 14px; }
-.sinRespuestas { padding: 15px 0; color: #555; font-size: 14px; }
-
-/* Evita que el estilo global de los formularios altere esta vista. */
-.detallePregunta form { box-shadow: none; }
-
-@media (max-width: 700px) {
-    .detallePregunta { padding: 12px 4% 24px; gap: 18px; }
-    .detallePregunta .publicacion { grid-template-columns: minmax(0, 1fr) 75px; column-gap: 10px; row-gap: 24px; }
-    .informacionPublicacion h2 { font-size: 22px; }
-    .imagenPublicacion { min-height: 70px; }
-    .imagenPublicacion span { font-size: 46px; }
-    .imagenPublicacion b { width: 25px; height: 25px; font-size: 22px; }
-    .formularioRespuesta, .respuestaAnidada, .formularioAnidado { width: 100%; }
-    .respuesta { padding: 9px; gap: 7px; }
-    .accionesRespuesta { gap: 4px; }
-    .accionesRespuesta button { font-size: 21px; }
-    .textoRespuesta p, .textoRespuesta h3 { font-size: 12px; }
+.formAccion { 
+    margin: 0; 
 }
 
-/* Flechas y contador de votos */
+.formAccion button { 
+    cursor: pointer; 
+}
+
+.accionesRespuesta .eliminarRespuesta { 
+    color: #D71920; 
+    font-size: 19px; 
+}
+
+.errorRespuesta { 
+    color: #B00020; 
+    font-size: 14px; 
+}
+
+.sinRespuestas { 
+    padding: 15px 0; 
+    color: #555; 
+    font-size: 14px; 
+}
+
+.detallePregunta form { 
+    box-shadow: none; 
+}
+
+
 .accionesRespuesta .accionVoto {
     display: inline-flex;
     align-items: center;
@@ -254,4 +287,79 @@
 }
 .enlaceDetallePregunta:hover h3 { 
     text-decoration: underline; 
+}
+
+
+.accionesFormularioRespuesta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.botonAdjuntar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid #C8D0DA;
+    border-radius: 8px;
+    color: #20365E;
+    background-color: #F7F7F8;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.botonAdjuntar img {
+    width: 20px;
+    height: 20px;
+}
+
+.botonAdjuntar input[type="file"] {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.archivosAdjuntos {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.archivosAdjuntos h4 {
+    color: #20365E;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.archivoAdjunto {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid #C8D0DA;
+    border-radius: 7px;
+    background-color: #F7F7F8;
+    color: #20365E;
+    text-decoration: none;
+    font-size: 12px;
+    min-width: 0;
+}
+
+.archivoAdjunto:hover {
+    background-color: #E9EDF2;
+}
+
+.nombreArchivo {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.descargarArchivo {
+    flex-shrink: 0;
+    text-decoration: underline;
 }
