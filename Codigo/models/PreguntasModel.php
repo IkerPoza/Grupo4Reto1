@@ -232,36 +232,40 @@ class PreguntasModel {
     }
 
         
+    
     public static function votarRespuesta($idUsuario, $idRespuesta, $voto) {
         $db = Database::getConnection();
 
+        $idUsuario = $idUsuario;
+        $idRespuesta = $idRespuesta;
+        $voto = $voto;
+
+        if (!$idUsuario || !$idRespuesta || !in_array($voto, [-1, 1], true)) {
+            throw new InvalidArgumentException('Datos de voto no válidos.');
+        }
+
         $stmt = $db->prepare("SELECT voto FROM votoRespuesta WHERE idUsuario = ? AND idRespuesta = ?");
-
         $stmt->execute([$idUsuario, $idRespuesta]);
-
         $actual = $stmt->fetchColumn();
 
-        if ($actual !== false && (int)$actual === (int)$voto) {
-            $stmt = $db->prepare("DELETE FROM votoRespuesta WHERE idUsuario = ? AND idRespuesta = ? ");
-
-            $stmt->execute([$idUsuario, $idRespuesta]);
-
-            return 0;
-        }
-
         if ($actual !== false) {
-            $stmt = $db->prepare("UPDATE votoRespuesta SET voto = ? WHERE idUsuario = ? AND idRespuesta = ?");
+            if ($actual === $voto) {
+                $stmt = $db->prepare("DELETE FROM votoRespuesta WHERE idUsuario = ? AND idRespuesta = ?" );
+                $stmt->execute([$idUsuario, $idRespuesta]);
+                return 0;
+            }
 
+            $stmt = $db->prepare("UPDATE votoRespuesta SET voto = ? WHERE idUsuario = ? AND idRespuesta = ?" );
             $stmt->execute([$voto, $idUsuario, $idRespuesta]);
-        } else {
-            $stmt = $db->prepare("INSERT INTO votoRespuesta(idUsuario, idRespuesta, voto) VALUES (?, ?, ?)");
-
-            $stmt->execute([$idUsuario, $idRespuesta, $voto]);
+            return $voto;
         }
 
+        $stmt = $db->prepare("INSERT INTO votoRespuesta (idUsuario, idRespuesta, voto) VALUES (?, ?, ?)" );
+        $stmt->execute([$idUsuario, $idRespuesta, $voto]);
         return $voto;
     }
 
+    
     public static function totalVotosRespuesta($idRespuesta) {
         $db = Database::getConnection();
 

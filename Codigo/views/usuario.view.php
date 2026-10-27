@@ -58,7 +58,7 @@ require __DIR__ . '/layout/nav.php';
                 <div class="estadisticas">
                     <article class="estadistica">
                         <strong id="antiguedadVisible"><?= $usuario->antiguedad ?></strong>
-                        <p>Antigüedad (años)</p>
+                        <p>Antigüedad</p>
                     </article>
 
                     <article class="estadistica">
@@ -125,17 +125,19 @@ require __DIR__ . '/layout/nav.php';
             <?php foreach ($preguntas as $p): ?>
                 <article class="tarjetaPregunta" data-id="<?= $p->id ?>">
 
-                    <div class="contenidoPregunta">
-                        <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                    <a class="enlaceDetallePregunta" href="index.php?controller=PreguntasController&accion=detalle&id=<?= $p->id ?>">
+                        <div class="contenidoPregunta">
+                            <h3><?= htmlspecialchars($p->titulo) ?></h3>
 
-                        <p class="tema">
-                            <?= htmlspecialchars($p->tema) ?>
-                        </p>
+                            <p class="tema">
+                                <?= htmlspecialchars($p->tema) ?>
+                            </p>
 
-                        <p class="descripcion">
-                            <?= htmlspecialchars($p->descripcion) ?>
-                        </p>
-                    </div>
+                            <p class="descripcion">
+                                <?= htmlspecialchars($p->descripcion) ?>
+                            </p>
+                        </div>
+                    </a>
 
                     <button type="button" class="favorito <?= !empty($p->guardada) ? 'guardado' : '' ?>" data-id="<?= $p->id ?>" aria-pressed="<?= !empty($p->guardada) ? 'true' : 'false' ?>" title="<?= !empty($p->guardada) ? 'Quitar de favoritos' : 'Añadir a favoritos' ?>">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -158,17 +160,19 @@ require __DIR__ . '/layout/nav.php';
             <?php foreach ($guardadas as $p): ?>
                 <article class="tarjetaPregunta" data-id="<?= $p->id ?>">
 
-                    <div class="contenidoPregunta">
-                        <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                    <a class="enlaceDetallePregunta" href="index.php?controller=PreguntasController&accion=detalle&id=<?= $p->id ?>">
+                        <div class="contenidoPregunta">
+                            <h3><?= htmlspecialchars($p->titulo) ?></h3>
 
-                        <p class="tema">
-                            <?= htmlspecialchars($p->tema) ?>
-                        </p>
+                            <p class="tema">
+                                <?= htmlspecialchars($p->tema) ?>
+                            </p>
 
-                        <p class="descripcion">
-                            <?= htmlspecialchars($p->descripcion) ?>
-                        </p>
-                    </div>
+                            <p class="descripcion">
+                                <?= htmlspecialchars($p->descripcion) ?>
+                            </p>
+                        </div>
+                    </a>
 
                     <button type="button" class="favorito guardado" data-id="<?= $p->id ?>" aria-pressed="true" title="Quitar de favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true">

@@ -3,7 +3,7 @@ const svgFavoritos = document.getElementsByClassName("botonFavorito");
 
 const sectionTema = document.getElementsByClassName("tema");
 
-document.getElementById('ordenar').addEventListener('change', cambiarOrden)
+document.getElementById('ordenar')?.addEventListener('change', cambiarOrden)
 const tarjetasPregunta = document.querySelectorAll(".tarjetaPregunta");
 
 tarjetasPregunta.forEach((tarjeta) => {
@@ -99,3 +99,48 @@ function cambiarOrden() {
         document.body.appendChild(form);
         form.submit(); 
 }
+
+/* Votación de respuestas en la vista de detalle */
+document.querySelectorAll('.accionVoto[data-id-respuesta]').forEach((boton) => {
+    boton.addEventListener('click', async () => {
+        const grupo = boton.closest('.accionesRespuesta');
+        const botones = grupo.querySelectorAll('.accionVoto[data-id-respuesta]');
+        const idRespuesta = boton.dataset.idRespuesta;
+        const votoSolicitado = Number(boton.dataset.voto);
+
+        botones.forEach((b) => b.disabled = true);
+        try {
+            const respuesta = await fetch('index.php?controller=PreguntasController&accion=votar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idRespuesta: Number(idRespuesta), voto: votoSolicitado })
+            });
+            const datos = await respuesta.json();
+
+            if (!respuesta.ok || !datos.ok) {
+                alert(datos.mensaje || 'No se ha podido registrar el voto.');
+                return;
+            }
+
+            const votoActual = Number(datos.miVoto);
+            const contador = grupo.querySelector('.contadorVotos');
+            if (contador) contador.textContent = datos.totalVotos;
+
+            botones.forEach((b) => {
+                const esArriba = Number(b.dataset.voto) === 1;
+                const seleccionado = (votoActual === 1 && esArriba) || (votoActual === -1 && !esArriba);
+                const img = b.querySelector('img');
+                img.src = 'views/imagenes/' + (esArriba
+                    ? (seleccionado ? 'FlechaArribaRellena.png' : 'FlechaArriba.png')
+                    : (seleccionado ? 'FlechaAbajoRellena.png' : 'FlechaAbajo.png'));
+                b.classList.toggle('votoSeleccionado', seleccionado);
+            });
+
+            if (datos.mensaje) alert(datos.mensaje);
+        } catch (error) {
+            alert('Error de conexión al registrar el voto.');
+        } finally {
+            botones.forEach((b) => b.disabled = false);
+        }
+    });
+});

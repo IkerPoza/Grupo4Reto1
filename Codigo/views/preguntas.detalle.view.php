@@ -24,12 +24,17 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
 
         <article class="<?= $clase ?>" id="respuesta-<?= $respuesta->id ?>">
             <div class="textoRespuesta">
-                <h3><?= $h($nombreCompleto($respuesta)) ?></h3>
+                <h3><a class="enlacePerfil" href="index.php?controller=UsuarioController&accion=show&id=<?= $respuesta->idUsuario ?>"><?= $h($nombreCompleto($respuesta)) ?></a></h3>
                 <p><?= nl2br($h($respuesta->texto)) ?></p>
             </div>
             <div class="accionesRespuesta">
-                <button class="accionVoto" type="button" aria-label="Votar en contra" title="Votar en contra" disabled><img src="views/imagenes/FlechaAbajo.png" alt="Eliminar"></button>
-                <button class="accionVoto" type="button" aria-label="Votar a favor" title="Votar a favor" disabled><img src="views/imagenes/FlechaArriba.png" alt="Eliminar"></button>
+                <button class="accionVoto votoArriba <?= ($respuesta->miVoto ?? 0) === 1 ? 'votoSeleccionado' : '' ?>" type="button" data-id-respuesta="<?= $respuesta->id ?>" data-voto="1" title="Votar a favor">
+                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === 1 ? 'FlechaArribaRellena.png' : 'FlechaArriba.png' ?>" alt="Voto positivo">
+                </button>
+                <span class="contadorVotos" aria-live="polite"><?= ($respuesta->totalVotos ?? 0) ?></span>
+                <button class="accionVoto votoAbajo <?= ($respuesta->miVoto ?? 0) === -1 ? 'votoSeleccionado' : '' ?>" type="button" data-id-respuesta="<?= $respuesta->id ?>" data-voto="-1" title="Votar en contra">
+                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === -1 ? 'FlechaAbajoRellena.png' : 'FlechaAbajo.png' ?>" alt="Voto negativo">
+                </button>
                 <form action="index.php" method="POST" class="formAccion">
                     <input type="hidden" name="controller" value="PreguntasController">
                     <input type="hidden" name="accion" value="detalle">
@@ -71,12 +76,16 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
     <section class="publicacion">
         <div class="informacionPublicacion">
             <h2><?= $h($pregunta->titulo) ?></h2>
-            <p class="autorPublicacion"><?= $h(trim($pregunta->autor_nombre . ' ' . ($pregunta->autor_apellidos ?? ''))) ?></p>
+            <p class="autorPublicacion"><a class="enlacePerfil" href="index.php?controller=UsuarioController&accion=show&id=<?= $pregunta->autor_id ?>"><?= $h(trim($pregunta->autor_nombre . ' ' . ($pregunta->autor_apellidos ?? ''))) ?></a></p>
             <p class="temaPublicacion"><?= $h($pregunta->tema) ?></p>
         </div>
-        <div class="imagenPublicacion">
-            <span aria-hidden="true">><img src="views/imagenes/ImagenVacia.png" alt="Eliminar"></span>
-        </div>
+        <?php if (!empty($pregunta->imagen)): ?>
+            <div class="imagenPublicacion">
+                <img src="<?= htmlspecialchars($pregunta->imagen) ?>"
+                     alt="Imagen adjunta a la pregunta"
+                     class="imagenPreguntaDetalle">
+            </div>
+        <?php endif; ?>
         <p class="descripcionPublicacion"><?= nl2br($h($pregunta->descripcion)) ?></p>
     </section>
 
@@ -87,7 +96,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
         <input type="hidden" name="accion" value="responder">
         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
         <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta">><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
+        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
     </form>
 
     <section class="listaRespuestas" aria-label="Respuestas">
