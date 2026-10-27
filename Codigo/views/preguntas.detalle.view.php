@@ -40,7 +40,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                     <input type="hidden" name="accion" value="detalle">
                     <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                     <input type="hidden" name="responderA" value="<?= $respuesta->id ?>">
-                    <button type="submit" aria-label="Responder" title="Responder"><img src="views/imagenes/Responder.png" alt="Eliminar"></button>
+                    <button type="submit" aria-label="Responder" title="Responder"><img src="views/imagenes/Responder.svg" alt="Responder"></button>
                 </form>
                 <?php if ($puedeEliminar): ?>
                     <form action="index.php" method="POST" class="formAccion" onsubmit="return confirm('¿Quieres eliminar esta respuesta?');">
@@ -48,7 +48,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                         <input type="hidden" name="accion" value="eliminarRespuesta">
                         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                         <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
-                        <button class="eliminarRespuesta" type="submit" aria-label="Eliminar respuesta" title="Eliminar respuesta"><img src="views/imagenes/Papelera.png" alt="Eliminar"></button>
+                        <button class="eliminarRespuesta" type="submit" aria-label="Eliminar respuesta" title="Eliminar respuesta"><img src="views/imagenes/Papelera.svg" alt="Eliminar"></button>
                     </form>
                 <?php endif; ?>
             </div>
@@ -60,7 +60,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                 <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                 <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
                 <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-                <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
+                <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.svg" alt="Enviar"></button>
             </form>
         <?php endif; ?>
         <?php
