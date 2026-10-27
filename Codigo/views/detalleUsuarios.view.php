@@ -25,7 +25,7 @@
 
         <!-- Columna Izquierda: Imagen -->
         <div class="imagenEdicion">
-          <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.png') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
+          <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.svg') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
           <p><b>Foto de perfil</b></p>
           <label for="foto" class="btn-subir-foto">Selecciona una imagen</label>
           <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
