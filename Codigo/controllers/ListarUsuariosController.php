@@ -5,10 +5,10 @@ require_once __DIR__ . '/../models/ListarUsuariosModel.php';
 class ListarUsuariosController extends BaseController {
 
     public function index() {
-        $orden = $_GET['orden'] ?? 'asc';
-        $busqueda = $_POST['busqueda'] ?? '';
+        $orden    = $_GET['orden'] ?? 'asc';
+        $busqueda = trim($_GET['busqueda'] ?? '');
 
-        if (!empty($busqueda)) {
+        if ($busqueda !== '') {
             $usuarios = ListarUsuariosModel::buscar($busqueda, $orden);
         } else {
             $usuarios = ListarUsuariosModel::getAll($orden);
@@ -23,6 +23,17 @@ class ListarUsuariosController extends BaseController {
         }
         header('Location: index.php?controller=ListarUsuariosController&accion=index');
         exit;
+    }
+
+    public function detalle(){
+        $id = $_GET['id'] ?? null;
+        
+        if ($id) {
+            $usuario = ListarUsuariosModel::getById($id);
+        }
+
+        require_once __DIR__ . '/../views/detalleUsuarios.view.php';
+        
     }
 
     

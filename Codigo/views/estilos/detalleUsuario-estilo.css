@@ -1,0 +1,208 @@
+body {
+  background-color: #f0f2f5;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mismo contenedor que el <main> de la página de perfil */
+.contenedor-principal {
+  width: 100%;
+  flex: 1;
+  padding: 12px 3.5% 45px;
+  box-sizing: border-box;
+}
+
+.barra-volver {
+  margin-bottom: 15px;
+}
+
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* La tarjeta es .formularioPerfil, este contenedor no añade nada */
+#vistadetalleUsuario {
+  width: 100%;
+}
+
+/* Tarjeta blanca (igual que en el perfil: sin bordes redondeados) */
+.formularioPerfil {
+  background-color: #ffffff;
+  padding: 40px;
+  box-shadow: 0 3px 6px #00000025;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Dos columnas */
+#formPerfil {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.85fr) minmax(0, 1.15fr);
+  column-gap: 50px;
+  row-gap: 22px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Columna izquierda: foto */
+.imagenEdicion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.fotoPerfil {
+  width: 135px;
+  height: 135px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.imagenEdicion p {
+  margin: 0;
+  font-size: 17px;
+  color: #171717;
+}
+
+.btn-subir-foto {
+  font-size: 14px;
+  color: #687386;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-subir-foto:hover {
+  color: #20365e;
+}
+
+.imagenEdicion input[type="file"] {
+  display: none;
+}
+
+/* Columna derecha: campos */
+.camposFormulario {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.campo label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #171717;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  min-height: 43px;
+  padding: 10px 12px;
+  border: 1px solid #c8cdd5;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-size: 15px;
+  color: #171717;
+  box-shadow: 0 2px 4px #0000000d;
+  box-sizing: border-box;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: 2px solid #8da6d0;
+  outline-offset: 1px;
+}
+
+.campo input::placeholder {
+  color: #a6aab1;
+}
+
+/* Botones */
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 0;
+}
+
+.botones button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px #00000030;
+}
+
+.botonGuardar {
+  background-color: #20365e;
+  color: #ffffff;
+}
+
+.botonGuardar:hover {
+  background-color: #304b7a;
+}
+
+.botonCancelar {
+  background-color: transparent;
+  color: #20365e;
+  border: 1px solid #c8cdd5;
+}
+
+.botonCancelar:hover {
+  background-color: #f0f2f5;
+}
+
+/* Mediano */
+@media (max-width: 800px) {
+  .contenedor-principal {
+    padding: 12px 22px 35px;
+  }
+
+  .formularioPerfil {
+    padding: 30px;
+  }
+
+  #formPerfil {
+    column-gap: 30px;
+  }
+}
+
+/* Pequeño */
+@media (max-width: 550px) {
+  .contenedor-principal {
+    padding: 10px 15px 30px;
+  }
+
+  .formularioPerfil {
+    padding: 24px 18px;
+  }
+
+  #formPerfil {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+
+  .botones {
+    gap: 10px;
+  }
+
+  .botones button {
+    flex: 1;
+    padding: 12px 10px;
+  }
+}
