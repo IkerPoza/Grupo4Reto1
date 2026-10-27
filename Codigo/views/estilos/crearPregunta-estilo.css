@@ -110,18 +110,16 @@ body {
 
 .crearPregunta-imagen {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
 .crearPregunta-imagen label {
   cursor: pointer;
   display: inline-block;
   transition: transform 0.2s ease;
-}
-
-.crearPregunta-imagen label:hover {
-  transform: scale(1.05);
 }
 
 .crearPregunta-imagen img {
