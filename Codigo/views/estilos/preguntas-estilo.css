@@ -222,10 +222,12 @@ main{
 
 .btnListarUsuarios {
     display: flex;
-    justify-content: flex-end; 
-    margin: 10px 20px 10px auto; 
-    width: fit-content; 
+    justify-content: flex-end;
+    margin: 10px 20px 10px auto;
+    width: fit-content;
     text-decoration: none;
+    position: relative;
+    top: 60px; 
 }
 
 .btnListarUsuarios img {
