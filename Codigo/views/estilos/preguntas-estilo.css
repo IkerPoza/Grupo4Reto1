@@ -217,10 +217,29 @@ main{
     align-items: center;
 }
 
-.mensajeVacio {
-    padding: 35px 20px;
-    text-align: center;
-    background-color: white;
-    color: #687386;
-    box-shadow: 0 3px 6px #00000025;
+/*boton de listar usuarios*/
+
+
+.btnListarUsuarios {
+    display: flex;
+    justify-content: flex-end; 
+    margin: 10px 20px 10px auto; 
+    width: fit-content; 
+    text-decoration: none;
+}
+
+.btnListarUsuarios img {
+    width: 36px; 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease; 
+}
+
+.btnListarUsuarios img:hover {
+    transform: scale(1.1); 
+    opacity: 0.85; 
+}
+
+.btnListarUsuarios img:active {
+    transform: scale(0.95);
 }
