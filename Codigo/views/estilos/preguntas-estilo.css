@@ -245,3 +245,26 @@ main{
 .btnListarUsuarios img:active {
     transform: scale(0.95);
 }
+
+
+/*boton eliminar pregunta*/
+
+/*boton eliminar pregunta*/
+
+.accionesPregunta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnEliminarPregunta {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+}
+
+.btnEliminarPregunta:hover {
+    transform: scale(1.15);
+}
+

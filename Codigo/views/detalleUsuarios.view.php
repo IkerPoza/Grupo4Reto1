@@ -8,7 +8,7 @@
 
 <main class="contenedor-principal">
 
-  <!-- Botón Volver -->
+  
   <div class="barra-volver">
     <a href="javascript:history.back()" class="btn-volver" title="Volver">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4a607a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -23,7 +23,7 @@
 
       <form id="formPerfil" action="index.php?controller=DetalleUsuarioController&accion=update" method="POST" enctype="multipart/form-data">
 
-        <!-- Columna Izquierda: Imagen -->
+        
         <div class="imagenEdicion">
           <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.svg') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
           <p><b>Foto de perfil</b></p>
@@ -31,7 +31,7 @@
           <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
         </div>
 
-        <!-- Columna Derecha: Campos del Formulario -->
+        
         <div class="camposFormulario">
 
           <div class="campo">
