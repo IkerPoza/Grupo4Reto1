@@ -1,8 +1,8 @@
 /*PREGUNTAS VIEW*/
 
 main{
-    padding-bottom: 0px !important;
-    max-height: 77.25vh;
+    padding-bottom: 0px ;
+    
 }
 
 /*BUSCADOR*/
@@ -47,6 +47,15 @@ main{
     margin-top: 2rem;
     gap: 2rem;
     align-items: stretch;
+    flex: 1;
+    min-height: 0;
+}
+
+.contenidoPreguntas .der {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /*LATERAL PREGUNTAS*/
@@ -169,6 +178,8 @@ main{
     overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
     overflow-x: hidden;
     scrollbar-width: none; 
+    flex:1;
+    min-height: 0;
 }
 
 .listaPreguntas::-webkit-scrollbar{
@@ -179,7 +190,7 @@ main{
     color: white;
     background-color: #5B6F8F;
     width: 100%;
-    height: 100%;
+    flex-shrink: 0;
     padding: 1rem 1.5rem;
     border-radius: 8px;
     box-shadow: 0 3px 6px #00000025;
@@ -245,3 +256,25 @@ main{
 .btnListarUsuarios img:active {
     transform: scale(0.95);
 }
+
+
+/*boton eliminar pregunta*/
+
+
+.accionesPregunta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnEliminarPregunta {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+}
+
+.btnEliminarPregunta:hover {
+    transform: scale(1.15);
+}
+
