@@ -112,15 +112,20 @@ body {
 }
 
 .tarjeta-usuario {
-  background-color: #5b6f8f;
+  background-color: #5c708e;
   border-radius: 12px;
   padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer; 
+  transition: transform 0.15s ease, background-color 0.15s ease;
 }
-
+.tarjeta-usuario:hover {
+  background-color: #4f617c;
+  transform: translateY(-1px);
+}
 
 .usuario-info {
   display: flex;
@@ -168,3 +173,4 @@ body {
   width: 24px;
   height: 24px;
 }
+
