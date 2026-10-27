@@ -9,8 +9,8 @@
 
 .detallePregunta .publicacion {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 145px;
-    grid-template-rows: auto auto;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    grid-template-rows: 150px auto;
     column-gap: 28px;
     row-gap: 34px;
     align-items: start;
@@ -36,15 +36,27 @@
     font-weight: 700;
 }
 
+
 .imagenPublicacion {
     grid-column: 2;
     grid-row: 1;
-    min-height: 95px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #BBC8D5;
+    width: 100%;
+    max-width: 200px;
+    margin: 0;
+    justify-self: end;
+    align-self: start;
+    text-align: center;
 }
+
+.imagenPreguntaDetalle {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
 
 .imagenPublicacion span {
     position: relative;
