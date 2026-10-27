@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS preguntaGuardada;
+DROP TABLE IF EXISTS votoRespuesta;
 DROP TABLE IF EXISTS respuestaFavorita;
 DROP TABLE IF EXISTS respuesta;
 DROP TABLE IF EXISTS pregunta;
@@ -27,6 +28,7 @@ CREATE TABLE pregunta (
     tema VARCHAR(100),
     descripcion TEXT,
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    imagen VARCHAR(255) DEFAULT NULL;
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
@@ -59,7 +61,7 @@ CREATE TABLE votoRespuesta (
     idUsuario INT NOT NULL,
     idRespuesta INT NOT NULL,
     voto TINYINT NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (id), 
     CONSTRAINT chk_voto CHECK (voto IN (-1, 1)),
     CONSTRAINT uq_voto_usuario_respuesta UNIQUE (idUsuario, idRespuesta),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,

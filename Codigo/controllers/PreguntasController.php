@@ -64,35 +64,30 @@ class PreguntasController extends BaseController {
 
         
     public function votar() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
+        if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json; charset=utf-8');
 
         $idUsuario = (int)($_SESSION['usuario']->id ?? 0);
 
         $datos = json_decode(file_get_contents('php://input'), true) ?? [];
-
-        $idRespuesta = filter_var($datos['idRespuesta'] ?? null);
-
-        $voto = filter_var($datos['voto'] ?? null);
+        $idRespuesta = $datos['idRespuesta'] ?? null;
+        $voto = $datos['voto'] ?? null;
 
         try {
             $db = Database::getConnection();
-
             $stmt = $db->prepare('SELECT id FROM respuesta WHERE id = ?');
-
             $stmt->execute([$idRespuesta]);
 
             $miVoto = PreguntasModel::votarRespuesta($idUsuario, $idRespuesta, $voto);
-
-            $totalVotos = PreguntasModel::totalVotosRespuesta($idRespuesta);
+            $totalVotos = (int)PreguntasModel::totalVotosRespuesta($idRespuesta);
 
             echo json_encode([
                 'ok' => true,
-                'miVoto' => $miVoto,
-                'totalVotos' => $totalVotos
+                'miVoto' => (int)$miVoto,
+                'totalVotos' => $totalVotos,
+                'mensaje' => ((int)$miVoto !== 0 && (int)$miVoto !== (int)$voto)
+                    ? 'Ya has votado en sentido contrario. No puedes cambiar el sentido de tu voto.'
+                    : ''
             ]);
         } catch (Throwable $e) {
             error_log($e->getMessage());
