@@ -200,3 +200,46 @@
     .accionesRespuesta button { font-size: 21px; }
     .textoRespuesta p, .textoRespuesta h3 { font-size: 12px; }
 }
+
+/* Flechas y contador de votos */
+.accionesRespuesta .accionVoto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 30px;
+    cursor: pointer;
+}
+.accionesRespuesta .accionVoto img {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+.accionesRespuesta .accionVoto:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+.contadorVotos {
+    min-width: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #20365E;
+    font-variant-numeric: tabular-nums;
+}
+
+.enlacePerfil { 
+    color: inherit; 
+    text-decoration: none; 
+}
+.enlacePerfil:hover { 
+    text-decoration: underline; 
+}
+.enlaceDetallePregunta { 
+    display: block; 
+    color: inherit; 
+    text-decoration: none; 
+}
+.enlaceDetallePregunta:hover h3 { 
+    text-decoration: underline; 
+}

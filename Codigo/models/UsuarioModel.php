@@ -62,7 +62,7 @@ class UsuarioModel {
         
         $stmt = $db->prepare("SELECT(SELECT COUNT(*) FROM pregunta  WHERE idUsuario = :u1) AS preguntas,
                             (SELECT COUNT(*) FROM respuesta WHERE idUsuario = :u2) AS respuestas,
-                            (SELECT COUNT(*) FROM respuestaFavorita f JOIN respuesta r ON r.id = f.idRespuesta WHERE r.idUsuario = :u3) AS votosRecibidos");
+                            (SELECT COUNT(*) FROM votoRespuesta v JOIN respuesta r ON r.id = v.idRespuesta WHERE r.idUsuario = :u3) AS votosRecibidos");
         
         $stmt->execute(['u1' => $id, 'u2' => $id, 'u3' => $id]);
 
