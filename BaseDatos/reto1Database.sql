@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS archivoRespuesta
 DROP TABLE IF EXISTS preguntaGuardada;
 DROP TABLE IF EXISTS votoRespuesta;
 DROP TABLE IF EXISTS respuestaFavorita;
@@ -76,4 +77,15 @@ CREATE TABLE preguntaGuardada (
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE archivoRespuesta (
+    id INT NOT NULL AUTO_INCREMENT,
+    idRespuesta INT NOT NULL,
+    nombreOriginal VARCHAR(255) NOT NULL,
+    ruta VARCHAR(255) NOT NULL,
+    tipoMime VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
 );

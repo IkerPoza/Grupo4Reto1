@@ -165,7 +165,7 @@ main{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-height: 69.6vh;
+    max-height: 59vh;
     overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
     overflow-x: hidden;
     scrollbar-width: none; 
