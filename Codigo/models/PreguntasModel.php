@@ -171,6 +171,19 @@ class PreguntasModel {
     }
     
     public static function deleteById($id) {
+       $db = Database::getConnection();
+
+        $stmt = $db->prepare("UPDATE respuesta SET idRespuesta = NULL WHERE idPregunta = :id");
+        $stmt->execute([':id' => $id]);
+
+        $stmt = $db->prepare("DELETE FROM respuesta WHERE idPregunta = :id");
+        $stmt->execute([':id' => $id]);
+
+        $stmt = $db->prepare("DELETE FROM preguntaGuardada WHERE idPregunta = :id");
+        $stmt->execute([':id' => $id]);
+
+        $stmt = $db->prepare("DELETE FROM pregunta WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
         
     }
     
