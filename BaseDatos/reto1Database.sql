@@ -53,6 +53,20 @@ CREATE TABLE respuestaFavorita (
     FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE votoRespuesta (
+    id INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    idRespuesta INT NOT NULL,
+    voto TINYINT NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT chk_voto CHECK (voto IN (-1, 1)),
+    CONSTRAINT uq_voto_usuario_respuesta UNIQUE (idUsuario, idRespuesta),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
+);
+
+
 CREATE TABLE preguntaGuardada (
     id INT NOT NULL AUTO_INCREMENT,
     idUsuario INT NOT NULL,

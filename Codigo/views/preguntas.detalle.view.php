@@ -4,7 +4,7 @@ $css = 'preguntas.detalle-estilo.css';
 $scripts = 'preguntas.view.script.js';
 require __DIR__ . '/layout/head.php';
 
-$h = static fn($valor) => htmlspecialchars(($valor ?? ''), ENT_QUOTES, 'UTF-8');
+$h = static fn($valor) => htmlspecialchars(($valor ?? ''));
 $nombreCompleto = static function ($obj) {
     return trim(($obj->autor_nombre ?? '') . ' ' . ($obj->autor_apellidos ?? '')) ?: 'Usuario';
 };
@@ -28,14 +28,14 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                 <p><?= nl2br($h($respuesta->texto)) ?></p>
             </div>
             <div class="accionesRespuesta">
-                <button class="accionVoto" type="button" aria-label="Votar en contra" title="Votar en contra" disabled>↓</button>
-                <button class="accionVoto" type="button" aria-label="Votar a favor" title="Votar a favor" disabled>↑</button>
+                <button class="accionVoto" type="button" aria-label="Votar en contra" title="Votar en contra" disabled><img src="views/imagenes/FlechaAbajo.png" alt="Eliminar"></button>
+                <button class="accionVoto" type="button" aria-label="Votar a favor" title="Votar a favor" disabled><img src="views/imagenes/FlechaArriba.png" alt="Eliminar"></button>
                 <form action="index.php" method="POST" class="formAccion">
                     <input type="hidden" name="controller" value="PreguntasController">
                     <input type="hidden" name="accion" value="detalle">
                     <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                     <input type="hidden" name="responderA" value="<?= $respuesta->id ?>">
-                    <button type="submit" aria-label="Responder" title="Responder">↶</button>
+                    <button type="submit" aria-label="Responder" title="Responder"><img src="views/imagenes/Responder.png" alt="Eliminar"></button>
                 </form>
                 <?php if ($puedeEliminar): ?>
                     <form action="index.php" method="POST" class="formAccion" onsubmit="return confirm('¿Quieres eliminar esta respuesta?');">
@@ -43,7 +43,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                         <input type="hidden" name="accion" value="eliminarRespuesta">
                         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                         <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
-                        <button class="eliminarRespuesta" type="submit" aria-label="Eliminar respuesta" title="Eliminar respuesta">▮</button>
+                        <button class="eliminarRespuesta" type="submit" aria-label="Eliminar respuesta" title="Eliminar respuesta"><img src="views/imagenes/Papelera.png" alt="Eliminar"></button>
                     </form>
                 <?php endif; ?>
             </div>
@@ -55,7 +55,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
                 <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                 <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
                 <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-                <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta">➤</button>
+                <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
             </form>
         <?php endif; ?>
         <?php
@@ -75,7 +75,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
             <p class="temaPublicacion"><?= $h($pregunta->tema) ?></p>
         </div>
         <div class="imagenPublicacion">
-            <span aria-hidden="true">▧<b>+</b></span>
+            <span aria-hidden="true">><img src="views/imagenes/ImagenVacia.png" alt="Eliminar"></span>
         </div>
         <p class="descripcionPublicacion"><?= nl2br($h($pregunta->descripcion)) ?></p>
     </section>
@@ -87,7 +87,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
         <input type="hidden" name="accion" value="responder">
         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
         <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta">➤</button>
+        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta">><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
     </form>
 
     <section class="listaRespuestas" aria-label="Respuestas">
