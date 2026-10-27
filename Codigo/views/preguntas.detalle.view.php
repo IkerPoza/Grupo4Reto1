@@ -79,10 +79,11 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
             </div>
         </article>
         <?php if ($respuestaActiva === $respuesta->id): ?>
-            <form class="formularioRespuesta" action="index.php" method="POST" enctype="multipart/form-data">
+            <form class="formularioRespuesta formularioAnidado" action="index.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="controller" value="PreguntasController">
                 <input type="hidden" name="accion" value="responder">
                 <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
+                <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
 
                 <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
 
@@ -128,11 +129,10 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
 
     <?php if (!empty($errorRespuesta)): ?><p class="errorRespuesta"><?= $h($errorRespuesta) ?></p><?php endif; ?>
 
-    <form class="formularioRespuesta formularioAnidado" action="index.php" method="POST" enctype="multipart/form-data">
+    <form class="formularioRespuesta" action="index.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="controller" value="PreguntasController">
         <input type="hidden" name="accion" value="responder">
         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
-        <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
         <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
             <div class="accionesFormularioRespuesta">
             <label class="botonAdjuntar" title="Adjuntar archivos">

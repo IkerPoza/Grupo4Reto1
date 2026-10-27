@@ -126,14 +126,20 @@
     line-height: 1;
 }
 
+
 .listaRespuestas {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 9px;
+    width: 100%;
 }
 
-.respuesta {
+/* Respuestas principales: ocupan todo el ancho */
+.listaRespuestas > .respuesta:not(.respuestaAnidada) {
     width: 100%;
+    align-self: stretch;
+    min-width: 0;
     min-height: 48px;
     padding: 7px 10px;
     border-radius: 10px;
@@ -143,30 +149,25 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    box-sizing: border-box;
 }
 
-
-/* Respuestas principales */
-.respuesta {
-    width: 100%;
-    min-height: 48px;
-    padding: 7px 10px;
-    border-radius: 10px;
-    background: #D6DDE4;
-    box-shadow: 0 3px 4px #00000035;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-/* Respuestas a otras respuestas */
-.respuestaAnidada {
+/* Respuestas a otras respuestas: más pequeñas y desplazadas */
+.listaRespuestas > .respuesta.respuestaAnidada {
     width: 90%;
     align-self: flex-end;
-    background: #E5E9EE;
+    min-width: 0;
+    min-height: 48px;
     margin-top: 5px;
     padding: 7px 10px;
+    border-radius: 10px;
+    background: #E5E9EE;
+    box-shadow: 0 3px 4px #00000035;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
 }
 
 /* Formulario para responder a otra respuesta */
@@ -176,6 +177,7 @@
     margin-top: 8px;
     margin-bottom: 8px;
 }
+
 
 
 .textoRespuesta {
