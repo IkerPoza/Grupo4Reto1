@@ -13,6 +13,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
     <link rel="stylesheet" href="views/estilos/<?= $css ?>">
     <link rel="stylesheet" href="views/estilos/estilos.css">
     <script src="views/scripts/<?= $scripts ?>" defer></script>
+    <link rel="icon" type="image/svg+xml" href="views/imagenes/Logo.svg">
 </head>
 <body>
     <header class="cabecera">
