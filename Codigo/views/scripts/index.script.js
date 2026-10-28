@@ -7,24 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnInicio = document.getElementById("bInicio");
 
 
-    // vaalida el correo cuando el usuario sale de ese campo
+    // valida el correo cuando el usuario sale de ese campo
     emailInput.addEventListener("blur", () => {
-        // solo valida si ha escrito algo
         if (emailInput.value.trim() !== "") {
             validarEmail();
         } else {
-            mostrarError("error-email", "*El campo no puede estar vacio");
+            mostrarError("error-email", "* El campo no puede estar vacío");
         }
     });
 
 
     // valida la contraseña cuando el usuario sale de ese campo
     passwordInput.addEventListener("blur", () => {
-        // solo valida si ha escrito algo
         if (passwordInput.value !== "") {
             validarPassword();
         } else {
-            mostrarError("error-password", "*El campo no puede estar vacio");
+            mostrarError("error-password", "* El campo no puede estar vacío");
         }
     });
 
@@ -37,12 +35,12 @@ function validarEmail() {
     const expregEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email === "") {
-        mostrarError("error-email", "El campo Email no puede estar vacío.");
+        mostrarError("error-email", "* El campo Email no puede estar vacío.");
         return false;
     }
 
     if (!expregEmail.test(email)) {
-        mostrarError("error-email", "Formato de correo no válido.");
+        mostrarError("error-email", "* Formato de correo no válido.");
         return false;
     }
     limpiarError("error-email");
@@ -56,11 +54,11 @@ function validarPassword() {
     //8 caracteres, mayuscula, minuscula, numero y sumbolo
     const expregPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
     if (password === "") {
-        mostrarError("error-password", "El campo Contraseña no puede estar vacío.");
+        mostrarError("error-password", "* El campo Contraseña no puede estar vacío.");
         return false;
     }
     if (!expregPass.test(password)) {
-        mostrarError("error-password", "Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.");
+        mostrarError("error-password", "* Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo");
         return false;
     }
     limpiarError("error-password");
@@ -70,9 +68,7 @@ function validarPassword() {
 
 /* mestra mensaje en el elemento de error  */
 function mostrarError(idElemento, mensaje) {
-    // busca el elemento donde se mostrara el error
     const errorContenedor = document.getElementById(idElemento);
-    // si existe escribe el mensaje
     if (errorContenedor) {
         errorContenedor.textContent = mensaje;
     }
@@ -81,9 +77,7 @@ function mostrarError(idElemento, mensaje) {
 
 /* elimina el mensaje de error del elemento indicado */
 function limpiarError(idElemento) {
-    // busca el elemento tiene el error
     const errorContenedor = document.getElementById(idElemento);
-    // si existe deja  contenido vacio
     if (errorContenedor) {
         errorContenedor.textContent = "";
     }
