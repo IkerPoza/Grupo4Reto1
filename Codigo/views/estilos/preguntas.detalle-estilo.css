@@ -1,0 +1,507 @@
+.detallePregunta {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 12px 4.2% 30px;
+    background: #F7F7F8;
+}
+
+
+.detallePregunta .publicacion {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 28px;
+    row-gap: 16px;
+}
+
+.informacionPublicacion {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-wrap: anywhere;
+}
+
+.informacionPublicacion h2 {
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.autorPublicacion, .temaPublicacion {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.imagenPublicacion {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    width: 100%;
+    max-width: 200px;
+    margin: 0;
+    justify-self: end;
+    align-self: start;
+    text-align: center;
+}
+
+.imagenPreguntaDetalle {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.imagenPublicacion span {
+    position: relative;
+    font-size: 66px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.imagenPublicacion b {
+    position: absolute;
+    right: -8px;
+    bottom: -3px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #BBC8D5;
+    color: #F7F7F8;
+    font-size: 30px;
+}
+
+
+.descripcionPublicacion {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+
+.formularioRespuesta {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    width: 86%;
+    min-height: 60px;
+    margin: 0;
+    padding: 9px 11px;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    background: #FFFFFF;
+    box-shadow: 0 3px 4px #00000035;
+}
+
+.formularioRespuesta textarea {
+    flex: 1;
+    min-width: 0;
+    min-height: 38px;
+    padding: 2px 0;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #171717;
+    font-size: 13px;
+}
+
+.formularioRespuesta button {
+    align-self: flex-end;
+    width: 25px;
+    min-width: 25px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #172D52;
+    font-size: 23px;
+    line-height: 1;
+}
+
+
+.accionesFormularioRespuesta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+
+.botonAdjuntar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid #C8D0DA;
+    border-radius: 8px;
+    background-color: #F7F7F8;
+    color: #20365E;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.botonAdjuntar img {
+    width: 20px;
+    height: 20px;
+}
+
+.botonAdjuntar input[type="file"] {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+
+.listaRespuestas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    width: 100%;
+}
+
+
+.listaRespuestas > .respuesta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+    min-height: 48px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    box-shadow: 0 3px 4px #00000035;
+    box-sizing: border-box;
+}
+
+
+.listaRespuestas > .respuesta:not(.respuestaAnidada) {
+    align-self: stretch;
+    width: 100%;
+    background: #D6DDE4;
+}
+
+
+.listaRespuestas > .respuesta.respuestaAnidada {
+    align-self: flex-end;
+    width: 90%;
+    margin-top: 5px;
+    background: #E5E9EE;
+}
+
+
+.formularioAnidado {
+    align-self: flex-end;
+    width: 90%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+.textoRespuesta {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.textoRespuesta h3 {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.textoRespuesta p {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+.accionesRespuesta {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 7px;
+}
+
+.accionesRespuesta button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #20365E;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.accionesRespuesta .accionVoto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.accionesRespuesta .accionVoto img {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
+.accionesRespuesta .accionVoto:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.contadorVotos {
+    min-width: 20px;
+    color: #20365E;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.accionesRespuesta .eliminarRespuesta {
+    color: #D71920;
+    font-size: 19px;
+}
+
+
+.formAccion {
+    margin: 0;
+}
+
+.formAccion button {
+    cursor: pointer;
+}
+
+
+.errorRespuesta {
+    color: #B00020;
+    font-size: 14px;
+}
+
+.sinRespuestas {
+    padding: 15px 0;
+    color: #555555;
+    font-size: 14px;
+}
+
+
+.detallePregunta form {
+    box-shadow: none;
+}
+
+
+.enlacePerfil {
+    color: inherit;
+    text-decoration: none;
+}
+
+.enlacePerfil:hover {
+    text-decoration: underline;
+}
+
+.enlaceDetallePregunta {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.enlaceDetallePregunta:hover h3 {
+    text-decoration: underline;
+}
+
+
+.archivosAdjuntos {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.archivosAdjuntos h4 {
+    color: #20365E;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.archivoAdjunto {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid #C8D0DA;
+    border-radius: 7px;
+    background-color: #F7F7F8;
+    color: #20365E;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.archivoAdjunto:hover {
+    background-color: #E9EDF2;
+}
+
+.nombreArchivo {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.descargarArchivo {
+    flex-shrink: 0;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+
+    .detallePregunta {
+        gap: 18px;
+        padding: 12px 3% 24px;
+    }
+
+    .detallePregunta .publicacion {
+        grid-template-columns: minmax(0, 1fr) 130px;
+        column-gap: 16px;
+        row-gap: 12px;
+    }
+
+    .informacionPublicacion h2 {
+        font-size: 21px;
+    }
+
+    .imagenPublicacion {
+        max-width: 130px;
+    }
+
+    .imagenPreguntaDetalle {
+        max-width: 130px;
+        height: 120px;
+    }
+
+    .imagenPublicacion span {
+        font-size: 52px;
+    }
+
+    .imagenPublicacion b {
+        width: 28px;
+        height: 28px;
+        font-size: 23px;
+    }
+
+    .formularioRespuesta {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .detallePregunta {
+        gap: 15px;
+        padding: 10px 12px 20px;
+    }
+
+    .detallePregunta .publicacion {
+        grid-template-columns: minmax(0, 1fr) 90px;
+        column-gap: 12px;
+        row-gap: 10px;
+    }
+
+    .informacionPublicacion h2 {
+        font-size: 18px;
+    }
+
+    .autorPublicacion, .temaPublicacion {
+        font-size: 12px;
+    }
+
+    .imagenPublicacion {
+        max-width: 90px;
+    }
+
+    .imagenPreguntaDetalle {
+        max-width: 90px;
+        height: 90px;
+    }
+
+    .imagenPublicacion span {
+        font-size: 40px;
+    }
+
+    .imagenPublicacion b {
+        right: -5px;
+        bottom: -3px;
+        width: 23px;
+        height: 23px;
+        font-size: 19px;
+    }
+
+    .descripcionPublicacion {
+        font-size: 13px;
+    }
+
+    .formularioRespuesta {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .listaRespuestas {
+        gap: 8px;
+    }
+
+    .listaRespuestas > .respuesta {
+        gap: 8px;
+        padding: 7px 8px;
+    }
+
+    .listaRespuestas > .respuesta.respuestaAnidada, .formularioAnidado {
+        width: 94%;
+    }
+
+    .textoRespuesta h3, .textoRespuesta p {
+        font-size: 12px;
+    }
+
+    .accionesRespuesta {
+        gap: 4px;
+    }
+
+    .accionesRespuesta .accionVoto {
+        width: 22px;
+    }
+
+    .accionesRespuesta .accionVoto img {
+        width: 19px;
+        height: 19px;
+    }
+
+    .contadorVotos {
+        min-width: 16px;
+        font-size: 12px;
+    }
+
+    .accionesFormularioRespuesta {
+        flex-wrap: wrap;
+    }
+
+    .archivoAdjunto {
+        flex-wrap: wrap;
+    }
+}

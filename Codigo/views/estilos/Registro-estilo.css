@@ -1,0 +1,190 @@
+@font-face{
+    font-family: 'mifuente';
+    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'mifuente';
+}
+
+
+.navegacion {
+  background-color: #F7F7F8;
+  padding: 15px 30px;
+}
+
+.navegacion img {
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+}
+
+
+.registro-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 30px 20px;
+  background-color: #F7F7F8; 
+}
+
+
+.registro-division {
+  width: 100%;
+  max-width: 380px;
+  padding: 35px 30px;
+  background-color: #5B6F8F; 
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.registro-titulo {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+.registro-form p {
+  margin-bottom: 14px;
+}
+
+
+.registro-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+.registro-form input[type="text"],.registro-form input[type="email"],
+.registro-form input[type="number"],.registro-form input[type="password"],
+.registro-form select {
+  width: 100%;
+  padding: 11px 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  color: #333333;
+}
+
+
+.registro-form select {
+  text-align-last: center;
+  cursor: pointer;
+}
+
+
+.registro-form input::placeholder {
+  color: #a3a3a3;
+}
+
+.registro-form .btn-registro {
+  display: block;
+  width: fit-content;          
+  margin: 25px auto 0 auto;     
+  padding: 10px 25px;
+  min-width: 130px;
+  background-color: #C8D0DA; 
+  color: white;
+  text-decoration: none;       
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+  border: none;
+}
+
+.registro-form .btn-registro:hover {
+  background-color: #b5c0cc;
+}
+
+.mensaje-error{
+  color: red;
+}
+
+.mensajeError {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .navegacion {
+        padding: 12px 20px;
+    }
+
+    .registro-contenedor {
+        min-height: 80vh;
+        padding: 25px 20px;
+    }
+
+    .registro-division {
+        max-width: 360px;
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navegacion {
+        padding: 10px 15px;
+    }
+
+    .navegacion img {
+        width: 22px;
+    }
+
+    .registro-contenedor {
+        min-height: 80vh;
+        padding: 20px 12px;
+        align-items: center;
+    }
+
+    .registro-division {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 18px;
+    }
+
+    .registro-titulo {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .registro-form label {
+        font-size: 13px;
+    }
+
+    .registro-form input[type="text"], .registro-form input[type="email"], .registro-form input[type="number"], .registro-form input[type="password"], .registro-form select {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .registro-form .btn-registro {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 20px;
+    }
+
+    .mensajeError {
+        font-size: 0.8rem;
+    }
+}
