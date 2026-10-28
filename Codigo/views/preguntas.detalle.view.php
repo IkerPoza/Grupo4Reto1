@@ -29,11 +29,11 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
             </div>
             <div class="accionesRespuesta">
                 <button class="accionVoto votoArriba <?= ($respuesta->miVoto ?? 0) === 1 ? 'votoSeleccionado' : '' ?>" type="button" data-id-respuesta="<?= $respuesta->id ?>" data-voto="1" title="Votar a favor">
-                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === 1 ? 'FlechaArribaRellena.png' : 'FlechaArriba.png' ?>" alt="Voto positivo">
+                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === 1 ? 'FlechaArribaRellena.svg' : 'FlechaArriba.svg' ?>" alt="Voto positivo">
                 </button>
                 <span class="contadorVotos" aria-live="polite"><?= ($respuesta->totalVotos ?? 0) ?></span>
                 <button class="accionVoto votoAbajo <?= ($respuesta->miVoto ?? 0) === -1 ? 'votoSeleccionado' : '' ?>" type="button" data-id-respuesta="<?= $respuesta->id ?>" data-voto="-1" title="Votar en contra">
-                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === -1 ? 'FlechaAbajoRellena.png' : 'FlechaAbajo.png' ?>" alt="Voto negativo">
+                    <img src="views/imagenes/<?= ($respuesta->miVoto ?? 0) === -1 ? 'FlechaAbajoRellena.svg' : 'FlechaAbajo.svg' ?>" alt="Voto negativo">
                 </button>
                 <form action="index.php" method="POST" class="formAccion">
                     <input type="hidden" name="controller" value="PreguntasController">
@@ -96,7 +96,7 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
         <input type="hidden" name="accion" value="responder">
         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
         <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.png" alt="Eliminar"></button>
+        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.svg" alt="Enviar"></button>
     </form>
 
     <section class="listaRespuestas" aria-label="Respuestas">

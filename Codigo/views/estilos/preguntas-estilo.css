@@ -2,7 +2,6 @@
 
 main{
     padding-bottom: 0px !important;
-    max-height: 77.25vh;
 }
 
 /*BUSCADOR*/
@@ -10,6 +9,7 @@ main{
 .buscador{
     justify-items: center;
     font-size: 12px;
+    width: 100%;
 }
 
 .buscador form{
@@ -131,11 +131,19 @@ main{
 .opcionesPreguntas{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    height: 2.25rem;
     font-size: 16px;
     font-weight: bold;
     padding: .5rem 0rem;
     border-bottom: 1px solid black;
+}
+
+.ordenarLista{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
 
 .opcionesPreguntas select{
@@ -165,8 +173,8 @@ main{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-height: 69.6vh;
-    overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
+    max-height: 68.75vh;
+    overflow-y: auto;   
     overflow-x: hidden;
     scrollbar-width: none; 
 }
@@ -199,6 +207,20 @@ main{
     gap: .5rem;
 }
 
+.imagenPerfilPregunta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fotoPerfilPregunta {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
 .listaPreguntas h1{
     font-size: 24px;
 }
@@ -223,16 +245,12 @@ main{
 .btnListarUsuarios {
     display: flex;
     justify-content: flex-end;
-    margin: 10px 20px 10px auto;
     width: fit-content;
     text-decoration: none;
     position: relative;
-    top: 60px; 
 }
 
 .btnListarUsuarios img {
-    width: 36px; 
-    height: auto;
     cursor: pointer;
     transition: transform 0.2s ease, opacity 0.2s ease; 
 }

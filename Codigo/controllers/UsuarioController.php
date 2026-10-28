@@ -190,6 +190,8 @@ class UsuarioController extends BaseController {
 
             UsuarioModel::deleteById($id);
 
+            unset($_SESSION['usuario']);
+
             $this->redirect('index.php');
         }catch(Exception $e){
             echo "Error al eliminar el usuario.";

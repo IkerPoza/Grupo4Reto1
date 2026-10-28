@@ -9,13 +9,6 @@ require __DIR__ . '/layout/head.php';
 ?>
 
 <main>
-    <!--boton lista usuarios !-->
-    <?php if ($esAdmin): ?>
-    <a href="index.php?controller=ListarUsuariosController&accion=index" class="btnListarUsuarios" title="ListarUsuarios">
-        <img src="views/imagenes/ListarUsuarios.png" alt="ListarUsuarios" width="auto" height="30">
-    </a>
-    <?php endif; ?>
-
     <div class="buscador">
         <form action="index.php" method="POST">
             <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas, temas o normativas...">
@@ -28,6 +21,7 @@ require __DIR__ . '/layout/head.php';
             </label>
         </form>
     </div>
+    
 
     <div class="contenidoPreguntas">
         <aside>
@@ -102,15 +96,23 @@ require __DIR__ . '/layout/head.php';
         <div class="der">
             <div class="opcionesPreguntas">
                 <p>Mostrando nº preguntas</p>
-                <div>
-                    <label for="ordenar">Ordenar por:</label>
-                    <?php $orden = $orden ?? 'Más recientes'; ?>
-                    <select name="ordenar" id="ordenar">
-                        <option value="Más recientes" <?= $orden === 'Más recientes' ? 'selected' : '' ?>>Más recientes</option>
-                        <option value="Más antiguos" <?= $orden === 'Más antiguos' ? 'selected' : '' ?>>Más antiguos</option>
-                        <option value="Más respuestas" <?= $orden === 'Más respuestas' ? 'selected' : '' ?>>Más respuestas</option>
-                        <option value="Menos respuestas" <?= $orden === 'Menos respuestas' ? 'selected' : '' ?>>Menos respuestas</option>
-                    </select>
+                <div class="ordenarLista">
+                    <div class="ordenar">
+                        <label for="ordenar">Ordenar por:</label>
+                        <?php $orden = $orden ?? 'Más recientes'; ?>
+                        <select name="ordenar" id="ordenar">
+                            <option value="Más recientes" <?= $orden === 'Más recientes' ? 'selected' : '' ?>>Más recientes</option>
+                            <option value="Más antiguos" <?= $orden === 'Más antiguos' ? 'selected' : '' ?>>Más antiguos</option>
+                            <option value="Más respuestas" <?= $orden === 'Más respuestas' ? 'selected' : '' ?>>Más respuestas</option>
+                            <option value="Menos respuestas" <?= $orden === 'Menos respuestas' ? 'selected' : '' ?>>Menos respuestas</option>
+                        </select>
+                    </div>
+                    <!--boton lista usuarios !-->
+                    <?php if ($esAdmin): ?>
+                    <a href="index.php?controller=ListarUsuariosController&accion=index" class="btnListarUsuarios" title="ListarUsuarios">
+                        <img src="views/imagenes/ListarUsuarios.svg" alt="ListarUsuarios" width="auto" height="30">
+                    </a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="listaPreguntas">
@@ -127,17 +129,14 @@ require __DIR__ . '/layout/head.php';
                 <section class="tarjetaPregunta" data-url="index.php?controller=PreguntasController&accion=detalle&id=<?= $pregunta->pregunta_id ?>">
                     <div class="informacionSuperior">
                         <div class="autor">
-                        <svg width="25" height="25" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22.5 0C18.0499 0 13.6998 1.3196 9.99968 3.79193C6.29957 6.26426 3.41569 9.77828 1.71272 13.8896C0.00974887 18.001 -0.435826 22.525 0.432341 26.8895C1.30051 31.2541 3.44343 35.2632 6.59011 38.4099C9.73679 41.5566 13.7459 43.6995 18.1105 44.5677C22.475 45.4358 26.999 44.9903 31.1104 43.2873C35.2217 41.5843 38.7357 38.7004 41.2081 35.0003C43.6804 31.3002 45 26.9501 45 22.5C44.9932 16.5347 42.6205 10.8157 38.4024 6.59761C34.1843 2.37952 28.4653 0.0068058 22.5 0ZM35.3459 36.8454C35.3147 34.7368 34.4559 32.725 32.9547 31.2439C31.4535 29.7629 29.4302 28.9313 27.3214 28.9286H17.6786C15.57 28.9317 13.5472 29.7635 12.0464 31.2445C10.5455 32.7255 9.68693 34.737 9.65572 36.8454C6.74127 34.243 4.686 30.8168 3.76206 27.0203C2.83813 23.2239 3.0891 19.2364 4.48175 15.5858C5.8744 11.9352 8.34304 8.79375 11.5608 6.57734C14.7785 4.36093 18.5936 3.17415 22.5008 3.17415C26.408 3.17415 30.2231 4.36093 33.4408 6.57734C36.6586 8.79375 39.1272 11.9352 40.5199 15.5858C41.9125 19.2364 42.1635 23.2239 41.2396 27.0203C40.3156 30.8168 38.2603 34.243 35.3459 36.8454Z" fill="#C8D0DA"/>
-                            <path d="M22.5 9.64288C20.9107 9.64288 19.3571 10.1142 18.0356 10.9971C16.7141 11.8801 15.6842 13.1351 15.076 14.6035C14.4678 16.0718 14.3086 17.6875 14.6187 19.2463C14.9288 20.8051 15.6941 22.2369 16.8179 23.3607C17.9417 24.4845 19.3735 25.2498 20.9323 25.5599C22.4911 25.87 24.1068 25.7108 25.5751 25.1026C27.0435 24.4944 28.2985 23.4645 29.1815 22.143C30.0644 20.8215 30.5357 19.2679 30.5357 17.6786C30.5357 15.5474 29.6891 13.5035 28.1821 11.9965C26.6751 10.4895 24.6312 9.64288 22.5 9.64288Z" fill="#C8D0DA"/>
-                        </svg>
-                        <p>
-                            <a href="index.php?controller=UsuarioController&accion=show&id=<?= $pregunta->autor_id ?>">
+                            <a class="autor" href="index.php?controller=UsuarioController&accion=show&id=<?= $pregunta->autor_id ?>">
+                                <div class="imagenPerfilPregunta">
+                                    <img src="<?= htmlspecialchars(!empty($pregunta->autor_foto) ? $pregunta->autor_foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilPregunta">
+                                </div>
                                 <?= htmlspecialchars($pregunta->autor_nombre) ?>
                             </a>
-                        </p>   
-                    </div>
-                    <p><?= $pregunta->pregunta_fecha?></p>
+                        </div>
+                        <p><?= $pregunta->pregunta_fecha?></p>
                     </div>
                     
                     

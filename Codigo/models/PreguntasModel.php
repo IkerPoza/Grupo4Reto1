@@ -20,6 +20,7 @@ class PreguntasModel {
             u.id AS autor_id,
             u.nombre AS autor_nombre,
             u.apellidos AS autor_apellidos,
+            u.foto AS autor_foto,
             COUNT(DISTINCT r.id) AS num_respuestas,
             CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
         FROM pregunta p
@@ -28,7 +29,7 @@ class PreguntasModel {
         LEFT JOIN preguntaGuardada pg
             ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
-                u.id, u.nombre, u.apellidos, pg.id
+                u.id, u.nombre, u.apellidos,u.foto, pg.id
         ORDER BY $orderBy");
         $datos = [
             "usuario_id" => $usuario_id
@@ -49,6 +50,7 @@ class PreguntasModel {
             u.id AS autor_id,
             u.nombre AS autor_nombre,
             u.apellidos AS autor_apellidos,
+            u.foto AS autor_foto,
             COUNT(DISTINCT r.id) AS num_respuestas,
             CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
         FROM pregunta p
@@ -59,7 +61,7 @@ class PreguntasModel {
         WHERE p.titulo LIKE :busqueda
         OR p.descripcion LIKE :busqueda
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
-                u.id, u.nombre, u.apellidos, pg.id
+                u.id, u.nombre, u.apellidos, u.foto, pg.id
         ORDER BY p.fecha DESC");
         $datos = [
             "usuario_id" => $usuario_id,
@@ -107,6 +109,7 @@ class PreguntasModel {
             u.id AS autor_id,
             u.nombre AS autor_nombre,
             u.apellidos AS autor_apellidos,
+            u.foto AS autor_foto,
             COUNT(DISTINCT r.id) AS num_respuestas,
             CASE WHEN pg.id IS NOT NULL THEN 1 ELSE 0 END AS es_favorita
         FROM pregunta p
@@ -116,7 +119,7 @@ class PreguntasModel {
             ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
         WHERE p.tema = :tema
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
-                u.id, u.nombre, u.apellidos, pg.id
+                u.id, u.nombre, u.apellidos, u.foto, pg.id
         ORDER BY $orderBy");
         $datos = [
             "usuario_id" => $usuario_id,
@@ -144,6 +147,7 @@ class PreguntasModel {
             u.id AS autor_id,
             u.nombre AS autor_nombre,
             u.apellidos AS autor_apellidos,
+            u.foto AS autor_foto,
             COUNT(DISTINCT r.id) AS num_respuestas,
             1 AS es_favorita
         FROM pregunta p
@@ -152,7 +156,7 @@ class PreguntasModel {
                 ON pg.idPregunta = p.id AND pg.idUsuario = :usuario_id
         LEFT JOIN respuesta r ON p.id = r.idPregunta
         GROUP BY p.id, p.titulo, p.tema, p.descripcion, p.fecha,
-                u.id, u.nombre, u.apellidos
+                u.id, u.nombre, u.apellidos, u.foto
         ORDER BY $orderBy");
         $datos = [
             "usuario_id" => $usuario_id

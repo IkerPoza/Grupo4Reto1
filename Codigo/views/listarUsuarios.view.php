@@ -47,12 +47,8 @@
         <div class="tarjeta-usuario" onclick="window.location.href='index.php?controller=ListarUsuariosController&accion=detalle&id=<?= $usuario->id ?>'">
           
           <div class="usuario-info">
-            <div class="icono-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="12" r="10"></circle>
-                <circle cx="12" cy="10" r="3"></circle>
-                <path d="M6.168 18.849A4 4 0 0 1 10 16h4a4 4 0 0 1 3.832 2.849"></path>
-              </svg>
+            <div class="imagenPerfilLista">
+                <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilLista">
             </div>
             <span class="nombre-usuario">
               <?= htmlspecialchars(trim(($usuario->nombre ?? '') . ' ' . ($usuario->apellidos ?? ''))) ?>
