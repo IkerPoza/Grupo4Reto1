@@ -373,20 +373,22 @@ class PreguntasController extends BaseController {
 
 
     public function buscar(){
-        if($_POST["busqueda"] == ''):
-            $this -> index();
-        else:
-            $busqueda = '%' . $_POST["busqueda"] . '%';
-            $preguntas = PreguntasModel::mostrarPorNombre($_SESSION['usuario']->id, $busqueda);
-            $preguntasPorTema = $this->preguntasPorTema();
-            $orden = 'Más recientes';
-        endif;
+       $texto = trim($_POST['busqueda'] ?? '');
+
+        if ($texto === '') {
+            $this->index();
+            return; 
+        }
+
+        $preguntas = PreguntasModel::mostrarPorNombre($_SESSION['usuario']->id, '%' . $texto . '%');
+        $preguntasPorTema = $this->preguntasPorTema();
+        $orden = 'Más recientes';
 
         $this->render('preguntas.view.php', [
             'preguntas' => $preguntas,
             'preguntasPorTema' => $preguntasPorTema,
-            'order' => $orden,
-            'busqueda' => $_POST['busqueda']
+            'orden' => $orden,
+            'busqueda' => $texto
         ]);
     }
 
