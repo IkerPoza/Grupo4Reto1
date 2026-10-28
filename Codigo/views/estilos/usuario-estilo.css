@@ -1,6 +1,7 @@
 main {
-    max-height: 76.1vh;
-    flex: 1;
+    max-height: none;
+    flex: 1 0 auto;
+    min-height: 0;
     padding: 12px 3.5% 45px;
 }
 
@@ -133,6 +134,18 @@ main {
 }
 
 
+.listaPreguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 33vh;
+    margin-top: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+
 .tarjetaPregunta {
     display: flex;
     flex-direction: row;
@@ -184,49 +197,6 @@ main {
 }
 
 
-.listaPreguntas {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    max-height: 43vh;
-    overflow-y: auto;   /* Genera scroll vertical solo cuando hace falta */
-    overflow-x: hidden;
-    scrollbar-width: none;
-    padding-bottom: 1rem;
-}
-
-
-.tarjetaPregunta {
-    width: 100%;
-    background-color: #FFFFFF;
-    box-shadow: 0 3px 6px #00000025;
-    padding: 20px 22px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.tarjetaPregunta h3 {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-
-.tarjetaPregunta p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.listaPreguntas {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
-.contenidoPregunta {
-    flex: 1;
-    min-width: 0;
 .favorito {
     display: inline-flex;
     flex: 0 0 auto;
