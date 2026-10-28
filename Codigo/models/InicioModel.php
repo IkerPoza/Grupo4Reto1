@@ -17,6 +17,14 @@ class InicioModel {
         
         return false;
     }
+
+
+    public static function obtenerPorId($id) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT * FROM usuario WHERE id = :id");
+        $stmt->execute(["id" => $id]);
+        return $stmt->fetch();
+    }   
 }
 
 

@@ -16,41 +16,43 @@ body {
 .seccion-busqueda {
   display: flex;
   justify-content: center;
+  font-size: 12px;
   margin-bottom: 25px;
 }
 
 .caja-busqueda {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: .5rem;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #777777;
-  border-radius: 20px;
-  padding: 6px 16px;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: .5rem 1rem;
+  width: 40%;
+  box-sizing: content-box;
 }
 
 .caja-busqueda input {
-  border: none;
+  background-color: transparent;
+  border: 0px solid;
   outline: none;
-  width: 100%;
-  font-size: 14px;
-  background: transparent;
-  color: #333333;
+  min-width: 0;
+  
 }
 
-.caja-busqueda input::placeholder {
-  color: #a0a0a0;
+.caja-busqueda input:focus {
+  outline: none;
 }
 
 .caja-busqueda button {
   background: none;
   border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 0;
+  justify-self: right;
+  cursor: pointer;
 }
 
 

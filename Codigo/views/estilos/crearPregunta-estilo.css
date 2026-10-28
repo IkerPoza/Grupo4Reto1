@@ -1,140 +1,170 @@
-@font-face{
+@font-face {
     font-family: 'mifuente';
     src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
 }
 
-
-body {
-  background-color: #EAEBED; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'mifuente';
 }
 
+body {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    color: #171717;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tarjeta blanca (igual que en el perfil: sin bordes redondeados) */
 .crearPregunta-contenedor {
-  display: flex;
-  justify-content: space-around; 
-  align-items: center;
-  width: 90%;                    
-  max-width: 1250px;          
-  min-height: 580px;            
-  margin: 20px auto 40px auto; 
-  padding: 50px 80px;             
-  background-color: #ffffff;     
-  border-radius: 2px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 950px;
+    margin: 12px auto 45px;
+    padding: 40px;
+    background-color: #ffffff;
+    box-shadow: 0 3px 6px #00000025;
 }
 
 .crearPregunta-division {
-  width: 100%;
-  max-width: 480px;           
+    flex: 1.15;
+    width: 50%;
+    min-width: 0;
 }
 
 .crearPregunta-titulo {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #111111;
+    font-size: 24px;
+    font-weight: bold;
+    color: #171717;
+    margin-bottom: 22px;
 }
 
+/* Formulario */
 .crearPregunta-form div {
-  margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
 }
 
 .crearPregunta-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #111111;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    color: #171717;
 }
 
 .crearPregunta-form input[type="text"],
 .crearPregunta-form input[type="email"],
 .crearPregunta-form select {
-  width: 100%;
-  padding: 12px 16px;            
-  background-color: #ffffff;
-  border: 1.5px solid #111111;
-  border-radius: 2px;
-  font-size: 15px;
-  color: #333333;
-  outline: none;
-  box-sizing: border-box;
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #c8cdd5;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #171717;
+    box-shadow: 0 2px 4px #0000000d;
+}
+
+.crearPregunta-form input[type="text"]:focus,
+.crearPregunta-form input[type="email"]:focus,
+.crearPregunta-form select:focus {
+    outline: 2px solid #8da6d0;
+    outline-offset: 1px;
 }
 
 .crearPregunta-form input::placeholder {
-  color: #b5b5b5;
+    color: #a6aab1;
 }
 
 .crearPregunta-form select {
-  cursor: pointer;
-  appearance: none;
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 18px;
+    cursor: pointer;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
 }
 
-
-
+/* Botones */
 .crearPregunta-form .btn-annadir,
 .crearPregunta-form .btn-eliminar {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 120px;
-  padding: 11px 26px;
-  margin-top: 15px;
-  margin-right: 15px;
-  background-color: #C8D0DA; 
-  color: #111111;
-  text-decoration: none;
-  border: none;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-  transition: background-color 0.2s ease, transform 0.1s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 18px;
+    margin-top: 0;
+    margin-right: 12px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px #00000030;
 }
 
-.crearPregunta-form .btn-annadir:hover,
+/* Botón principal (como .botonGuardar) */
+.crearPregunta-form .btn-annadir {
+    background-color: #20365e;
+    color: #ffffff;
+    border: none;
+}
+
+.crearPregunta-form .btn-annadir:hover {
+    background-color: #304b7a;
+}
+
+/* Botón secundario (como .botonCancelar) */
+.crearPregunta-form .btn-eliminar {
+    background-color: transparent;
+    color: #20365e;
+    border: 1px solid #c8cdd5;
+}
+
 .crearPregunta-form .btn-eliminar:hover {
-  background-color: #b5c0cc;
+    background-color: #f0f2f5;
 }
 
-.crearPregunta-form .btn-annadir:active,
-.crearPregunta-form .btn-eliminar:active {
-  transform: translateY(1px);
-}
-
-
-
+/* Imagen lateral */
 .crearPregunta-imagen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+    flex: 0.85;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
 }
 
 .crearPregunta-imagen label {
-  cursor: pointer;
-  display: inline-block;
-  transition: transform 0.2s ease;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
 
 .crearPregunta-imagen img {
-  width: 250px;                  
-  height: auto;
-  display: block;
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-.mensaje-error{
-  color: red;
+/* Mensajes de error */
+.mensaje-error {
+    color: #e53e3e;
+    font-size: 0.8rem;
+    min-height: 14px;
 }
 
 .mensajeError {
-    color: #e74c3c;
-    font-size: 0.85rem;
+    color: #e53e3e;
+    font-size: 0.8rem;
     margin-top: 4px;
     display: flex;
     justify-content: center;

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS archivoRespuesta
+DROP TABLE IF EXISTS archivoRespuesta;
 DROP TABLE IF EXISTS preguntaGuardada;
 DROP TABLE IF EXISTS votoRespuesta;
 DROP TABLE IF EXISTS respuestaFavorita;
