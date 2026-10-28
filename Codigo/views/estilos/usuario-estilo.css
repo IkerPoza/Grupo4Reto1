@@ -2,7 +2,7 @@ main {
     max-height: none;
     flex: 1 0 auto;
     min-height: 0;
-    padding: 12px 3.5% 45px;
+    padding: 12px 3.5% 0px;
 }
 
 
@@ -138,7 +138,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-height: 33vh;
+    max-height: 46vh;
     margin-top: 25px;
     overflow-y: auto;
     overflow-x: hidden;
