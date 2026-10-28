@@ -45,6 +45,7 @@ main{
 .contenidoPreguntas{
     display: flex;
     margin-top: 2rem;
+    margin-bottom: 1rem;
     gap: 2rem;
     align-items: stretch;
     flex: 1;

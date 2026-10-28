@@ -58,25 +58,51 @@ class DetalleUsuarioController extends BaseController {
             'foto'      => null
         ];
 
-        /*if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        // imagen (opcional)
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
+
+            if ($_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+                die('Error al subir la imagen.');
+            }
+
+            if ($_FILES['foto']['size'] > 2 * 1024 * 1024) {
+                die('La imagen no puede superar los 2 MB.');
+            }
+
+            $temporal = $_FILES['foto']['tmp_name'];
+            $mime = (new finfo(FILEINFO_MIME_TYPE))->file($temporal);
+
             $permitidos = [
                 'image/jpeg' => 'jpg',
                 'image/png'  => 'png',
                 'image/webp' => 'webp'
             ];
 
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime  = $finfo->file($_FILES['foto']['tmp_name']);
+            if (!isset($permitidos[$mime]) || @getimagesize($temporal) === false) {
+                die('Selecciona una imagen JPG, PNG o WEBP válida.');
+            }
 
-            if (isset($permitidos[$mime])) {
-                $nombreFoto  = uniqid('user_', true) . '.' . $permitidos[$mime];
-                $rutaDestino = __DIR__ . '/../views/imagenes/' . $nombreFoto;
+            $carpeta = __DIR__ . '/../uploads/perfiles/';
+            if (!is_dir($carpeta) && !mkdir($carpeta, 0755, true) && !is_dir($carpeta)) {
+                die('No se pudo crear la carpeta de imágenes.');
+            }
 
-                if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaDestino)) {
-                    $datos['foto'] = 'views/imagenes/' . $nombreFoto;
+            $nombreFoto = 'usuario_' . (int) $id . '_' . time() . '.' . $permitidos[$mime];
+
+            if (!move_uploaded_file($temporal, $carpeta . $nombreFoto)) {
+                die('No se pudo guardar la imagen.');
+            }
+
+            $usuarioAnterior = DetalleUsuarioModel::getById($id);
+            if ($usuarioAnterior && !empty($usuarioAnterior->foto)) {
+                $rutaAnterior = $carpeta . basename($usuarioAnterior->foto);
+                if (basename($usuarioAnterior->foto) !== $nombreFoto && is_file($rutaAnterior)) {
+                    unlink($rutaAnterior);
                 }
             }
-        }*/
+
+            $datos['foto'] = 'uploads/perfiles/' . $nombreFoto;
+        }
 
         try {
             DetalleUsuarioModel::update($id, $datos);
