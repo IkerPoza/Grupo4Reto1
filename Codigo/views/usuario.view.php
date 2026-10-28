@@ -27,6 +27,7 @@ require __DIR__ . '/layout/nav.php';
 
 <?php if ($esPropio): ?>
     <form method="post" action="index.php?controller=UsuarioController&accion=logout">
+        <input type="hidden" name="id" value="<?= $usuario->id ?>">
         <button type="submit" class="cerrarSesion" title="Cerrar sesión">
             <img src="views/imagenes/CerrarSesion.svg" alt="Cerrar sesión">
         </button>
