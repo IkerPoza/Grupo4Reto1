@@ -5,35 +5,75 @@ require_once __DIR__ . '/../models/ListarUsuariosModel.php';
 class ListarUsuariosController extends BaseController {
 
     public function index() {
-        $orden    = $_GET['orden'] ?? 'asc';
-        $busqueda = trim($_GET['busqueda'] ?? '');
+        try{
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
+            $usuarioActual = UsuarioModel::getById($idUsuario);
 
-        if ($busqueda !== '') {
-            $usuarios = ListarUsuariosModel::buscar($busqueda, $orden);
-        } else {
-            $usuarios = ListarUsuariosModel::getAll($orden);
+            if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
+                exit('No tienes permiso para eliminar perfiles.');
+            }
+
+            $orden    = $_GET['orden'] ?? 'asc';
+            $busqueda = trim($_GET['busqueda'] ?? '');
+
+            if ($busqueda !== '') {
+                $usuarios = ListarUsuariosModel::buscar($busqueda, $orden);
+            } else {
+                $usuarios = ListarUsuariosModel::getAll($orden);
+            }
+
+            require_once __DIR__ . '/../views/listarUsuarios.view.php';
+
+        }catch(Exception $e){
+            echo "Error al eliminar el usuario.";
         }
-
-        require_once __DIR__ . '/../views/listarUsuarios.view.php';
     }
 
     public function eliminar(){
-        if (isset($_GET['id'])) {
-            ListarUsuariosModel::deleteById($_GET['id']);
+        try{
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
+            $usuarioActual = UsuarioModel::getById($idUsuario);
+
+            if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
+                exit('No tienes permiso para eliminar perfiles.');
+            }
+            if (isset($_GET['id'])) {
+                ListarUsuariosModel::deleteById($_GET['id']);
+            }
+            header('Location: index.php?controller=ListarUsuariosController&accion=index');
+            exit;
+        }catch(Exception $e){
+            echo "Error al eliminar el usuario.";
         }
-        header('Location: index.php?controller=ListarUsuariosController&accion=index');
-        exit;
     }
 
     public function detalle(){
-        $id = $_GET['id'] ?? null;
-        
-        if ($id) {
-            $usuario = ListarUsuariosModel::getById($id);
-        }
+        try{
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $idUsuario = $_SESSION['usuario']->id ?? 0;
+            $usuarioActual = UsuarioModel::getById($idUsuario);
 
-        require_once __DIR__ . '/../views/detalleUsuarios.view.php';
-        
+            if (!$usuarioActual || $usuarioActual->tipo !== 'admin') {
+                exit('No tienes permiso para eliminar perfiles.');
+            }
+            $id = $_GET['id'] ?? null;
+            
+            if ($id) {
+                $usuario = ListarUsuariosModel::getById($id);
+            }
+
+            require_once __DIR__ . '/../views/detalleUsuarios.view.php';
+        }catch(Exception $e){
+            echo "Error al eliminar el usuario.";
+        }
     }
 
     
