@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const tituloInput = document.getElementById("titulo");
     const descripcionInput = document.getElementById("descripcion");
     const temaSelect = document.getElementById("tema");
-    //boton Registrarse 
     const btnAnadir = document.getElementById("bAnadir");
     const btnEliminar = document.getElementById("bEliminar");
 
@@ -66,15 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-    /* validar email */
+    /* validar descripcion */
     function validarDescripcion() {
         const descripcion = document.getElementById("descripcion").value.trim();
-        const expregDescripcion = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s.,;:¿?¡!()'"-]+$/;
-        
-        if (!expregDescripcion.test(descripcion)) {
-            mostrarError("error-descripcion", "* Formato de correo no válido");
+
+        if (descripcion.length < 10) {
+            mostrarError("error-descripcion", "* La descripción debe tener al menos 10 caracteres");
             return false;
         }
+        
         limpiarError("error-descripcion");
         return true;
     }

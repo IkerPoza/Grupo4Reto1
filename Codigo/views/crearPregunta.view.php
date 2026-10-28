@@ -22,19 +22,19 @@ require __DIR__ . '/layout/nav.php';
             <input type="hidden" name="controller" value="CrearPreguntaController">
             <input type="hidden" name="accion" value="store">
 
-            <div>
+            <div class="campo">
                 <label for="titulo">Título</label>
                 <input type="text" id="titulo" name="titulo" placeholder="Título de la pregunta" required>
                 <small class="mensaje-error" id="error-titulo"></small>
             </div>
 
-            <div>
+            <div class="campo">
                 <label for="descripcion">Descripción</label>
-                <input type="text" name="descripcion" id="descripcion" placeholder="Descripción de la pregunta" required>
+                <textarea name="descripcion" id="descripcion" rows="5" placeholder="Descripción de la pregunta" required></textarea>
                 <small class="mensaje-error" id="error-descripcion"></small>
             </div>
 
-            <div>
+            <div class="campo">
                 <label for="tema">Tema</label>
                 <select id="tema" name="tema" required>
                     <option value="" selected>--Selecciona el tema de tu pregunta--</option>
@@ -49,19 +49,15 @@ require __DIR__ . '/layout/nav.php';
             </div>
 
 
-            <div class="crearPregunta-imagen">
+            <div class="campo campo-imagen">
                 <label for="subir-imagen"> Selecciona una imagen para la pregunta</label>
                 <input type="file" id="subir-imagen" name="imagen" accept="image/jpeg,image/png,image/webp,image/gif">
             </div>
 
-            <button type="submit" id="bAnadir" class="btn-annadir">
-                Añadir
-            </button>
-
-            <button type="button" id="bEliminar" class="btn-eliminar">
-                Eliminar
-            </button>
-
+            <div class="contenedor-botones">
+                <button type="submit" id="bAnadir" class="btn-annadir">Añadir</button>
+                <button type="button" id="bEliminar" class="btn-eliminar">Eliminar</button>
+            </div>
         </form>
 
         <p class="mensajeError">

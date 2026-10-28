@@ -10,7 +10,12 @@
     font-family: 'mifuente';
 }
 
+html {
+    height: auto;
+}
+
 body {
+    height: auto;
     min-height: 100vh;
     background-color: #f0f2f5;
     color: #171717;
@@ -18,12 +23,15 @@ body {
     flex-direction: column;
 }
 
-/* Tarjeta blanca (igual que en el perfil: sin bordes redondeados) */
-.crearPregunta-contenedor {
+/* Tarjeta blanca: crece con su contenido */
+main.crearPregunta-contenedor {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 0 0 auto;          /* no se encoge ni se estira dentro del body */
+    height: auto;
+    min-height: min-content;
+    overflow: visible;
     width: 100%;
     max-width: 950px;
     margin: 12px auto 45px;
@@ -33,8 +41,9 @@ body {
 }
 
 .crearPregunta-division {
-    flex: 1.15;
-    width: 50%;
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
     min-width: 0;
 }
 
@@ -46,11 +55,16 @@ body {
 }
 
 /* Formulario */
-.crearPregunta-form div {
+.crearPregunta-form .campo {
     display: flex;
     flex-direction: column;
     gap: 9px;
     margin-bottom: 22px;
+}
+
+.crearPregunta-form .campo-imagen {
+    align-items: flex-start;
+    margin-bottom: 28px;
 }
 
 .crearPregunta-form label {
@@ -62,7 +76,8 @@ body {
 
 .crearPregunta-form input[type="text"],
 .crearPregunta-form input[type="email"],
-.crearPregunta-form select {
+.crearPregunta-form select,
+.crearPregunta-form textarea {
     width: 100%;
     min-height: 43px;
     padding: 10px 12px;
@@ -74,14 +89,21 @@ body {
     box-shadow: 0 2px 4px #0000000d;
 }
 
+.crearPregunta-form textarea {
+    resize: vertical;        /* solo se puede alargar hacia abajo */
+    max-width: 100%;
+}
+
 .crearPregunta-form input[type="text"]:focus,
 .crearPregunta-form input[type="email"]:focus,
-.crearPregunta-form select:focus {
+.crearPregunta-form select:focus,
+.crearPregunta-form textarea:focus {
     outline: 2px solid #8da6d0;
     outline-offset: 1px;
 }
 
-.crearPregunta-form input::placeholder {
+.crearPregunta-form input::placeholder,
+.crearPregunta-form textarea::placeholder {
     color: #a6aab1;
 }
 
@@ -93,23 +115,29 @@ body {
     background-size: 18px;
 }
 
-/* Botones */
+/* Botones: misma línea, mismo ancho */
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+}
+
 .crearPregunta-form .btn-annadir,
 .crearPregunta-form .btn-eliminar {
+    flex: 1;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     padding: 12px 18px;
-    margin-top: 0;
-    margin-right: 12px;
+    margin: 0;
     border-radius: 3px;
     font-size: 14px;
-    text-decoration: none;
     cursor: pointer;
     box-shadow: 0 2px 5px #00000030;
 }
 
-/* Botón principal (como .botonGuardar) */
 .crearPregunta-form .btn-annadir {
     background-color: #20365e;
     color: #ffffff;
@@ -120,7 +148,6 @@ body {
     background-color: #304b7a;
 }
 
-/* Botón secundario (como .botonCancelar) */
 .crearPregunta-form .btn-eliminar {
     background-color: transparent;
     color: #20365e;
@@ -129,30 +156,6 @@ body {
 
 .crearPregunta-form .btn-eliminar:hover {
     background-color: #f0f2f5;
-}
-
-/* Imagen lateral */
-.crearPregunta-imagen {
-    flex: 0.85;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-}
-
-.crearPregunta-imagen label {
-    cursor: pointer;
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-.crearPregunta-imagen img {
-    width: 250px;
-    max-width: 100%;
-    height: auto;
-    display: block;
 }
 
 /* Mensajes de error */
@@ -173,26 +176,17 @@ body {
 
 /* Mediano */
 @media (max-width: 800px) {
-    .crearPregunta-contenedor {
+    main.crearPregunta-contenedor {
         width: auto;
         margin: 12px 22px 35px;
         padding: 30px;
-        gap: 30px;
     }
 }
 
 /* Pequeño */
 @media (max-width: 550px) {
-    .crearPregunta-contenedor {
-        flex-direction: column;
+    main.crearPregunta-contenedor {
         margin: 10px 15px 30px;
         padding: 24px 18px;
-        gap: 30px;
-    }
-
-    .crearPregunta-form .btn-annadir,
-    .crearPregunta-form .btn-eliminar {
-        flex: 1;
-        margin-right: 10px;
     }
 }
