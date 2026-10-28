@@ -2,6 +2,7 @@
     $titulo = 'Registro';
     $css = 'Registro-estilo.css';
     $scripts = 'registro.script.js';
+    $mostrarPerfil = false;
     require __DIR__.'/layout/head.php';
 ?>
 

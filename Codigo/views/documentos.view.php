@@ -1,7 +1,7 @@
 <?php
 $titulo = 'Documentos';
 $css = 'documentos-estilo.css';
-$scripts = 'documentos.view.script.js';
+$scripts = 'documentos.script.js';
 
 $esAdmin = isset($_SESSION['usuario']) && $_SESSION['usuario']->tipo === 'admin';
 
@@ -12,27 +12,58 @@ require __DIR__ . '/layout/nav.php';
 
 <main>
 
-    <!-- Cabecera de la página: volver, título y botón subir -->
     <div class="cabeceraDocumentos">
-
         <div class="tituloDocumentos">
             <h3>Mis documentos</h3>
             <p>Consulta y comparte documentación técnica con el equipo</p>
         </div>
 
-        <form action="index.php" method="POST" class="formSubirDocumento">
-            <input name="publicar" type="submit" hidden>
-                    <svg width="15" height="15" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.5 16V8.5M8.5 8.5V1M8.5 8.5H16M8.5 8.5H1" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
+        <div class="contenedorSubirDocumento">
+            <button type="button" id="abrirFormularioDocumento" class="publicarDocumento" aria-expanded="false" aria-controls="formularioSubidaDocumento">
+                <span aria-hidden="true">+</span>
                 Subir documento
-            </label>
-        </form>
+            </button>
+
+            <form id="formularioSubidaDocumento" class="formularioNuevoDocumento" action="index.php?controller=DocumentosController&amp;accion=store" method="POST" enctype="multipart/form-data" hidden>
+                <h4>Subir documento</h4>
+
+                <div class="campoDocumento">
+                    <label for="tituloDocumento">Nombre del documento</label>
+                    <input type="text" id="tituloDocumento" name="titulo" maxlength="255" required>
+                </div>
+
+                <div class="campoDocumento">
+                    <label for="temaDocumento">Categoría</label>
+                    <select id="temaDocumento" name="tema" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="Ingeniería y Diseño">Ingeniería y Diseño</option>
+                        <option value="Normativa y Calidad">Normativa y Calidad</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                        <option value="Sostenibilidad e innovación">Sostenibilidad e innovación</option>
+                        <option value="Formación y Recursos">Formación y Recursos</option>
+                    </select>
+                </div>
+
+                <div class="campoDocumento">
+                    <label for="archivoDocumento">Archivo</label>
+                    <input type="file" id="archivoDocumento" name="archivo" accept=".pdf,.txt,.jpg,.jpeg,.png,.webp,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
+                    <small>PDF, Word, Excel, PowerPoint, TXT o imagen. Máximo 10 MB.</small>
+                </div>
+
+                <div class="accionesDocumento">
+                    <button type="submit" class="btnConfirmarDocumento">Guardar documento</button>
+                    <button type="button" id="cancelarSubidaDocumento" class="btnLimpiarDocumento">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <?php if (!empty($errorDocumentos)): ?>
+    <p class="errorDocumentos" role="alert"><?= htmlspecialchars($errorDocumentos) ?></p>
+    <?php endif; ?>
 
     <div class="contenidoDocumentos">
 
-        <!-- FILTRO POR TEMA -->
         <aside>
             <div class="filtrarTema">
                 <h5>Filtrar por Tema</h5>
@@ -43,7 +74,7 @@ require __DIR__ . '/layout/nav.php';
                         <path d="M1.25 6.66667H5.41667C6.10833 6.66667 6.66667 6.10833 6.66667 5.41667V1.25C6.66667 0.558333 6.10833 0 5.41667 0H1.25C0.558333 0 0 0.558333 0 1.25V5.41667C0 6.10833 0.558333 6.66667 1.25 6.66667ZM1.66667 1.66667H5V5H1.66667V1.66667ZM13.75 0H9.58333C8.89167 0 8.33333 0.558333 8.33333 1.25V5.41667C8.33333 6.10833 8.89167 6.66667 9.58333 6.66667H13.75C14.4417 6.66667 15 6.10833 15 5.41667V1.25C15 0.558333 14.4417 0 13.75 0ZM13.3333 5H10V1.66667H13.3333V5ZM1.25 15H5.41667C6.10833 15 6.66667 14.4417 6.66667 13.75V9.58333C6.66667 8.89167 6.10833 8.33333 5.41667 8.33333H1.25C0.558333 8.33333 0 8.89167 0 9.58333V13.75C0 14.4417 0.558333 15 1.25 15ZM1.66667 10H5V13.3333H1.66667V10ZM13.75 8.33333H9.58333C8.89167 8.33333 8.33333 8.89167 8.33333 9.58333V13.75C8.33333 14.4417 8.89167 15 9.58333 15H13.75C14.4417 15 15 14.4417 15 13.75V9.58333C15 8.89167 14.4417 8.33333 13.75 8.33333ZM13.3333 13.3333H10V10H13.3333V13.3333Z" fill="#757575"/>
                     </svg>
                     <p>Todas las categorías</p>
-                    <p><?= $preguntasPorTema -> total_todas ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_todas ?></p>
                 </section>
 
                 <section data-id="Ingeniería y Diseño" class="tema" <?= $temaActual === 'Ingeniería y Diseño' ? 'id="seleccionado"' : '' ?>>
@@ -52,7 +83,7 @@ require __DIR__ . '/layout/nav.php';
                         <path d="M10.6369 3.84949L13.1509 6.36339" stroke="#757575" stroke-width="2"/>
                     </svg>
                     <p>Ingeniería y Diseño</p>
-                    <p><?= $preguntasPorTema -> total_ingenieria ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_ingenieria ?></p>
                 </section>
                 <section data-id="Normativa y Calidad" class="tema" <?= $temaActual === 'Normativa y Calidad' ? 'id="seleccionado"' : '' ?>>
                     <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +91,7 @@ require __DIR__ . '/layout/nav.php';
                         <path d="M10.375 1V4.4C10.375 4.85087 10.5725 5.28327 10.9242 5.60208C11.2758 5.92089 11.7527 6.1 12.25 6.1H16" stroke="#757575" stroke-width="2" stroke-linejoin="round"/>
                     </svg>
                     <p>Normativa y Calidad</p>
-                    <p><?= $preguntasPorTema -> total_normativa ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_normativa ?></p>
                 </section>
                 <section data-id="Mantenimiento" class="tema" <?= $temaActual === 'Mantenimiento' ? 'id="seleccionado"' : '' ?>>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,26 +100,26 @@ require __DIR__ . '/layout/nav.php';
                         <path d="M8.08081 10.3328L12.7502 15.0016C12.8547 15.1063 12.9788 15.1893 13.1154 15.246C13.252 15.3026 13.3984 15.3318 13.5463 15.3318C13.6942 15.3318 13.8407 15.3026 13.9773 15.246C14.1139 15.1893 14.238 15.1063 14.3425 15.0016L15.0024 14.3418C15.1071 14.2373 15.1901 14.1132 15.2468 13.9766C15.3034 13.84 15.3326 13.6936 15.3326 13.5457C15.3326 13.3978 15.3034 13.2514 15.2468 13.1148C15.1901 12.9782 15.1071 12.8541 15.0024 12.7497L10.333 8.08081" stroke="#757575" stroke-width="1.5" stroke-linejoin="round"/>
                     </svg>
                     <p>Mantenimiento</p>
-                    <p><?= $preguntasPorTema -> total_mantenimiento ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_mantenimiento ?></p>
                 </section>
                 <section data-id="Sostenibilidad e innovación" class="tema" <?= $temaActual === 'Sostenibilidad e innovación' ? 'id="seleccionado"' : '' ?>>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.97343 14.0264C10.5976 18.6019 16.6979 12.5016 15.9355 1.06429C4.49826 0.301874 -1.60212 6.40226 2.97343 14.0264ZM2.97343 14.0264L1 15.9998M2.97343 14.0285L7.10038 9.89944" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <p>Sostenibilidad e innovación</p>
-                    <p><?= $preguntasPorTema -> total_sostenibilidad ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_sostenibilidad ?></p>
                 </section>
                 <section data-id="Formación y Recursos" class="tema" <?= $temaActual === 'Formación y Recursos' ? 'id="seleccionado"' : '' ?>>
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.6 4.31548L8.17143 0.0979131C8.07266 0.0335133 7.96386 0 7.85357 0C7.74328 0 7.63448 0.0335133 7.53571 0.0979131L3.25 2.90963L1.10714 4.31548L0.392857 4.7841C0.275061 4.86199 0.176002 4.98115 0.106659 5.12838C0.0373169 5.27562 0.00039979 5.44517 0 5.61825V11.2417H1.42857V6.19933L2.85714 7.13657V10.7262C2.85714 12.6569 5.08571 15 7.85714 15C10.6286 15 12.8571 12.6663 12.8571 10.7262V7.13657L14.6071 5.99314C14.85 5.83381 15 5.50578 15 5.159C15 4.81222 14.85 4.48419 14.6071 4.32486L14.6 4.31548ZM3.88571 4.58728L7.85 1.98176L12.6786 5.14963L7.85 8.31749L3.02143 5.14963L3.88571 4.57791V4.58728ZM11.4214 10.7262C11.4214 11.4385 9.91429 13.1255 7.85 13.1255C5.78571 13.1255 4.27857 11.4479 4.27857 10.7262V8.07381L7.52857 10.2107C7.62857 10.2763 7.73571 10.3138 7.85 10.3138C7.96429 10.3138 8.07143 10.2763 8.17143 10.2107L11.4214 8.07381V10.7262Z" fill="#757575"/>
                     </svg>
                     <p>Formación y Recursos</p>
-                    <p><?= $preguntasPorTema -> total_formacion ?></p>
+                    <p class="contador"><?= $preguntasPorTema -> total_formacion ?></p>
                 </section>
             </div>
         </aside>
 
-        <!-- LISTA DE DOCUMENTOS -->
+
         <div class="der">
             <h4 class="tituloRecientes">Documentos recientes</h4>
 
@@ -108,7 +139,7 @@ require __DIR__ . '/layout/nav.php';
 
                 <?php foreach ($documentos as $documento): ?>
                 <div class="filaDocumento">
-                    <img class="iconoDocumento" src="views/imagenes/IconoDocumento.svg" alt="Documento" height="20">
+                    <img class="iconoDocumento" src="views/imagenes/documento.svg" alt="Documento" height="20">
 
                     <span class="tituloDoc"><?= htmlspecialchars($documento->documento_titulo) ?></span>
 
@@ -117,10 +148,10 @@ require __DIR__ . '/layout/nav.php';
                     </span>
 
                     <span class="autorDoc"><?= htmlspecialchars($documento->autor_nombre) ?></span>
-                    <span class="fechaDoc"><?= htmlspecialchars($documento->documento_fecha) ?></span>
+                    <span class="fechaDoc"><?= !empty($documento->documento_fecha) ? date('d/m/Y', strtotime($documento->documento_fecha)) : '' ?></span>
 
-                    <a class="btnDescargar" href="<?= htmlspecialchars($documento->documento_ruta) ?>" download title="Descargar">
-                        <img src="views/imagenes/Descargar.svg" alt="Descargar" height="20">
+                    <a class="btnDescargar" href="<?= htmlspecialchars($documento->documento_ruta) ?>" download="<?= htmlspecialchars($documento->documento_nombre) ?>" title="Descargar">
+                        <img src="views/imagenes/download.svg" alt="Descargar" height="20">
                     </a>
                 </div>
                 <?php endforeach; ?>

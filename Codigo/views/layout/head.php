@@ -3,6 +3,7 @@ $titulo = $titulo ?? '';
 $css = $css ?? '';
 $scripts = $scripts ?? '';
 $usuarioHeader = $_SESSION['usuario'] ?? '';
+$mostrarPerfil = $mostrarPerfil ?? true;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,6 +30,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
             </form>
         </div>
 
+        <?php if ($mostrarPerfil): ?>
         <div class="perfil">
             <form action="index.php" method="POST">
                 <input type="hidden" name="controller" value="UsuarioController">
@@ -42,6 +44,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
 
             </form>
         </div>
+        <?php endif; ?>
 
     </header>
 
