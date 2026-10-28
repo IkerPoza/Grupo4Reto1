@@ -2,6 +2,7 @@
 $titulo = $titulo ?? '';
 $css = $css ?? '';
 $scripts = $scripts ?? '';
+$usuario = $_SESSION['usuario'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +34,9 @@ $scripts = $scripts ?? '';
                 <input type="hidden" name="accion" value="show">
 
                 <button type="submit" class="botonPerfil">
-                    <img src="views/imagenes/Perfil.svg" alt="Perfil">
+                    <div class="imagenPerfilHeader">
+                        <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilHeader">
+                    </div>
                 </button>
 
             </form>

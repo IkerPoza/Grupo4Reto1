@@ -131,8 +131,8 @@ document.querySelectorAll('.accionVoto[data-id-respuesta]').forEach((boton) => {
                 const seleccionado = (votoActual === 1 && esArriba) || (votoActual === -1 && !esArriba);
                 const img = b.querySelector('img');
                 img.src = 'views/imagenes/' + (esArriba
-                    ? (seleccionado ? 'FlechaArribaRellena.png' : 'FlechaArriba.svg')
-                    : (seleccionado ? 'FlechaAbajoRellena.png' : 'FlechaAbajo.svg'));
+                    ? (seleccionado ? 'FlechaArribaRellena.svg' : 'FlechaArriba.svg')
+                    : (seleccionado ? 'FlechaAbajoRellena.svg' : 'FlechaAbajo.svg'));
                 b.classList.toggle('votoSeleccionado', seleccionado);
             });
 
