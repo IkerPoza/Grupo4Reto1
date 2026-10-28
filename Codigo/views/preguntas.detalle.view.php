@@ -8,12 +8,19 @@ $h = static fn($valor) => htmlspecialchars(($valor ?? ''));
 $nombreCompleto = static function ($obj) {
     return trim(($obj->autor_nombre ?? '') . ' ' . ($obj->autor_apellidos ?? '')) ?: 'Usuario';
 };
+
 $porPadre = [];
 foreach ($respuestas as $respuesta) {
     $padre = ($respuesta->idRespuesta ?? 0);
     $porPadre[$padre][] = $respuesta;
 }
-$dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuestas, $porPadre, $h, $nombreCompleto, $pregunta, $idUsuario, $esAdmin, $respuestaActiva) {
+
+$archivosPorRespuesta = [];
+foreach ($archivosRespuestas as $archivo) {
+    $archivosPorRespuesta[$archivo->idRespuesta][] = $archivo;
+}
+
+$dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuestas, $porPadre, $archivosPorRespuesta, $h, $nombreCompleto, $pregunta, $idUsuario, $esAdmin, $respuestaActiva) {
     if (empty($porPadre[$idPadre])) return;
     foreach ($porPadre[$idPadre] as $respuesta) {
         $esPropia = $respuesta->idUsuario === $idUsuario;
@@ -25,7 +32,25 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
         <article class="<?= $clase ?>" id="respuesta-<?= $respuesta->id ?>">
             <div class="textoRespuesta">
                 <h3><a class="enlacePerfil" href="index.php?controller=UsuarioController&accion=show&id=<?= $respuesta->idUsuario ?>"><?= $h($nombreCompleto($respuesta)) ?></a></h3>
+                
                 <p><?= nl2br($h($respuesta->texto)) ?></p>
+
+                <?php if (!empty($archivosPorRespuesta[$respuesta->id])): ?>
+                    <div class="archivosAdjuntos">
+                        <h4>Archivos adjuntos</h4>
+
+                        <?php foreach ($archivosPorRespuesta[$respuesta->id] as $archivo): ?>
+                            <a class="archivoAdjunto" href="<?= htmlspecialchars($archivo->ruta, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" download="<?= htmlspecialchars($archivo->nombreOriginal, ENT_QUOTES, 'UTF-8') ?>">
+                                <span class="iconoArchivo">📎</span>
+                                <span class="nombreArchivo">
+                                    <?= $h($archivo->nombreOriginal) ?>
+                                </span>
+                                <span class="descargarArchivo">Descargar</span>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
             </div>
             <div class="accionesRespuesta">
                 <button class="accionVoto votoArriba <?= ($respuesta->miVoto ?? 0) === 1 ? 'votoSeleccionado' : '' ?>" type="button" data-id-respuesta="<?= $respuesta->id ?>" data-voto="1" title="Votar a favor">
@@ -54,14 +79,27 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
             </div>
         </article>
         <?php if ($respuestaActiva === $respuesta->id): ?>
-            <form class="formularioRespuesta formularioAnidado" action="index.php" method="POST">
+            <form class="formularioRespuesta formularioAnidado" action="index.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="controller" value="PreguntasController">
                 <input type="hidden" name="accion" value="responder">
                 <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
                 <input type="hidden" name="idRespuesta" value="<?= $respuesta->id ?>">
+
                 <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-                <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.svg" alt="Enviar"></button>
+
+                <div class="accionesFormularioRespuesta">
+                    <label class="botonAdjuntar" title="Adjuntar archivos">
+                        <img src="views/imagenes/Subir.svg" alt="adjuntar">
+                        <span>Adjuntar archivos</span>
+                        <input type="file" name="archivos[]" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                    </label>
+
+                    <button type="submit" title="Enviar respuesta">
+                        <img src="views/imagenes/Enviar.svg" alt="Enviar">
+                    </button>
+                </div>
             </form>
+
         <?php endif; ?>
         <?php
         $dibujarRespuestas($respuesta->id, $nivel + 1);
@@ -91,12 +129,22 @@ $dibujarRespuestas = function ($idPadre = 0, $nivel = 0) use (&$dibujarRespuesta
 
     <?php if (!empty($errorRespuesta)): ?><p class="errorRespuesta"><?= $h($errorRespuesta) ?></p><?php endif; ?>
 
-    <form class="formularioRespuesta" action="index.php" method="POST">
+    <form class="formularioRespuesta" action="index.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="controller" value="PreguntasController">
         <input type="hidden" name="accion" value="responder">
         <input type="hidden" name="idPregunta" value="<?= $pregunta->id ?>">
         <textarea name="respuesta" placeholder="Escribe tu respuesta aquí..." required></textarea>
-        <button type="submit" aria-label="Enviar respuesta" title="Enviar respuesta"><img src="views/imagenes/Enviar.svg" alt="Enviar"></button>
+            <div class="accionesFormularioRespuesta">
+            <label class="botonAdjuntar" title="Adjuntar archivos">
+                <img src="views/imagenes/Subir.svg" alt="">
+                <span>Adjuntar archivos</span>
+                <input type="file" name="archivos[]" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+            </label>
+
+            <button type="submit" title="Enviar respuesta">
+                <img src="views/imagenes/Enviar.svg" alt="Enviar">
+            </button>
+        </div>
     </form>
 
     <section class="listaRespuestas" aria-label="Respuestas">

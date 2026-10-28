@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nombreInput.value.trim() !== "") {
             validarNombre();
         } else {
-            mostrarError("error-nombre", "*El campo no puede estar vacio");
+            mostrarError("error-nombre", "* El campo no puede estar vacío");
         }
     });
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (apellidoInput.value.trim() !== "") {
             validarApellido();
         } else {
-            mostrarError("error-apellidos", "*El campo no puede estar vacio");
+            mostrarError("error-apellidos", "* El campo no puede estar vacío");
         }
     });
  
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (emailInput.value.trim() !== "") {
             validarEmail();
         } else {
-            mostrarError("error-email", "*El campo no puede estar vacio");
+            mostrarError("error-email", "* El campo no puede estar vacío");
         }
     });
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (areaSelect.value !== "") {
             validarArea();
         } else {
-            mostrarError("error-area", "*El campo no puede estar vacio");
+            mostrarError("error-area", "* El campo no puede estar vacío");
         }
     });
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (antiguedadInput.value !== "") {
             validarAntiguedad();
         } else {
-            mostrarError("error-antiguedad", "*El campo no puede estar vacio");
+            mostrarError("error-antiguedad", "* El campo no puede estar vacío");
         }
     });
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (passwordInput.value !== "") {
             validarPassword();
         } else {
-            mostrarError("error-password", "*El campo no puede estar vacio");
+            mostrarError("error-password", "* El campo no puede estar vacío");
         }
     });
 });
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const expregNombre = /^[A-ZÁÉÍÓÚ][a-záéíóúñ]+$/;
 
         if (!expregNombre.test(nombre)) {
-            mostrarError("error-nombre", "Formato de nombre no valido");
+            mostrarError("error-nombre", "* Formato de nombre no válido");
             return false;
         }
         limpiarError("error-nombre");
@@ -89,11 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const expregApellidos = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$/;
 
         if (apellidos === "") {
-            mostrarError("error-apellidos", "El campo 'Apellidos' no puede estar vacio");
+            mostrarError("error-apellidos", "* El campo Apellidos no puede estar vacío");
             return false;
         }
         if (!expregApellidos.test(apellidos)) {
-            mostrarError("error-apellidos", "Formato de apellido no valido");
+            mostrarError("error-apellidos", "* Formato de apellido no válido");
             return false;
         }
         limpiarError("error-apellidos");
@@ -106,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const expregEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email === "") {
-            mostrarError("error-email", "El campo Email no puede estar vacío");
+            mostrarError("error-email", "* El campo Email no puede estar vacío");
             return false;
         }
         if (!expregEmail.test(email)) {
-            mostrarError("error-email", "Formato de correo no válido");
+            mostrarError("error-email", "* Formato de correo no válido");
             return false;
         }
         limpiarError("error-email");
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function validarArea() {
         const area = document.getElementById("area").value;
         if (area === "") {
-            mostrarError("error-area", "Debes seleccionar un área de trabajo.");
+            mostrarError("error-area", "* Debes seleccionar un área de trabajo");
             return false;
         }
         limpiarError("error-area");
@@ -134,11 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const expregAntiguedad = /^[0-9]+$/;
 
         if (antiguedad === "") {
-            mostrarError("error-antiguedad", "El campo Email no puede estar vacío");
+            mostrarError("error-antiguedad", "* El campo Email no puede estar vacío");
             return false;
         }
         if (!expregAntiguedad.test(antiguedad)) {
-            mostrarError("error-antiguedad", "Formato de correo no válido");
+            mostrarError("error-antiguedad", "* Formato de correo no válido");
             return false;
         }
         limpiarError("error-antiguedad");
@@ -152,11 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // 8 caracteres, mayuscula, minuscula, numero y sumbolo
         const expregPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
         if (password === "") {
-            mostrarError("error-password", "El campo Contraseña no puede estar vacío.");
+            mostrarError("error-password", "* El campo Contraseña no puede estar vacío");
             return false;
         }
         if (!expregPass.test(password)) {
-            mostrarError("error-password", "Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.");
+            mostrarError("error-password", "* Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo");
             return false;
         }
         limpiarError("error-password");
@@ -165,9 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* mestra mensaje en el elemento de error  */
     function mostrarError(idElemento, mensaje) {
-        // busca el elemento donde se mostrara el error
         const errorContenedor = document.getElementById(idElemento);
-        // si existe escribe el mensaje
         if (errorContenedor) {
             errorContenedor.textContent = mensaje;
         }
@@ -175,9 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* elimina el mensaje de error del elemento indicado */
     function limpiarError(idElemento) {
-        // busca el elemento tiene el error
+
         const errorContenedor = document.getElementById(idElemento);
-        // si existe deja  contenido vacio
         if (errorContenedor) {
             errorContenedor.textContent = "";
         }

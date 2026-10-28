@@ -185,3 +185,118 @@ body {
 .btn-cancelar:hover {
     background-color: #CBD5E1;
 }
+
+
+@media (max-width: 768px) {
+    .perfil-contenedor {
+        margin: 30px auto;
+        padding: 0 16px;
+    }
+
+    .perfil-tarjeta {
+        gap: 25px;
+        padding: 25px;
+    }
+
+    .foto-seccion {
+        padding-right: 10px;
+    }
+
+    .foto-placeholder {
+        width: 120px;
+        height: 120px;
+    }
+
+    .perfil-encabezado h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-botones {
+        flex-wrap: wrap;
+    }
+
+    .btn-guardar, .btn-restablecer, .btn-cancelar {
+        padding: 10px 14px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .perfil-contenedor {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .perfil-encabezado {
+        margin-bottom: 18px;
+    }
+
+    .perfil-encabezado h2 {
+        font-size: 1.25rem;
+    }
+
+    .perfil-encabezado p {
+        font-size: 0.85rem;
+    }
+
+    .perfil-tarjeta {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 25px;
+        padding: 20px 16px;
+    }
+
+    .foto-seccion {
+        flex: none;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .foto-placeholder {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 12px;
+    }
+
+    .foto-titulo {
+        font-size: 0.9rem;
+    }
+
+    .foto-subtitulo {
+        font-size: 0.8rem;
+    }
+
+    .perfil-form {
+        flex: none;
+        width: 100%;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .form-grupo label {
+        font-size: 0.85rem;
+    }
+
+    .form-grupo input {
+        padding: 11px 10px;
+        font-size: 0.9rem;
+        min-width: 0;
+    }
+
+    .mensaje-error {
+        font-size: 0.75rem;
+        overflow-wrap: anywhere;
+    }
+
+    .form-botones {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .btn-guardar, .btn-restablecer, .btn-cancelar {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}

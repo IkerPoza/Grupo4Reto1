@@ -16,41 +16,43 @@ body {
 .seccion-busqueda {
   display: flex;
   justify-content: center;
+  font-size: 12px;
   margin-bottom: 25px;
 }
 
 .caja-busqueda {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: .5rem;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #777777;
-  border-radius: 20px;
-  padding: 6px 16px;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: .5rem 1rem;
+  width: 40%;
+  box-sizing: content-box;
 }
 
 .caja-busqueda input {
-  border: none;
+  background-color: transparent;
+  border: 0px solid;
   outline: none;
-  width: 100%;
-  font-size: 14px;
-  background: transparent;
-  color: #333333;
+  min-width: 0;
+  
 }
 
-.caja-busqueda input::placeholder {
-  color: #a0a0a0;
+.caja-busqueda input:focus {
+  outline: none;
 }
 
 .caja-busqueda button {
   background: none;
   border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 0;
+  justify-self: right;
+  cursor: pointer;
 }
 
 
@@ -175,3 +177,134 @@ body {
   height: 24px;
 }
 
+
+@media (max-width: 768px) {
+   .contenedor-principal {
+        padding: 20px 16px 35px;
+    }
+
+    .caja-busqueda {
+        max-width: 100%;
+    }
+
+    .barra-controles {
+        gap: 12px;
+    }
+
+    .control-izquierdo {
+        gap: 10px;
+    }
+
+    .control-izquierdo h2 {
+        font-size: 16px;
+    }
+
+    .control-derecho {
+        font-size: 14px;
+        gap: 6px;
+    }
+
+    .control-derecho select {
+        padding: 5px 8px;
+        font-size: 13px;
+    }
+
+    .tarjeta-usuario {
+        padding: 12px 16px;
+    }
+
+    .nombre-usuario {
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .contenedor-principal {
+        padding: 15px 12px 30px;
+    }
+
+
+    .seccion-busqueda {
+        margin-bottom: 20px;
+    }
+
+    .caja-busqueda {
+        padding: 8px 12px;
+    }
+
+    .caja-busqueda input {
+        font-size: 13px;
+        min-width: 0;
+    }
+
+    .barra-controles {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .control-izquierdo {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .control-izquierdo h2 {
+        font-size: 15px;
+    }
+
+    .control-izquierdo img,
+    .btn-volver img {
+        max-width: 22px;
+        height: auto;
+    }
+
+    .control-derecho {
+        width: 100%;
+        justify-content: space-between;
+        font-size: 14px;
+    }
+
+    .control-derecho select {
+        max-width: 65%;
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+
+
+    .lista-usuarios {
+        gap: 12px;
+    }
+
+    .tarjeta-usuario {
+        padding: 12px;
+        border-radius: 9px;
+        gap: 10px;
+    }
+
+    .usuario-info {
+        gap: 9px;
+        min-width: 0;
+    }
+
+    .icono-avatar {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .nombre-usuario {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-borrar {
+        flex-shrink: 0;
+    }
+
+    .btn-borrar svg {
+        width: 21px;
+        height: 21px;
+    }
+}

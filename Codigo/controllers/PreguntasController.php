@@ -27,7 +27,22 @@ class PreguntasController extends BaseController {
         
     }
     
-    public function destroy() {
+    public function eliminar() {
+        $esAdmin = isset($_SESSION['usuario']) && $_SESSION['usuario']->tipo === 'admin';
+
+        if (!$esAdmin) {
+            header('Location: index.php?controller=PreguntasController&accion=index');
+            exit;
+        }
+
+        $id = $_GET['id'] ?? null;
+
+        if ($id) {
+            PreguntasModel::deleteById($id);
+        }
+
+        header('Location: index.php?controller=PreguntasController&accion=index');
+        exit;
         
     }
     
@@ -54,12 +69,13 @@ class PreguntasController extends BaseController {
         
         }
         $respuestas = PreguntasModel::getRespuestasByPregunta($idPregunta);
+        $archivosRespuestas = PreguntasModel::getArchivosRespuestas($idPregunta);
         $idUsuario = $_SESSION['usuario']->id;
         $esAdmin = ($_SESSION['usuario']->tipo ?? '') === 'admin';
         $respuestaActiva = filter_input(INPUT_GET, 'responderA', FILTER_VALIDATE_INT) ?: filter_input(INPUT_POST, 'responderA', FILTER_VALIDATE_INT);
         $errorRespuesta = $_SESSION['errorRespuesta'] ?? '';
         unset($_SESSION['errorRespuesta']);
-        $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta'));
+        $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas','archivosRespuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta'));
     }
 
         
@@ -95,36 +111,174 @@ class PreguntasController extends BaseController {
     }
 
 
+
     public function responder() {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $idUsuario = ($_SESSION['usuario']->id ?? 0);
         $idPregunta = filter_input(INPUT_POST, 'idPregunta', FILTER_VALIDATE_INT);
         $idRespuesta = filter_input(INPUT_POST, 'idRespuesta', FILTER_VALIDATE_INT) ?: null;
         $texto = trim($_POST['respuesta'] ?? '');
-        if (!$idUsuario || !$idPregunta || $texto === '') {
-            $_SESSION['errorRespuesta'] = 'Escribe una respuesta antes de enviarla.';
+
+        $archivosSubidos = [];
+        $archivosGuardados = [];
+
+        try {
+            if (!$idUsuario || !$idPregunta || $texto === '') {
+                throw new RuntimeException(
+                    'Escribe una respuesta antes de enviarla.'
+                );
+            }
+
+            $pregunta = PreguntasModel::getDetalleById($idPregunta);
+
+            if (!$pregunta) {
+                throw new RuntimeException('La pregunta no existe.');
+            }
+
+            if ($idRespuesta) {
+                $valida = false;
+
+                foreach (PreguntasModel::getRespuestasByPregunta($idPregunta) as $r) {
+                    if ($r->id === $idRespuesta) {
+                        $valida = true;
+                        break;
+                    }
+                }
+
+                if (!$valida) {
+                    throw new RuntimeException('La respuesta seleccionada no es válida.');
+                }
+            }
+
+            $archivos = $_FILES['archivos'] ?? null;
+            $archivosValidos = [];
+
+            $permitidos = [
+                'application/pdf',
+                'image/jpeg',
+                'image/png',
+                'image/webp',
+                'text/plain',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            ];
+
+            if ($archivos && is_array($archivos['name'])) {
+                $total = count($archivos['name']);
+
+                if ($total > 5) {
+                    throw new RuntimeException('Puedes adjuntar como máximo 5 archivos.');
+                }
+
+                $finfo = new finfo(FILEINFO_MIME_TYPE);
+
+                for ($i = 0; $i < $total; $i++) {
+                    if ($archivos['error'][$i] === UPLOAD_ERR_NO_FILE) {
+                        continue;
+                    }
+
+                    if ($archivos['error'][$i] !== UPLOAD_ERR_OK) {
+                        throw new RuntimeException('No se ha podido subir un archivo.');
+                    }
+
+                    if ($archivos['size'][$i] > 10 * 1024 * 1024) {
+                        throw new RuntimeException(
+                            'Cada archivo puede ocupar como máximo 10 MB.'
+                        );
+                    }
+
+                    $tipo = $finfo->file($archivos['tmp_name'][$i]);
+
+                    if (!in_array($tipo, $permitidos, true)) {
+                        throw new RuntimeException(
+                            'Hay un archivo con un formato no permitido.'
+                        );
+                    }
+
+                    $archivosValidos[] = [
+                        'tmp' => $archivos['tmp_name'][$i],
+                        'nombre' => basename($archivos['name'][$i]),
+                        'tipo' => $tipo
+                    ];
+                }
+            }
+
+            $carpeta = __DIR__ . '/../uploads/respuestas/';
+
+            if (!is_dir($carpeta) && !mkdir($carpeta, 0755, true)) {
+                throw new RuntimeException('No se pudo crear la carpeta de archivos.');
+            }
+
+            foreach ($archivosValidos as $archivo) {
+                $extension = strtolower(
+                    pathinfo($archivo['nombre'], PATHINFO_EXTENSION)
+                );
+
+                $nombreGuardado = bin2hex(random_bytes(16))
+                    . ($extension !== '' ? '.' . $extension : '');
+
+                $destino = $carpeta . $nombreGuardado;
+
+                if (!move_uploaded_file($archivo['tmp'], $destino)) {
+                    throw new RuntimeException('No se pudo guardar un archivo.');
+                }
+
+                $rutaRelativa = 'uploads/respuestas/' . $nombreGuardado;
+
+                $archivosSubidos[] = __DIR__ . '/../' . $rutaRelativa;
+
+                $archivosGuardados[] = [
+                    'nombre' => $archivo['nombre'],
+                    'ruta' => $rutaRelativa,
+                    'tipo' => $archivo['tipo']
+                ];
+            }
+
+            $nuevoId = PreguntasModel::crearRespuesta(
+                $idUsuario,
+                $idPregunta,
+                $idRespuesta,
+                $texto
+            );
+
+            foreach ($archivosGuardados as $archivo) {
+                PreguntasModel::guardarArchivoRespuesta(
+                    $nuevoId,
+                    $archivo['nombre'],
+                    $archivo['ruta'],
+                    $archivo['tipo']
+                );
+            }
+
+            header(
+                'Location: index.php?controller=PreguntasController&accion=detalle&id='
+                . $idPregunta . '#respuesta-' . $nuevoId
+            );
+            exit;
+
+        } catch (Throwable $e) {
+            foreach ($archivosSubidos as $ruta) {
+                if (is_file($ruta)) {
+                    unlink($ruta);
+                }
+            }
+
+            error_log($e->getMessage());
+
+            $_SESSION['errorRespuesta'] = $e->getMessage();
+
             header('Location: index.php?controller=PreguntasController&accion=detalle&id=' . $idPregunta);
             exit;
         }
-        $pregunta = PreguntasModel::getDetalleById($idPregunta);
-        if (!$pregunta) {
-            header('Location: index.php'); 
-            exit;
-        }
-        if ($idRespuesta) {
-            $valida = false;
-            foreach (PreguntasModel::getRespuestasByPregunta($idPregunta) as $r) {
-                if ($r->id === $idRespuesta) {
-                    $valida = true; 
-                    break; 
-                }
-            }
-            if (!$valida) $idRespuesta = null;
-        }
-        PreguntasModel::crearRespuesta($idUsuario, $idPregunta, $idRespuesta, $texto);
-        header('Location: index.php?controller=PreguntasController&accion=detalle&id=' . $idPregunta);
-        exit;
     }
+
 
     public function eliminarRespuesta() {
         if (session_status() === PHP_SESSION_NONE) session_start();
@@ -219,24 +373,26 @@ class PreguntasController extends BaseController {
 
 
     public function buscar(){
-        if($_POST["busqueda"] == ''):
-            $this -> index();
-        else:
-            $busqueda = '%' . $_POST["busqueda"] . '%';
-            $preguntas = PreguntasModel::mostrarPorNombre($_SESSION['usuario']->id, $busqueda);
-            $preguntasPorTema = $this->preguntasPorTema();
-            $orden = 'Más recientes';
-        endif;
+       $texto = trim($_POST['busqueda'] ?? '');
+
+        if ($texto === '') {
+            $this->index();
+            return; 
+        }
+
+        $preguntas = PreguntasModel::mostrarPorNombre($_SESSION['usuario']->id, '%' . $texto . '%');
+        $preguntasPorTema = $this->preguntasPorTema();
+        $orden = 'Más recientes';
 
         $this->render('preguntas.view.php', [
             'preguntas' => $preguntas,
             'preguntasPorTema' => $preguntasPorTema,
-            'order' => $orden,
+            'orden' => $orden,
+            'busqueda' => $texto
         ]);
     }
 
-    public function buscarPorTema()
-    {
+    public function buscarPorTema(){
         $tema = trim((string) ($_POST['tema'] ?? ''));
         $orden = $_POST['ordenar'] ?? null;
         if($tema === 'todas'){

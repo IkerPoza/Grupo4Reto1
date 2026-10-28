@@ -10,11 +10,6 @@
   font-family: 'mifuente';
 }
 
-@font-face{
-    font-family: 'mifuente';
-    src: url(../tipografia/Archivo/static/Archivo-Regular.ttf);
-}
-
 .login-contenedor {
   display: flex;
   justify-content: center;
@@ -122,3 +117,73 @@
   color: red;
 }
 
+@media (max-width: 768px) {
+
+    .login-contenedor {
+        min-height: 70vh;
+        padding: 30px 20px;
+    }
+
+    .login-division {
+        max-width: 360px;
+        padding: 30px 25px;
+    }
+
+    .login-titulo {
+        font-size: 21px;
+    }
+
+    .botones {
+        gap: 10px;
+    }
+}
+
+
+@media (max-width: 480px) {
+  .login-contenedor {
+        min-height: 70vh;
+        padding: 25px 15px;
+        align-items: center;
+    }
+
+    .login-division {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 20px;
+    }
+
+    .login-titulo {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .inicioSesion-form label {
+        font-size: 13px;
+    }
+
+    .inicioSesion-form input[type="email"], .inicioSesion-form input[type="password"] {
+        padding: 11px 10px;
+        font-size: 14px;
+    }
+
+    .input-email, .input-password {
+        margin-bottom: 15px;
+    }
+
+    .botones {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .inicioSesion-form button, .inicioSesion-form input[type="submit"], .btn-registro {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .mensajeError {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}

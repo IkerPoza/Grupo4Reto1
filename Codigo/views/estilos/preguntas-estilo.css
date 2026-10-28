@@ -47,6 +47,15 @@ main{
     margin-top: 2rem;
     gap: 2rem;
     align-items: stretch;
+    flex: 1;
+    min-height: 0;
+}
+
+.contenidoPreguntas .der {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /*LATERAL PREGUNTAS*/
@@ -177,6 +186,8 @@ main{
     overflow-y: auto;   
     overflow-x: hidden;
     scrollbar-width: none; 
+    flex:1;
+    min-height: 0;
 }
 
 .listaPreguntas::-webkit-scrollbar{
@@ -187,7 +198,7 @@ main{
     color: white;
     background-color: #5B6F8F;
     width: 100%;
-    height: 100%;
+    flex-shrink: 0;
     padding: 1rem 1.5rem;
     border-radius: 8px;
     box-shadow: 0 3px 6px #00000025;
@@ -262,4 +273,172 @@ main{
 
 .btnListarUsuarios img:active {
     transform: scale(0.95);
+}
+
+
+/*boton eliminar pregunta*/
+
+
+.accionesPregunta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnEliminarPregunta {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+}
+
+.btnEliminarPregunta:hover {
+    transform: scale(1.15);
+}
+
+/* tablets */
+@media (max-width: 768px) {
+    .buscador form {
+        width: 70%;
+    }
+
+    .contenidoPreguntas {
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .filtrarTema {
+        padding: .75rem;
+    }
+
+    .filtrarTema section p:first-of-type {
+        width: 9rem;
+    }
+
+
+    .listaPreguntas {
+        max-height: 60vh;
+    }
+
+    .listaPreguntas section {
+        padding: 1rem;
+    }
+
+    .listaPreguntas h1 {
+        font-size: 21px;
+    }
+
+    .btnListarUsuarios {
+        top: 20px;
+    }
+}
+
+
+/* moviles */
+@media (max-width: 480px) {
+    .buscador {
+        padding: 0 12px;
+    }
+
+    .buscador form {
+        width: 100%;
+        padding: .5rem .75rem;
+    }
+
+    .contenidoPreguntas {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 0 12px;
+    }
+
+    .contenidoPreguntas .der {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .contenidoPreguntas aside {
+        width: 100%;
+    }
+
+    .publicarPregunta {
+        font-size: 14px;
+        padding: .65rem;
+    }
+
+    .filtrarTema {
+        width: 100%;
+        padding: .75rem;
+    }
+
+    .filtrarTema section {
+        justify-content: space-between;
+    }
+
+    .filtrarTema section p:first-of-type {
+        width: auto;
+        flex: 1;
+    }
+
+    .opcionesPreguntas {
+        gap: .5rem;
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    .opcionesPreguntas select {
+        max-width: 100%;
+        font-size: 13px;
+    }
+
+    .listaPreguntas {
+        max-height: 60vh;
+        padding-top: .75rem;
+        gap: .75rem;
+    }
+
+    .listaPreguntas section {
+        padding: .85rem;
+        gap: .5rem;
+    }
+
+    .listaPreguntas h1 {
+        font-size: 19px;
+        overflow-wrap: anywhere;
+    }
+
+    .listaPreguntas h2 {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .listaPreguntas section .informacionSuperior {
+        gap: .5rem;
+        flex-wrap: wrap;
+    }
+
+    .listaPreguntas .autor {
+        flex-wrap: wrap;
+        font-size: 13px;
+    }
+
+    .listaPreguntas .abajoPregunta {
+        gap: .5rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+    }
+
+    .btnListarUsuarios {
+        top: 0;
+        margin: 10px 12px 10px auto;
+    }
+
+    .btnListarUsuarios img {
+        width: 30px;
+    }
+
+    .accionesPregunta {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 }

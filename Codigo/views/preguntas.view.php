@@ -11,7 +11,7 @@ require __DIR__ . '/layout/head.php';
 <main>
     <div class="buscador">
         <form action="index.php" method="POST">
-            <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas, temas o normativas...">
+            <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas por titulo, descripcion..." value="<?= htmlspecialchars($busqueda ?? '') ?>">
             <label class="buscar">
                 <input name="accion" value="buscar" type="submit" hidden>
                 <svg width="15" height="15" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,10 +145,24 @@ require __DIR__ . '/layout/head.php';
                     <hr>
                     <div class="abajoPregunta">
                         <p><?= $pregunta->pregunta_tema ?> · <?= $pregunta->num_respuestas ?> respuestas</p>
-                        <svg data-id="<?= $pregunta->pregunta_id ?>" class="botonFavorito" width="15" height="20" viewBox="0 0 13 18" fill= "<?= $llenar ?>" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 3.8C1 2.82 1 2.33 1.19075 1.9555C1.35853 1.62623 1.62623 1.35853 1.9555 1.19075C2.33 1 2.82 1 3.8 1H8.7C9.68 1 10.17 1 10.5445 1.19075C10.8738 1.35853 11.1415 1.62623 11.3092 1.9555C11.5 2.33 11.5 2.82 11.5 3.8V15.4419C11.5 15.8671 11.5 16.0797 11.4116 16.1961C11.3734 16.2467 11.3247 16.2884 11.2688 16.3184C11.2129 16.3483 11.1512 16.3657 11.0879 16.3694C10.9417 16.3781 10.765 16.26 10.4115 16.0246L6.25 13.25L2.0885 16.0237C1.735 16.26 1.55825 16.3781 1.41125 16.3694C1.34811 16.3656 1.28654 16.3481 1.2308 16.3182C1.17506 16.2883 1.12647 16.2466 1.08837 16.1961C1 16.0797 1 15.8671 1 15.4419V3.8Z" stroke="#FFDD33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+
+                        <div class="accionesPregunta">
+                            <?php if ($esAdmin): ?>
+                                <a href="index.php?controller=PreguntasController&accion=eliminar&id=<?= $pregunta->pregunta_id ?>"
+                                class="btnEliminarPregunta"
+                                title="Eliminar pregunta"
+                                onclick="event.stopPropagation(); return confirm('¿Seguro que quieres eliminar esta pregunta?');">
+                                    <img src="views/imagenes/Papelera.svg" alt="Eliminar pregunta" height="18">
+                                </a>
+                            <?php endif; ?>
+
+                            <svg data-id="<?= $pregunta->pregunta_id ?>" class="botonFavorito" width="15" height="20" viewBox="0 0 13 18" fill="<?= $llenar ?>" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 3.8C1 2.82 1 2.33 1.19075 1.9555C1.35853 1.62623 1.62623 1.35853 1.9555 1.19075C2.33 1 2.82 1 3.8 1H8.7C9.68 1 10.17 1 10.5445 1.19075C10.8738 1.35853 11.1415 1.62623 11.3092 1.9555C11.5 2.33 11.5 2.82 11.5 3.8V15.4419C11.5 15.8671 11.5 16.0797 11.4116 16.1961C11.3734 16.2467 11.3247 16.2884 11.2688 16.3184C11.2129 16.3483 11.1512 16.3657 11.0879 16.3694C10.9417 16.3781 10.765 16.26 10.4115 16.0246L6.25 13.25L2.0885 16.0237C1.735 16.26 1.55825 16.3781 1.41125 16.3694C1.34811 16.3656 1.28654 16.3481 1.2308 16.3182C1.17506 16.2883 1.12647 16.2466 1.08837 16.1961C1 16.0797 1 15.8671 1 15.4419V3.8Z" stroke="#FFDD33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
                     </div>
+                    
+        
                 </section>
 
                 <?php endforeach; ?>
