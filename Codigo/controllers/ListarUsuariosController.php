@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/ListarUsuariosModel.php';
+require_once __DIR__ . '/../models/UsuarioModel.php';
 
 class ListarUsuariosController extends BaseController {
 
