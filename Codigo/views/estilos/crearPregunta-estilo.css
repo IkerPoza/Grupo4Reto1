@@ -22,13 +22,11 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-/* Tarjeta blanca: crece con su contenido */
 main.crearPregunta-contenedor {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex: 0 0 auto;          /* no se encoge ni se estira dentro del body */
+    flex: 0 0 auto;      
     height: auto;
     min-height: min-content;
     overflow: visible;
@@ -90,7 +88,7 @@ main.crearPregunta-contenedor {
 }
 
 .crearPregunta-form textarea {
-    resize: vertical;        /* solo se puede alargar hacia abajo */
+    resize: vertical;   
     max-width: 100%;
 }
 
@@ -180,6 +178,26 @@ main.crearPregunta-contenedor {
         width: auto;
         margin: 12px 22px 35px;
         padding: 30px;
+    }
+
+    .crearPregunta-division {
+        max-width: 420px;
+        min-width: 0;
+    }
+
+    .crearPregunta-titulo {
+        font-size: 22px;
+    }
+
+    .crearPregunta-imagen img {
+        width: 180px;
+        max-width: 100%;
+    }
+
+    .crearPregunta-form .btn-annadir, .crearPregunta-form .btn-eliminar {
+        min-width: 100px;
+        padding: 10px 18px;
+        margin-right: 8px;
     }
 }
 

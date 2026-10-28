@@ -9,19 +9,19 @@
 
 
         <div class="redesSociales">
-            <a href="#" >
+            <a href="https://www.tiktok.com/es/" >
                 <img src="views/imagenes/TikTok.svg" alt="Tiktok" >
             </a>
 
-            <a href="#" >
+            <a href="https://www.youtube.com/" >
                 <img src="views/imagenes/Youtube.svg" alt="Youtube" >
             </a>
 
-            <a href="#" >
+            <a href="https://www.messenger.com/" >
                 <img src="views/imagenes/Messenger.svg" alt="Messenger" >
             </a>
 
-            <a href="#" >
+            <a href="https://www.facebook.com/?locale=es_ES" >
                 <img src="views/imagenes/Facebook.svg" alt="Facebook" >
             </a>
         </div>
