@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (tituloInput.value.trim() !== "") {
             validarTitulo();
         } else {
-            mostrarError("error-titulo", "* El campo no puede estar vacio");
+            mostrarError("error-titulo", "* El campo no puede estar vacío");
         }
     });
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (descripcionInput.value.trim() !== "") {
             validarDescripcion();
         } else {
-            mostrarError("error-descripcion", "* El campo no puede estar vacio");
+            mostrarError("error-descripcion", "* El campo no puede estar vacío");
         }
     });
 
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (temaSelect.value !== "") {
             validarTema();
         } else {
-            mostrarError("error-tema", "* Tienes que selecionar una opcion");
+            mostrarError("error-tema", "* Tienes que selecionar una opción");
         }
     });
 
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const expregTitulos = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$/;
 
         if (!expregTitulos.test(titulo)) {
-            mostrarError("error-titulo", "* Formato de titulo no valido");
+            mostrarError("error-titulo", "* Formato de título no válido");
             return false;
         }
         limpiarError("error-titulo");

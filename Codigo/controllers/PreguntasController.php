@@ -385,7 +385,8 @@ class PreguntasController extends BaseController {
         $this->render('preguntas.view.php', [
             'preguntas' => $preguntas,
             'preguntasPorTema' => $preguntasPorTema,
-            'order' => $orden
+            'order' => $orden,
+            'busqueda' => $_POST['busqueda']
         ]);
     }
 

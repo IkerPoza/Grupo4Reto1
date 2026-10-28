@@ -18,7 +18,7 @@ require __DIR__ . '/layout/head.php';
 
     <div class="buscador">
         <form action="index.php" method="POST">
-            <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas, temas o normativas...">
+            <input class="busqueda" name="busqueda" type="text" placeholder="Buscar preguntas por titulo, descripcion..." value="<?= htmlspecialchars($busqueda ?? '') ?>">
             <label class="buscar">
                 <input name="accion" value="buscar" type="submit" hidden>
                 <svg width="15" height="15" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
