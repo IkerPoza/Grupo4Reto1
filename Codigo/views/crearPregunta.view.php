@@ -41,8 +41,8 @@ require __DIR__ . '/layout/nav.php';
                     <option value="Ingeniería y Diseño">Ingeniería y Diseño</option>
                     <option value="Normativa y Calidad">Normativa y Calidad</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Sostenibilidad e Innovacion">Sostenibilidad e Innovación</option>
-                    <option value="Formacion y Recursos">Formación y Recursos</option>
+                    <option value="Sostenibilidad e innovación">Sostenibilidad e Innovación</option>
+                    <option value="Formación y Recursos">Formación y Recursos</option>
                 </select>
 
                 <small class="mensaje-error" id="error-tema"></small>
