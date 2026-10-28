@@ -171,28 +171,94 @@ body {
     width: 100%;
 }
 
-/* Mediano */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .crearPregunta-contenedor {
-        width: auto;
-        margin: 12px 22px 35px;
-        padding: 30px;
+        width: 94%;
+        min-height: auto;
+        padding: 35px 30px;
         gap: 30px;
+    }
+
+    .crearPregunta-division {
+        max-width: 420px;
+        min-width: 0;
+    }
+
+    .crearPregunta-titulo {
+        font-size: 22px;
+    }
+
+    .crearPregunta-imagen img {
+        width: 180px;
+        max-width: 100%;
+    }
+
+    .crearPregunta-form .btn-annadir, .crearPregunta-form .btn-eliminar {
+        min-width: 100px;
+        padding: 10px 18px;
+        margin-right: 8px;
     }
 }
 
-/* Pequeño */
-@media (max-width: 550px) {
+
+/* MÓVILES */
+@media (max-width: 480px) {
     .crearPregunta-contenedor {
         flex-direction: column;
-        margin: 10px 15px 30px;
-        padding: 24px 18px;
-        gap: 30px;
+        justify-content: center;
+        align-items: stretch;
+        width: calc(100% - 24px);
+        min-height: auto;
+        margin: 15px auto 25px;
+        padding: 25px 18px;
+        gap: 25px;
     }
 
-    .crearPregunta-form .btn-annadir,
-    .crearPregunta-form .btn-eliminar {
-        flex: 1;
-        margin-right: 10px;
+    .crearPregunta-division {
+        width: 100%;
+        max-width: none;
+    }
+
+    .crearPregunta-titulo {
+        font-size: 21px;
+        margin-bottom: 20px;
+    }
+
+    .crearPregunta-form div {
+        margin-bottom: 16px;
+    }
+
+    .crearPregunta-form label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .crearPregunta-form input[type="text"], .crearPregunta-form input[type="email"], .crearPregunta-form select {
+        padding: 11px 12px;
+        font-size: 14px;
+    }
+
+    /* BOTONES */
+    .crearPregunta-form .btn-annadir, .crearPregunta-form .btn-eliminar {
+        min-width: 0;
+        padding: 11px 16px;
+        margin-top: 8px;
+        margin-right: 6px;
+        font-size: 14px;
+    }
+
+    .crearPregunta-imagen {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .crearPregunta-imagen img {
+        width: 170px;
+        max-width: 80%;
+    }
+
+    .mensajeError {
+        font-size: 0.8rem;
+        overflow-wrap: anywhere;
     }
 }

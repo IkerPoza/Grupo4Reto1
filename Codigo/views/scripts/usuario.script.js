@@ -1,4 +1,5 @@
 const navegacion = document.querySelector(".navegacion");
+const flechaVolver = document.querySelector(".navegacion > a");
 const vistaPerfil = document.getElementById("vistaPerfil");
 const vistaEdicion = document.getElementById("vistaEdicion");
 const listaPreguntas = document.getElementById("listaPreguntas");
@@ -32,15 +33,31 @@ function mostrarEdicion() {
     if (vistaPerfil && vistaEdicion) {
         vistaPerfil.hidden = true;
         vistaEdicion.hidden = false;
-        if (navegacion) navegacion.hidden = true;
+        const cerrarSesion = document.querySelector('form[action*="accion=logout"]');
+        if (cerrarSesion) {
+            cerrarSesion.hidden = true;
+        }
+        if (flechaVolver) {
+            flechaVolver.hidden = true;
+        }
     }
 }
 
 function cancelarEdicion() {
     formPerfil?.reset();
-    if (vistaEdicion) vistaEdicion.hidden = true;
-    if (vistaPerfil) vistaPerfil.hidden = false;
-    if (navegacion) navegacion.hidden = false;
+    if (vistaEdicion) {
+        vistaEdicion.hidden = true;
+    }
+    if (vistaPerfil) {
+        vistaPerfil.hidden = false;
+    }
+    const cerrarSesion = document.querySelector('form[action*="accion=logout"]');
+    if (cerrarSesion) {
+        cerrarSesion.hidden = false;
+    }
+    if (flechaVolver) {
+        flechaVolver.hidden = false;
+    }
 }
 
 /* Añadir/quitar favoritos guardados en la base de datos */
@@ -78,7 +95,10 @@ function actualizarEstadoFavorito(idPregunta, esFavorita) {
     if (esFavorita) {
         if (!botonGuardado && botonOriginal) {
             const copia = botonOriginal.closest(".tarjetaPregunta").cloneNode(true);
-            listaFavoritas.appendChild(copia);
+            const botonCopia = copia.querySelector(".favorito");
+            botonCopia.disabled = false;
+            cambiarIcono(botonCopia, true);
+            listaFavoritas.prepend(copia);
         }
     } else if (botonGuardado) {
         botonGuardado.closest(".tarjetaPregunta")?.remove();
@@ -90,8 +110,13 @@ function actualizarEstadoFavorito(idPregunta, esFavorita) {
 }
 
 function cambiarIcono(boton, esFavorita) {
+    boton.classList.toggle("guardado", esFavorita);
     boton.setAttribute("aria-pressed", String(esFavorita));
     const texto = esFavorita ? "Quitar de favoritos" : "Añadir a favoritos";
     boton.setAttribute("aria-label", texto);
     boton.title = texto;
 }
+
+window.addEventListener("pageshow", (evento) => {
+    if (evento.persisted) window.location.reload();
+});
