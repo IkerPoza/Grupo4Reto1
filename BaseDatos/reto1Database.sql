@@ -29,7 +29,7 @@ CREATE TABLE pregunta (
     tema VARCHAR(100),
     descripcion TEXT,
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-    imagen VARCHAR(255) DEFAULT NULL;
+    imagen VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
