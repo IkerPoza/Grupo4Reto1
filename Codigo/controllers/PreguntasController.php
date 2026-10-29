@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/PreguntasModel.php';
+require_once __DIR__ . '/../models/UsuarioModel.php';
 
 class PreguntasController extends BaseController {
     
@@ -9,7 +10,8 @@ class PreguntasController extends BaseController {
             $preguntas = $this->show();
             $preguntasPorTema = $this->preguntasPorTema();
             $orden = 'Más recientes';
-            $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema, 'orden' => $orden]);
+            $usuario = UsuarioModel::getById($_SESSION["usuario"] ->id);
+            $this -> render('preguntas.view.php', ['preguntas' => $preguntas, 'preguntasPorTema' => $preguntasPorTema, 'orden' => $orden, 'usuario' => $usuario]);
         }else{
             $this -> render('index.view.php');
         }
@@ -71,11 +73,12 @@ class PreguntasController extends BaseController {
         $respuestas = PreguntasModel::getRespuestasByPregunta($idPregunta);
         $archivosRespuestas = PreguntasModel::getArchivosRespuestas($idPregunta);
         $idUsuario = $_SESSION['usuario']->id;
+        $usuario = UsuarioModel::getById($idUsuario);
         $esAdmin = ($_SESSION['usuario']->tipo ?? '') === 'admin';
         $respuestaActiva = filter_input(INPUT_GET, 'responderA', FILTER_VALIDATE_INT) ?: filter_input(INPUT_POST, 'responderA', FILTER_VALIDATE_INT);
         $errorRespuesta = $_SESSION['errorRespuesta'] ?? '';
         unset($_SESSION['errorRespuesta']);
-        $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas','archivosRespuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta'));
+        $this->render('preguntas.detalle.view.php', compact('pregunta', 'respuestas','archivosRespuestas', 'idUsuario', 'esAdmin', 'respuestaActiva', 'errorRespuesta', 'usuario'));
     }
 
         
