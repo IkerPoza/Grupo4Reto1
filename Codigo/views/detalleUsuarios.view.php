@@ -1,7 +1,7 @@
 <?php 
     $titulo = 'Detalle Usuario';
     $css = 'detalleUsuario-estilo.css';
-    $scripts = '';
+    $scripts = 'detalleUsuario.script.js';
     require __DIR__.'/layout/head.php';
 ?>
 

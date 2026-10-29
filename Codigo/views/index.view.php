@@ -2,6 +2,7 @@
     $titulo = 'Login';
     $css = 'InicioSesion-estilo.css';
     $scripts = 'index.script.js';
+    $mostrarPerfil = false;
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }

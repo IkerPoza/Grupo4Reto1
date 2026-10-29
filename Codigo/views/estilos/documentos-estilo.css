@@ -1,0 +1,329 @@
+[hidden] { 
+    display: none !important; 
+}
+
+.cabeceraDocumentos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 6px 3.5% 0 4.9%;
+}
+
+.tituloDocumentos h3 {
+    margin: 0 0 7px;
+    color: #111;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.tituloDocumentos p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.contenedorSubirDocumento {
+    position: relative;
+    flex: 0 0 auto;
+    width: min(330px, 34%);
+}
+
+.publicarDocumento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 18px;
+    background: #5B6F96;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.publicarDocumento::-webkit-details-marker { 
+    display: none;
+}
+
+.publicarDocumento:hover { 
+    background: #4a5c80; 
+}
+
+.formularioNuevoDocumento {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 350px;
+    max-width: calc(100vw - 32px);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+    border: 1px solid #d6d9df;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.16);
+}
+
+.formularioNuevoDocumento h4 {
+    margin: 0;
+    color: #1D325A;
+    font-size: 1.1rem;
+}
+
+.campoDocumento { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 7px; 
+}
+
+.campoDocumento label { 
+    font-weight: 600; 
+    font-size: .9rem; 
+}
+
+.campoDocumento input, .campoDocumento select {
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #cdd1d8;
+    border-radius: 6px;
+    background: #fff;
+    font: inherit;
+}
+
+.campoDocumento input[type="file"] { 
+    font-size: .82rem; 
+}
+
+.campoDocumento small { 
+    color: #707782; 
+    font-size: .75rem; 
+}
+
+.accionesDocumento { 
+    display: flex;
+    gap: 10px; 
+}
+
+.btnConfirmarDocumento, .btnLimpiarDocumento {
+    padding: 10px 13px;
+    border: 0;
+    border-radius: 6px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.btnConfirmarDocumento { 
+    flex: 1; 
+    color: white; 
+    background: #1D325A; 
+}
+
+.btnConfirmarDocumento:hover { 
+    background: #294575; 
+}
+.btnLimpiarDocumento { 
+    color: #1D325A; 
+    background: #EAEBED; 
+}
+
+.contenidoDocumentos {
+    display: grid;
+    grid-template-columns: minmax(275px, 30%) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(28px, 3.3vw, 56px);
+    padding: 24px 3.5% 42px 6.8%;
+}
+
+.filtrarTema {
+    padding: 17px 18px 20px;
+    background: #fff;
+    border: 1.5px solid #171717;
+    border-radius: 13px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.18);
+}
+
+.filtrarTema h5 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.tema {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 42px;
+    padding: 7px 4px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.tema:hover, .tema#seleccionado { 
+    background: #f0f2f6; 
+}
+
+.tema svg { 
+    flex: 0 0 26px; 
+    width: 26px; 
+    height: 26px; 
+}
+
+.tema p:not(.contador) { 
+    flex: 1; 
+    font-size: .98rem; 
+    line-height: 1.15; 
+}
+
+.tema .contador {
+    margin-left: auto;
+    min-width: 43px;
+    text-align: center;
+    padding: 4px 10px;
+    background: #dedede;
+    border-radius: 999px;
+    font-size: .9rem;
+}
+
+.der { 
+    min-width: 0; 
+    padding-top: 17px; 
+}
+
+.tituloRecientes { 
+    margin: 0 0 20px; 
+    font-size: 1.05rem; 
+    font-weight: 700; 
+}
+
+.tablaDocumentos { 
+    width: 100%; 
+}
+
+.filaDocumento {
+    display: grid;
+    grid-template-columns: 28px minmax(150px, 1.7fr) minmax(125px, 1.1fr) minmax(90px, .8fr) minmax(95px, .8fr) 28px;
+    align-items: center;
+    gap: clamp(8px, 1.2vw, 20px);
+    padding: 8px 0;
+}
+
+.cabeceraTabla { 
+    padding-bottom: 14px;
+    font-weight: 700; 
+}
+
+.celdaCategoria { 
+    display: flex; 
+    min-width: 0; 
+}
+
+.etiquetaCategoria {
+    display: inline-block;
+    max-width: 100%;
+    min-width: 110px;
+    padding: 5px 10px;
+    overflow: hidden;
+    background: #5B6F96;
+    color: #fff;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.iconoDocumento { 
+    width: 21px; 
+    height: 25px; 
+    object-fit: contain; 
+}
+.tituloDoc, .autorDoc, .fechaDoc { 
+    overflow-wrap: anywhere; 
+}
+.btnDescargar { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.btnDescargar img { 
+    width: 21px; 
+    height: 21px; 
+}
+.btnDescargar:hover img { 
+    opacity: .7; 
+}
+.mensajeVacio { 
+    padding: 16px 0; 
+    color: #757575; 
+}
+
+.formSubirDocumento{
+    padding: 20px;
+    background-color: #5B6F8F;
+}
+
+@media (max-width: 1100px) {
+    .contenidoDocumentos { 
+        grid-template-columns: minmax(240px, 32%) minmax(0, 1fr); 
+        gap: 24px; 
+        padding-left: 4%; 
+    }
+
+    .filaDocumento { 
+        grid-template-columns: 24px minmax(120px, 1.5fr) minmax(100px, 1fr) 28px; 
+    }
+
+    .filaDocumento .autorDoc, .filaDocumento .fechaDoc, .cabeceraTabla span:nth-child(4), .cabeceraTabla span:nth-child(5) { 
+        display: none; 
+    }
+}
+
+@media (max-width: 760px) {
+    .cabeceraDocumentos { 
+        align-items: stretch; 
+        flex-direction: column; 
+        padding: 8px 5% 0; 
+    }
+
+    .contenedorSubirDocumento { 
+        width: 100%; 
+    }
+
+    .formularioNuevoDocumento { 
+        position: static; 
+        width: 100%;
+        max-width: 100%; 
+        margin-top: 10px; 
+    }
+
+    .contenidoDocumentos { 
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        padding: 22px 5% 30px; 
+    }
+
+    .der {
+        padding-top: 0; 
+    }
+
+    .filaDocumento { 
+        grid-template-columns: 24px minmax(0, 1fr) 28px; 
+        gap: 10px; 
+    }
+
+    .filaDocumento .celdaCategoria, .cabeceraTabla span:nth-child(3), .filaDocumento .autorDoc, .filaDocumento .fechaDoc, .cabeceraTabla span:nth-child(4), .cabeceraTabla span:nth-child(5) { 
+        display: none; 
+    }
+
+    .cabeceraTabla { 
+        display: none; 
+    }
+}

@@ -107,8 +107,8 @@ require __DIR__ . '/layout/head.php';
                             <option value="Menos respuestas" <?= $orden === 'Menos respuestas' ? 'selected' : '' ?>>Menos respuestas</option>
                         </select>
                     </div>
-                    <a href="index.php?controller=ListarUsuariosController&accion=index" class="btnListarUsuarios" title="Archivo">
-                        <img src="views/imagenes/Documentos.svg" alt="Archivo" height="30">
+                    <a href="index.php?controller=DocumentosController&accion=index" class="ListarDocumentos" title="Documento">
+                        <img src="views/imagenes/Documentos.svg" alt="Documento" height="30">
                     </a>
                     <!--boton lista usuarios !-->
                     <?php if ($esAdmin): ?>

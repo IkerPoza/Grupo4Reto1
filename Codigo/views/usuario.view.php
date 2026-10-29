@@ -64,7 +64,7 @@ require __DIR__ . '/layout/nav.php';
 
                     <article class="estadistica">
                         <strong><?= $stats->preguntas ?></strong>
-                        <p>Dudas</p>
+                        <p>Preguntas</p>
                     </article>
 
                     <article class="estadistica">

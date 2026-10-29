@@ -3,6 +3,7 @@ $titulo = $titulo ?? '';
 $css = $css ?? '';
 $scripts = $scripts ?? '';
 $usuarioHeader = $_SESSION['usuario'] ?? '';
+$mostrarPerfil = $mostrarPerfil ?? true;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +14,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
     <link rel="stylesheet" href="views/estilos/<?= $css ?>">
     <link rel="stylesheet" href="views/estilos/estilos.css">
     <script src="views/scripts/<?= $scripts ?>" defer></script>
+    <link rel="icon" type="image/svg+xml" href="views/imagenes/Logo.svg">
 </head>
 <body>
     <header class="cabecera">
@@ -28,6 +30,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
             </form>
         </div>
 
+        <?php if ($mostrarPerfil): ?>
         <div class="perfil">
             <form action="index.php" method="POST">
                 <input type="hidden" name="controller" value="UsuarioController">
@@ -41,6 +44,7 @@ $usuarioHeader = $_SESSION['usuario'] ?? '';
 
             </form>
         </div>
+        <?php endif; ?>
 
     </header>
 

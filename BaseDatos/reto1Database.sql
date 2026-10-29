@@ -1,3 +1,5 @@
+
+DROP TABLE IF EXISTS documento;
 DROP TABLE IF EXISTS archivoRespuesta;
 DROP TABLE IF EXISTS preguntaGuardada;
 DROP TABLE IF EXISTS votoRespuesta;
@@ -88,4 +90,16 @@ CREATE TABLE archivoRespuesta (
     tipoMime VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE documento (
+    id INT NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(255) NOT NULL,
+    tema VARCHAR(100) NOT NULL,
+    nombreOriginal VARCHAR(255) NOT NULL,
+    ruta VARCHAR(255) NOT NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    idUsuario INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
