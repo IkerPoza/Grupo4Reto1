@@ -135,6 +135,19 @@ class UsuarioController extends BaseController {
                 $usuarioAnterior = UsuarioModel::getById($idUsuario);
 
                 if (!move_uploaded_file($temporal, $carpeta . $nombreArchivo)) {
+                    $usuarioPhp = function_exists('posix_geteuid')
+                        ? posix_getpwuid(posix_geteuid())['name']
+                        : get_current_user();
+
+                    error_log(
+                        'move_uploaded_file falló: ' . print_r(error_get_last(), true) .
+                        ' | destino=' . $carpeta . $nombreArchivo .
+                        ' | realpath=' . var_export(realpath($carpeta), true) .
+                        ' | escribible=' . (is_writable($carpeta) ? 'sí' : 'no') .
+                        ' | is_uploaded_file=' . (is_uploaded_file($temporal) ? 'sí' : 'no') .
+                        ' | usuario_php=' . $usuarioPhp .
+                        ' | open_basedir=' . ini_get('open_basedir')
+                    );
                     exit('No se pudo guardar la imagen.');
                 }
 
