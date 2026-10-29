@@ -264,16 +264,6 @@ main{
 
 .btnListarUsuarios img {
     cursor: pointer;
-    transition: transform 0.2s ease, opacity 0.2s ease; 
-}
-
-.btnListarUsuarios img:hover {
-    transform: scale(1.1); 
-    opacity: 0.85; 
-}
-
-.btnListarUsuarios img:active {
-    transform: scale(0.95);
 }
 
 
