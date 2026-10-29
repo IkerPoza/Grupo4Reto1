@@ -48,7 +48,7 @@
           
           <div class="usuario-info">
             <div class="imagenPerfilLista">
-                <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilLista">
+                <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfilLista">
             </div>
             <span class="nombre-usuario">
               <?= htmlspecialchars(trim(($usuario->nombre ?? '') . ' ' . ($usuario->apellidos ?? ''))) ?>
