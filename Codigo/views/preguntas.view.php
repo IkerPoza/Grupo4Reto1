@@ -134,7 +134,7 @@ require __DIR__ . '/layout/head.php';
                         <div class="autor">
                             <a class="autor" href="index.php?controller=UsuarioController&accion=show&id=<?= $pregunta->autor_id ?>">
                                 <div class="imagenPerfilPregunta">
-                                    <img src="<?= htmlspecialchars(!empty($pregunta->autor_foto) ? $pregunta->autor_foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilPregunta">
+                                    <img src="<?= (!empty($pregunta->autor_foto) && file_exists($pregunta->autor_foto)) ? $pregunta->autor_foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfilPregunta">
                                 </div>
                                 <?= htmlspecialchars($pregunta->autor_nombre) ?>
                             </a>

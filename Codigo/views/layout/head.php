@@ -2,7 +2,6 @@
 $titulo = $titulo ?? '';
 $css = $css ?? '';
 $scripts = $scripts ?? '';
-$usuarioHeader = $_SESSION['usuario'] ?? '';
 $mostrarPerfil = $mostrarPerfil ?? true;
 ?>
 <!DOCTYPE html>
@@ -38,7 +37,7 @@ $mostrarPerfil = $mostrarPerfil ?? true;
 
                 <button type="submit" class="botonPerfil">
                     <div class="imagenPerfilHeader">
-                        <img src="<?= htmlspecialchars(!empty($usuarioHeader->foto) ? $usuarioHeader->foto : 'views/imagenes/Perfil.svg') ?>" alt="Foto de perfil" class="fotoPerfilHeader">
+                        <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfilHeader">
                     </div>
                 </button>
 

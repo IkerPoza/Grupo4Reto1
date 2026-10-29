@@ -42,7 +42,7 @@ require __DIR__ . '/layout/nav.php';
         <section class="perfil tarjetaPerfil" id="perfil">
 
             <div class="imagenPerfil">
-                <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.svg') ?>" alt="Foto de perfil" class="fotoPerfil">
+                <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil">
             </div>
 
             <div class="datosPerfil">
@@ -204,7 +204,7 @@ require __DIR__ . '/layout/nav.php';
                 <form id="formPerfil" action="index.php?controller=UsuarioController&accion=update" method="POST" enctype="multipart/form-data">
 
                     <div class="imagenEdicion">
-                        <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.svg') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
+                        <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
 
                         <p><b>Foto de perfil</b></p>
 
