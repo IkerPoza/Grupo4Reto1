@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS documento;
 DROP TABLE IF EXISTS archivoRespuesta;
 DROP TABLE IF EXISTS preguntaGuardada;
 DROP TABLE IF EXISTS votoRespuesta;
-DROP TABLE IF EXISTS respuestaFavorita;
 DROP TABLE IF EXISTS respuesta;
 DROP TABLE IF EXISTS pregunta;
 DROP TABLE IF EXISTS usuario;
@@ -46,15 +45,6 @@ CREATE TABLE respuesta (
     PRIMARY KEY (id),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (idPregunta) REFERENCES pregunta(id) ON DELETE CASCADE,
-    FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
-);
-
-CREATE TABLE respuestaFavorita (
-    id INT NOT NULL AUTO_INCREMENT,
-    idUsuario INT NOT NULL,
-    idRespuesta INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (idRespuesta) REFERENCES respuesta(id) ON DELETE CASCADE
 );
 
