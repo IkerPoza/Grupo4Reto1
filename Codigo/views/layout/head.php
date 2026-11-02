@@ -3,6 +3,7 @@ $titulo = $titulo ?? '';
 $css = $css ?? '';
 $scripts = $scripts ?? '';
 $mostrarPerfil = $mostrarPerfil ?? true;
+$usuario = $_SESSION['usuario'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
