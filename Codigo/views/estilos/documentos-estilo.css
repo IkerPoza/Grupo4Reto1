@@ -140,6 +140,10 @@
     align-items: start;
     gap: clamp(28px, 3.3vw, 56px);
     padding: 24px 3.5% 42px 6.8%;
+    height: 0;
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
 }
 
 .filtrarTema {
@@ -192,19 +196,30 @@
     font-size: .9rem;
 }
 
-.der { 
-    min-width: 0; 
-    padding-top: 17px; 
+.der {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    padding-top: 17px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.tituloRecientes { 
-    margin: 0 0 20px; 
-    font-size: 1.05rem; 
-    font-weight: 700; 
+.tituloRecientes {
+    flex: 0 0 auto;
+    margin: 0 0 20px;
+    font-size: 1.05rem;
+    font-weight: 700;
 }
 
-.tablaDocumentos { 
-    width: 100%; 
+.tablaDocumentos {
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
 }
 
 .filaDocumento {
