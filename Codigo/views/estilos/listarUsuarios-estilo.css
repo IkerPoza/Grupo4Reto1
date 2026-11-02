@@ -111,6 +111,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  scrollbar-width: none;
 }
 
 .tarjeta-usuario {

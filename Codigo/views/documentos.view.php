@@ -123,8 +123,7 @@ require __DIR__ . '/layout/nav.php';
         <div class="der">
             <h4 class="tituloRecientes">Documentos recientes</h4>
 
-            <div class="tablaDocumentos">
-                <div class="filaDocumento cabeceraTabla">
+            <div class="filaDocumento cabeceraTabla">
                     <span></span>
                     <span>Nombre de documento</span>
                     <span>Categoría</span>
@@ -133,6 +132,7 @@ require __DIR__ . '/layout/nav.php';
                     <span></span>
                 </div>
 
+            <div class="tablaDocumentos">
                 <p class="mensajeVacio" <?= !empty($documentos) ? 'hidden' : '' ?>>
                     No hay documentos en este tema.
                 </p>
