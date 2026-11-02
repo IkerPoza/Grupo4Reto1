@@ -25,6 +25,7 @@ La plataforma permite a los trabajadores compartir dudas, consultar respuestas y
 
 ## Documentación
 
+- [Diagrama MER de la base de datos](BaseDatos/MERDATABASE.PNG)
 - [Manual de usuario](Documentación/Manuales/Manual%20de%20usuario.pdf)
 - [Manual de despliegue](Documentación/Manuales/Manual%20de%20despliegue.pdf)
 - [Diagrama de arquitectura](Documentación/Diagramas/Diagrama%20de%20arquitectura.drawio.png)
@@ -32,4 +33,3 @@ La plataforma permite a los trabajadores compartir dudas, consultar respuestas y
 - [Gantt](Documentación/planificacion.gantt)
 - [Guia de estilos](Documentación/Guia%20de%20estilos.PNG)
 - [Diseño de interfaces](https://www.figma.com/design/yF163VjeHaH9y3MYsfrfUm/Reto1?node-id=6-24&t=yx5St8n5Nab0384a-1)
-- [Diagrama MER de la base de datos](BaseDatos/MERDATABASE.PNG)
