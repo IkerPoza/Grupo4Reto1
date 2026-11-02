@@ -95,7 +95,7 @@ require __DIR__ . '/layout/head.php';
         </aside>
         <div class="der">
             <div class="opcionesPreguntas">
-                <p>Mostrando nº preguntas</p>
+                <p>Mostrando <?= count($preguntas ?? []) ?> preguntas</p>
                 <div class="ordenarLista">
                     <div class="ordenar">
                         <label for="ordenar">Ordenar por:</label>
