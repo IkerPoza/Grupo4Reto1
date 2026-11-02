@@ -29,9 +29,9 @@ class UsuarioController extends BaseController {
 
             $id = isset($_GET['id']) ? $_GET['id'] : $idUsuario;
 
-            $usuario = UsuarioModel::getById($id);
+            $usuarioDetalles = UsuarioModel::getById($id);
 
-            if (!$usuario) {
+            if (!$usuarioDetalles) {
                 echo 'Usuario no encontrado.';
                 return;
             }
@@ -46,7 +46,7 @@ class UsuarioController extends BaseController {
             $guardadas = $esPropio ? PreguntasModel::getGuardadas($id) : [];
 
             $this->render('usuario.view.php', compact(
-                'usuario',
+                'usuarioDetalles',
                 'stats',
                 'preguntas',
                 'guardadas',

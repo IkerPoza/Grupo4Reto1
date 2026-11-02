@@ -15,7 +15,7 @@ $areas = [
     "gestionDeProyectos" => "Gestión de proyectos"
 ];
 
-$nombreArea = $areas[$usuario->area] ?? $usuario->area ?? 'Sin especificar';
+$nombreArea = $areas[$usuarioDetalles->area] ?? $usuarioDetalles->area ?? 'Sin especificar';
 
 $titulo = 'Perfil';
 $css = 'usuario-estilo.css';
@@ -27,7 +27,7 @@ require __DIR__ . '/layout/nav.php';
 
 <?php if ($esPropio): ?>
     <form method="post" action="index.php?controller=UsuarioController&accion=logout">
-        <input type="hidden" name="id" value="<?= $usuario->id ?>">
+        <input type="hidden" name="id" value="<?= $usuarioDetalles->id ?>">
         <button type="submit" class="cerrarSesion" title="Cerrar sesión">
             <img src="views/imagenes/CerrarSesion.svg" alt="Cerrar sesión">
         </button>
@@ -42,13 +42,13 @@ require __DIR__ . '/layout/nav.php';
         <section class="perfil tarjetaPerfil" id="perfil">
 
             <div class="imagenPerfil">
-                <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil">
+                <img src="<?= (!empty($usuarioDetalles->foto) && file_exists($usuarioDetalles->foto)) ? $usuarioDetalles->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil">
             </div>
 
             <div class="datosPerfil">
                 <div class="identidad">
                     <h2 id="nombreVisible">
-                        <?= htmlspecialchars($usuario->nombre . ' ' . $usuario->apellidos) ?>
+                        <?= htmlspecialchars($usuarioDetalles->nombre . ' ' . $usuarioDetalles->apellidos) ?>
                     </h2>
 
                     <p id="areaVisible">
@@ -58,7 +58,7 @@ require __DIR__ . '/layout/nav.php';
 
                 <div class="estadisticas">
                     <article class="estadistica">
-                        <strong id="antiguedadVisible"><?= $usuario->antiguedad ?></strong>
+                        <strong id="antiguedadVisible"><?= $usuarioDetalles->antiguedad ?></strong>
                         <p>Antigüedad</p>
                     </article>
 
@@ -83,7 +83,7 @@ require __DIR__ . '/layout/nav.php';
 
                         <?php if ($esAdmin): ?>
                             <form method="POST" action="index.php?controller=UsuarioController&accion=destroy"  onsubmit="return confirm('¿Seguro que quieres eliminar este perfil?');">
-                                <input type="hidden" name="id" value="<?= $usuario->id ?>">
+                                <input type="hidden" name="id" value="<?= $usuarioDetalles->id ?>">
                                 <button type="submit" class="eliminarPerfil">
                                     Eliminar perfil
                                 </button>
@@ -204,7 +204,7 @@ require __DIR__ . '/layout/nav.php';
                 <form id="formPerfil" action="index.php?controller=UsuarioController&accion=update" method="POST" enctype="multipart/form-data">
 
                     <div class="imagenEdicion">
-                        <img src="<?= (!empty($usuario->foto) && file_exists($usuario->foto)) ? $usuario->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
+                        <img src="<?= (!empty($usuarioDetalles->foto) && file_exists($usuarioDetalles->foto)) ? $usuarioDetalles->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
 
                         <p><b>Foto de perfil</b></p>
 
@@ -214,19 +214,19 @@ require __DIR__ . '/layout/nav.php';
 
                     <div class="campo">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuario->nombre) ?>" placeholder="Escribe tu nombre" maxlength="100" required>
+                        <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuarioDetalles->nombre) ?>" placeholder="Escribe tu nombre" maxlength="100" required>
                     </div>
 
                     <div class="campo">
                         <label for="apellidos">Apellidos</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($usuario->apellidos) ?>" placeholder="Escribe tus apellidos" maxlength="100" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($usuarioDetalles->apellidos) ?>" placeholder="Escribe tus apellidos" maxlength="100" required>
                     </div>
 
                     <div class="campo">
                         <label for="area">Área de trabajo</label>
                         <select id="area" name="area" required>
                             <?php foreach (AREAS as $clave => $texto): ?>
-                                <option value="<?= htmlspecialchars($clave) ?>" <?= $usuario->area === $clave ? 'selected' : '' ?>>
+                                <option value="<?= htmlspecialchars($clave) ?>" <?= $usuarioDetalles->area === $clave ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($texto) ?>
                                 </option>
                             <?php endforeach; ?>
@@ -235,12 +235,12 @@ require __DIR__ . '/layout/nav.php';
 
                     <div class="campo">
                         <label for="contacto">Correo electrónico de contacto</label>
-                        <input type="email" id="contacto" name="contacto" value="<?= htmlspecialchars($usuario->email) ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
+                        <input type="email" id="contacto" name="contacto" value="<?= htmlspecialchars($usuarioDetalles->email) ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
                     </div>
 
                     <div class="campo">
                         <label for="antiguedad">Antigüedad</label>
-                        <input type="number" id="antiguedad" name="antiguedad" value="<?= $usuario->antiguedad ?>" min="0" max="60" required>
+                        <input type="number" id="antiguedad" name="antiguedad" value="<?= $usuarioDetalles->antiguedad ?>" min="0" max="60" required>
                     </div>
 
                     <div class="botones">
