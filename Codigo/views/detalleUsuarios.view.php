@@ -23,7 +23,7 @@
 
         
         <div class="imagenEdicion">
-          <img src="<?= htmlspecialchars(!empty($usuario->foto) ? $usuario->foto : 'views/imagenes/ImagenVacia.svg') ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
+          <img src="<?= (!empty($usuarioDetalles->foto) && file_exists($usuarioDetalles->foto)) ? $usuarioDetalles->foto : 'views/imagenes/Perfil.svg' ?>" alt="Foto de perfil" class="fotoPerfil" id="vistaPreviaFoto">
           <p><b>Foto de perfil</b></p>
           <label for="foto" class="btn-subir-foto">Selecciona una imagen</label>
           <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
@@ -34,12 +34,12 @@
 
           <div class="campo">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuario->nombre ?? '') ?>" placeholder="Nombre" maxlength="100" required>
+            <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuarioDetalles->nombre ?? '') ?>" placeholder="Nombre" maxlength="100" required>
           </div>
 
           <div class="campo">
             <label for="apellidos">Apellido</label>
-            <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($usuario->apellidos ?? '') ?>" placeholder="Apellido" maxlength="100" required>
+            <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($usuarioDetalles->apellidos ?? '') ?>" placeholder="Apellido" maxlength="100" required>
           </div>
 
           <div class="campo">
@@ -48,7 +48,7 @@
                 <?php if (defined('AREAS')): ?>
                 <?php foreach (AREAS as $clave => $texto): ?>
                     <option value="<?= htmlspecialchars($texto) ?>"
-                    <?= isset($usuario->area) && $usuario->area === $texto ? 'selected' : '' ?>>
+                    <?= isset($usuarioDetalles->area) && $usuarioDetalles->area === $texto ? 'selected' : '' ?>>
                     <?= htmlspecialchars($texto) ?>
                     </option>
                 <?php endforeach; ?>
@@ -58,19 +58,19 @@
 
           <div class="campo">
             <label for="contacto">Correo electrónico</label>
-            <input type="email" id="contacto" name="contacto" value="<?= htmlspecialchars($usuario->email ?? '') ?>" placeholder="Correo" maxlength="100" required>
+            <input type="email" id="contacto" name="contacto" value="<?= htmlspecialchars($usuarioDetalles->email ?? '') ?>" placeholder="Correo" maxlength="100" required>
           </div>
 
           <div class="campo">
             <label for="tipo">Tipo</label>
             <select id="tipo" name="tipo" required>
-              <option value="admin" <?= isset($usuario->tipo) && $usuario->tipo === 'admin' ? 'selected' : '' ?>>Administrador</option>
-              <option value="user" <?= isset($usuario->tipo) && $usuario->tipo === 'user' ? 'selected' : '' ?>>Usuario</option>
+              <option value="admin" <?= isset($usuarioDetalles->tipo) && $usuarioDetalles->tipo === 'admin' ? 'selected' : '' ?>>Administrador</option>
+              <option value="user" <?= isset($usuarioDetalles->tipo) && $usuarioDetalles->tipo === 'user' ? 'selected' : '' ?>>Usuario</option>
             </select>
           </div>
 
           <div class="botones">
-            <input type="hidden" name="id" value="<?= htmlspecialchars($usuario->id) ?>">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($usuarioDetalles->id) ?>">
             <button type="submit" class="botonGuardar">Guardar cambios</button>
             <button type="button" class="botonCancelar" onclick="window.history.back()">Cancelar</button>
           </div>

@@ -8,7 +8,6 @@
     }
     // leer el error y borrarlo para que solo salga una vez
     $error = $_SESSION['error'] ?? '';
-    unset($_SESSION['error']);
     require __DIR__.'/layout/head.php';
 ?>
 
@@ -43,8 +42,8 @@
             </form>
         </div>
     <p class="mensajeError"><?php 
-        if(isset($_COOKIE["error"])):
-            echo $_COOKIE["error"];
+        if(isset($_SESSION["error"])):
+            echo $_SESSION  ["error"];
         endif;
     ?></p>
 </div>

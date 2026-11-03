@@ -68,7 +68,7 @@ class ListarUsuariosController extends BaseController {
             $id = $_GET['id'] ?? null;
             
             if ($id) {
-                $usuario = ListarUsuariosModel::getById($id);
+                $usuarioDetalles = ListarUsuariosModel::getById($id);
             }
 
             require_once __DIR__ . '/../views/detalleUsuarios.view.php';
