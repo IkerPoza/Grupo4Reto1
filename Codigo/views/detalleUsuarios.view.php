@@ -43,18 +43,15 @@
           </div>
 
           <div class="campo">
-            <label for="area">Área de trabajo</label>
-            <select id="area" name="area" required>
-                <?php if (defined('AREAS')): ?>
-                <?php foreach (AREAS as $clave => $texto): ?>
-                    <option value="<?= htmlspecialchars($texto) ?>"
-                    <?= isset($usuarioDetalles->area) && $usuarioDetalles->area === $texto ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($texto) ?>
-                    </option>
-                <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-            </div>
+              <label for="area">Área de trabajo</label>
+              <select id="area" name="area" required>
+                  <?php foreach (AREAS as $clave => $texto): ?>
+                      <option value="<?= $clave ?>" <?= $usuarioDetalles->area === $clave ? 'selected' : '' ?>>
+                          <?= $texto ?>
+                      </option>
+                  <?php endforeach; ?>
+              </select>
+          </div>
 
           <div class="campo">
             <label for="contacto">Correo electrónico</label>
