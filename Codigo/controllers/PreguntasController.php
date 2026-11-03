@@ -30,12 +30,6 @@ class PreguntasController extends BaseController {
     }
     
     public function eliminar() {
-        $esAdmin = isset($_SESSION['usuario']) && $_SESSION['usuario']->tipo === 'admin';
-
-        if (!$esAdmin) {
-            header('Location: index.php?controller=PreguntasController&accion=index');
-            exit;
-        }
 
         $id = $_GET['id'] ?? null;
 

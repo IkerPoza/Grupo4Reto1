@@ -150,7 +150,7 @@ require __DIR__ . '/layout/head.php';
                         <p><?= $pregunta->pregunta_tema ?> · <?= $pregunta->num_respuestas ?> respuestas</p>
 
                         <div class="accionesPregunta">
-                            <?php if ($esAdmin): ?>
+                            <?php if ($esAdmin || $usuario->id == $pregunta->autor_id): ?>
                                 <a href="index.php?controller=PreguntasController&accion=eliminar&id=<?= $pregunta->pregunta_id ?>"
                                 class="btnEliminarPregunta"
                                 title="Eliminar pregunta"
