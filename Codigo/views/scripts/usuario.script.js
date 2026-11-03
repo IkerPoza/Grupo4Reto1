@@ -76,7 +76,11 @@ document.addEventListener("click", async (evento) => {
             body: JSON.stringify({ idPregunta, favorita: nuevaEstado })
         });
         const resultado = await respuesta.json();
-        if (!respuesta.ok || !resultado.ok) throw new Error(resultado.mensaje || "No se pudo actualizar el favorito.");
+        if (!respuesta.ok || !resultado.ok) 
+            throw new Error(
+                resultado.mensaje || "No se pudo actualizar el favorito."
+            );
+            
         actualizarEstadoFavorito(String(idPregunta), Boolean(resultado.favorita));
     } catch (error) {
         console.error(error);

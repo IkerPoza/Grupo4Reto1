@@ -93,7 +93,7 @@ class UsuarioController extends BaseController {
             } elseif (!filter_var($datos['contacto'], FILTER_VALIDATE_EMAIL) || mb_strlen($datos['contacto']) > 100) {
                 exit('El correo de contacto no es válido.');
 
-            } elseif (!ctype_digit((string) $datos['antiguedad']) || $datos['antiguedad'] > 60) {
+            }elseif (!is_numeric($datos['antiguedad']) || $datos['antiguedad'] < 0 || $datos['antiguedad'] > 60) {
                 exit('La antigüedad debe estar entre 0 y 60 años.');
             }
 

@@ -15,7 +15,7 @@ $areas = [
     "gestionDeProyectos" => "Gestión de proyectos"
 ];
 
-$nombreArea = $areas[$usuarioDetalles->area] ?? $usuarioDetalles->area ?? 'Sin especificar';
+$nombreArea = $areas[$usuarioDetalles->area] ?? 'Sin especificar';
 
 $titulo = 'Perfil';
 $css = 'usuario-estilo.css';
@@ -36,7 +36,7 @@ require __DIR__ . '/layout/nav.php';
 </nav>
 
 <main>
-    <!-- VISTA DEL PERFIL -->
+    <!-- perfil -->
     <section id="vistaPerfil">
 
         <section class="perfil tarjetaPerfil" id="perfil">
@@ -48,11 +48,11 @@ require __DIR__ . '/layout/nav.php';
             <div class="datosPerfil">
                 <div class="identidad">
                     <h2 id="nombreVisible">
-                        <?= htmlspecialchars($usuarioDetalles->nombre . ' ' . $usuarioDetalles->apellidos) ?>
+                        <?= $usuarioDetalles->nombre . ' ' . $usuarioDetalles->apellidos ?>
                     </h2>
 
                     <p id="areaVisible">
-                        <?= htmlspecialchars($nombreArea) ?>
+                        <?= $nombreArea ?>
                     </p>
                 </div>
 
@@ -114,7 +114,7 @@ require __DIR__ . '/layout/nav.php';
             <?php endif; ?>
         </nav>
 
-        <!-- LISTA DE PREGUNTAS -->
+        <!-- lista preguntas -->
         <section id="listaPreguntas" class="listaPreguntas">
 
             <?php if (empty($preguntas)): ?>
@@ -128,14 +128,14 @@ require __DIR__ . '/layout/nav.php';
 
                     <a class="enlaceDetallePregunta" href="index.php?controller=PreguntasController&accion=detalle&id=<?= $p->id ?>">
                         <div class="contenidoPregunta">
-                            <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                            <h3><?= $p->titulo ?></h3>
 
                             <p class="tema">
-                                <?= htmlspecialchars($p->tema) ?>
+                                <?= $p->tema ?>
                             </p>
 
                             <p class="descripcion">
-                                <?= htmlspecialchars($p->descripcion) ?>
+                                <?= $p->descripcion ?>
                             </p>
                         </div>
                     </a>
@@ -151,7 +151,7 @@ require __DIR__ . '/layout/nav.php';
 
         </section>
 
-        <!-- LISTA DE PREGUNTAS FAVORITAS -->
+        <!-- lista favoritas -->
         <section id="listaFavoritas" class="listaPreguntas" hidden>
 
             <p id="sinFavoritas" class="mensajeVacio" <?= !empty($guardadas) ? 'hidden' : '' ?> >
@@ -163,14 +163,14 @@ require __DIR__ . '/layout/nav.php';
 
                     <a class="enlaceDetallePregunta" href="index.php?controller=PreguntasController&accion=detalle&id=<?= $p->id ?>">
                         <div class="contenidoPregunta">
-                            <h3><?= htmlspecialchars($p->titulo) ?></h3>
+                            <h3><?= $p->titulo ?></h3>
 
                             <p class="tema">
-                                <?= htmlspecialchars($p->tema) ?>
+                                <?= $p->tema ?>
                             </p>
 
                             <p class="descripcion">
-                                <?= htmlspecialchars($p->descripcion) ?>
+                                <?= $p->descripcion ?>
                             </p>
                         </div>
                     </a>
@@ -187,10 +187,9 @@ require __DIR__ . '/layout/nav.php';
         </section>
 
     </section>
-    <!-- FIN DE VISTA DEL PERFIL -->
 
 
-    <!-- VISTA DE EDICIÓN: FUERA DE vistaPerfil -->
+    <!-- editar -->
     <?php if ($esPropio): ?>
         <section id="vistaEdicion" hidden>
 
@@ -214,20 +213,20 @@ require __DIR__ . '/layout/nav.php';
 
                     <div class="campo">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuarioDetalles->nombre) ?>" placeholder="Escribe tu nombre" maxlength="100" required>
+                        <input type="text" id="nombre" name="nombre" value="<?= $usuarioDetalles->nombre ?>" placeholder="Escribe tu nombre" maxlength="100" required>
                     </div>
 
                     <div class="campo">
                         <label for="apellidos">Apellidos</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($usuarioDetalles->apellidos) ?>" placeholder="Escribe tus apellidos" maxlength="100" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= $usuarioDetalles->apellidos ?>" placeholder="Escribe tus apellidos" maxlength="100" required>
                     </div>
 
                     <div class="campo">
                         <label for="area">Área de trabajo</label>
                         <select id="area" name="area" required>
                             <?php foreach (AREAS as $clave => $texto): ?>
-                                <option value="<?= htmlspecialchars($clave) ?>" <?= $usuarioDetalles->area === $clave ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($texto) ?>
+                                <option value="<?= $clave ?>" <?= $usuarioDetalles->area === $clave ? 'selected' : '' ?>>
+                                    <?= $texto ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -235,7 +234,7 @@ require __DIR__ . '/layout/nav.php';
 
                     <div class="campo">
                         <label for="contacto">Correo electrónico de contacto</label>
-                        <input type="email" id="contacto" name="contacto" value="<?= htmlspecialchars($usuarioDetalles->email) ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
+                        <input type="email" id="contacto" name="contacto" value="<?= $usuarioDetalles->email ?>" placeholder="Escribe tu correo electrónico" maxlength="100" required>
                     </div>
 
                     <div class="campo">

@@ -29,15 +29,15 @@ class UsuarioModel {
     public static function update($id, $datos) {
         $db = Database::getConnection();
         
-        $sql = "UPDATE usuario SET nombre = :nombre, apellidos = :apellidos, area = :area, email = :contacto, antiguedad = :antiguedad";
+        $stmt = "UPDATE usuario SET nombre = :nombre, apellidos = :apellidos, area = :area, email = :contacto, antiguedad = :antiguedad";
 
         if ($datos['foto'] !== null) {
-            $sql .= ", foto = :foto";
+            $stmt .= ", foto = :foto";
         }
 
-        $sql .= " WHERE id = :id";
+        $stmt .= " WHERE id = :id";
 
-        $stmt = $db->prepare($sql);
+        $stmt = $db->prepare($stmt);
 
         $data = [
             'nombre'     => $datos['nombre'],
