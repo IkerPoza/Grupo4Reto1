@@ -8,7 +8,7 @@
 
 <main class="registro-contenedor">
     <div class="registro-division">
-        <h2 class="registro-titulo">Registrarse</h2>
+        <h2 class="registro-titulo">Cambio Defensa</h2>
 
         <form action="index.php" class="registro-form" method="POST">
             <p>
